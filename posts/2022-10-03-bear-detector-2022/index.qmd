@@ -1,0 +1,19 @@
+---
+title: "Fast.AI with Bears, Cats and Dogs"
+author: "Christian Wittmann"
+date: "2022-10-03"
+categories: [fast.ai, ml]
+---
+
+The 2022-version of the [Fast.AI course](https://course.fast.ai/) was a welcome and well-timed opportunity for me to continue my machine learning journey.
+
+After having reworked [lesson 2](https://www.youtube.com/watch?v=F4tvM4Vb3A0), here are my first trained models:
+
+* [Bear Detector on HuggingFace](https://huggingface.co/spaces/chrwittm/bear-detector)
+* [Bear Detector on GitHub Pages](https://chrwittm.github.io/FastAI2022/lesson02/bear_detector/bear_detector.html)
+* [Cat-vs-Dog-Classifier on HuggingFace](https://huggingface.co/spaces/chrwittm/cat_or_dog)
+* [Cat-vs-Dog-Classifier on GitHub Pages](https://chrwittm.github.io/FastAI2022/lesson02/cat_or_dog2/cat_or_dog.html)
+
+For the complete summary and the source code, check out my [GitHub](https://github.com/chrwittm/FastAI2022/blob/main/lesson02/lesson02.md).
+
+![Bear Detector 2022](bear-detector-2022.jpeg)
