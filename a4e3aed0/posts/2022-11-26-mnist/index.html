@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Christian Wittmann">
+<meta name="dcterms.date" content="2022-11-26">
+
+<title>chrwittm.github.io - MNIST, the ‘Hello World’ of Computer Vision</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-GF3YYKQQNH"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-GF3YYKQQNH', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  });
+});
+</script> 
+  
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">chrwittm.github.io</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html">About</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/chrwittm"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/chrwittm"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">MNIST, the ‘Hello World’ of Computer Vision</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">kaggle</div>
+                <div class="quarto-category">mnist</div>
+                <div class="quarto-category">fast.ai</div>
+                <div class="quarto-category">vision</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Christian Wittmann </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">November 26, 2022</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<p>After <a href="https://chrwittm.github.io/posts/2022-10-03-bear-detector-2022/">Cat vs.&nbsp;Dog</a>, this is the next challenge for me in computer vision: Building on <a href="https://github.com/fastai/fastbook/blob/master/04_mnist_basics.ipynb">chapter 4</a> of the book, I challenged myself to implement a model based on the <a href="https://en.wikipedia.org/wiki/MNIST_database">MNIST</a> dataset, as recommended as further research.</p>
+<p>This challenge is also available as a <a href="https://www.kaggle.com/competitions/digit-recognizer/data">Kaggle competition</a>, and I found this bit of competitive spirit to add some spice to the project. Additionally, it broadened the spectrum of implementation topics, because training a model is one thing, but using it for meaningful predictions in equally important and also required some effort. Last, but not least, submitting the results was a nice way to check if the results are actually correct. As predicted: <em>“This was a significant project and took you quite a bit of time to complete! I needed to do some of my own research to figure out how to overcome some obstacles on the way”.</em></p>
+<p>I took an iterative approach, following a similar path as for working on the <a href="https://chrwittm.github.io/posts/2022-11-05-kaggle-titanic/">Titanic-Challenge</a>:</p>
+<ul>
+<li>First, I implemented a <a href="https://github.com/chrwittm/FastAI2022/blob/main/lesson03/mnist/mnist1-fastai/mnist01-fastai.ipynb">Fast.AI version</a> without making a submission to get a feeling of the data and also to get a result quickly.</li>
+<li>Afterwards, I made my first submission. This proved to be a challenge, mainly because of the <a href="https://github.com/chrwittm/FastAI2022/blob/main/lesson03/mnist/mnist2-kaggle/mnist02-download-and-convert.ipynb">data format</a> (more below). Only then, I could make the <a href="https://github.com/chrwittm/FastAI2022/blob/main/lesson03/mnist/mnist2-kaggle/mnist03-predict-on-converted-image-files.ipynb">submission</a>.</li>
+<li>I was not 100% satisfied with my first submission, because the data handling was not very elegant, so I <a href="https://github.com/chrwittm/FastAI2022/blob/main/lesson03/mnist/mnist2-kaggle/mnist04-predict-on-csv-file.ipynb">re-implemented</a> it.</li>
+<li>The above steps set me up for the implementation of a <a href="https://github.com/chrwittm/FastAI2022/blob/main/lesson03/mnist/mnist2-kaggle/mnist05-from-scratch.ipynb">from-scratch version</a> in analogy to <a href="https://github.com/fastai/fastbook/blob/master/04_mnist_basics.ipynb">chapter 4</a> (where in the book there is “only” a model for distinguishing 3s and 7s).</li>
+</ul>
+<p>It was a challenging project, and I learned a lot on the way. Below are some key points and learnings.</p>
+<section id="the-fast.ai-version-without-a-submission" class="level2">
+<h2 class="anchored" data-anchor-id="the-fast.ai-version-without-a-submission">The Fast.AI version without a submission</h2>
+<p>By now this is pretty straight-forward for me. I just copy&amp;pasted a few lines of code to do the training, and I was able to create a decent model very quickly in <a href="https://github.com/chrwittm/FastAI2022/blob/main/lesson03/mnist/mnist1-fastai/mnist01-fastai.ipynb">this notebook</a>.</p>
+<p>The catch with this version is, however, that it is not ready for the mass data load: 28.000 predictions need to be done in the competition - something which I addressed in my second iteration.</p>
+<p>Additionally, I found it interesting that the MNIST dataset was already pushing the limits of my laptop: The training time of about 40 minutes was ok, but it is already quite a burden if it needs to be done multiple times. Moving the learning to <a href="https://console.paperspace.com">Paperspace</a>, training on a free GPU, was 10x faster (no surprise). Since I like to still have everything locally, it is quite convenient moving files back and forth via git, also for the <code>.pkl</code>-files. This way the training can be done with GPU, and the inference can be done locally. Interestingly, in all my other notebooks, local performance was not an issue. (But I expect that to change in future other projects)</p>
+</section>
+<section id="resubmitting-working-with-the-csv-files" class="level2">
+<h2 class="anchored" data-anchor-id="resubmitting-working-with-the-csv-files">Resubmitting: Working with the <code>csv</code>-files</h2>
+<p>I found not very elegant to just convert the <code>csv</code>-files to <code>png</code>-images. That seems convenient, but a bit wasteful. Therefore, I re-implemented the process <a href="https://github.com/chrwittm/FastAI2022/blob/main/lesson03/mnist/mnist2-kaggle/mnist04-predict-on-csv-file.ipynb">this notebook</a>.</p>
+<p>It was surprisingly difficult to convert the data into the right formal in memory so that the learner would accept the image. But finally I was able to convert a <code>PIL.Image.Image</code> to <code>fastai.vision.core.PILImage</code>. As usual with these things, once it was done, it looks easy.</p>
+<p>Not surprisingly, but a nice way to verify the result, the submission score was the same:</p>
+<p><img src="https://raw.githubusercontent.com/chrwittm/FastAI2022/main/lesson03/mnist/mnist2-kaggle/sub2-099442.png" class="img-fluid"></p>
+</section>
+<section id="my-first-submission" class="level2">
+<h2 class="anchored" data-anchor-id="my-first-submission">My first submission</h2>
+<p>When I first downloaded the Kaggle data, I was quite surprised to see that the download did not contain any image files, but just 2 large <code>csv</code>-files. Since I only knew how to handle images, I simply converted the data to <code>png</code>-images in <a href="https://github.com/chrwittm/FastAI2022/blob/main/lesson03/mnist/mnist2-kaggle/mnist02-download-and-convert.ipynb">this notebook</a>.</p>
+<p>Once that was done, I could take the model trained before in my <a href="https://github.com/chrwittm/FastAI2022/blob/main/lesson03/mnist/mnist1-fastai/mnist01-fastai.ipynb">first notebook</a> to make my first submission. In <a href="https://github.com/chrwittm/FastAI2022/blob/main/lesson03/mnist/mnist2-kaggle/mnist03-predict-on-converted-image-files.ipynb">this notebook</a>, I took the converted images and collected the predictions. I found the result of 99.4% quite impressive.</p>
+<p><img src="https://raw.githubusercontent.com/chrwittm/FastAI2022/main/lesson03/mnist/mnist2-kaggle/sub1-099442.png" class="img-fluid"></p>
+</section>
+<section id="the-from-scratch-version" class="level2">
+<h2 class="anchored" data-anchor-id="the-from-scratch-version">The from-scratch version</h2>
+<p>Doing it all <a href="https://github.com/chrwittm/FastAI2022/blob/main/lesson03/mnist/mnist2-kaggle/mnist05-from-scratch.ipynb">from scratch</a> was an interesting learning exercise because I think that I already had a good understanding of what needed to be done even before implementing it. But, as it turns out, there is this tremendous difference between thinking that you understood it, and actually implementing it. There is a lot of fine print, and you have to pay attention to the details: Formatting the data, getting it into the correctly shaped tensors, and implementing the gradient descent. Irrespective of what I had learned/understood before, this has greatly deepened and solidified by implementing the MNIST challenge.</p>
+<p>Some minor mysteries remain, which I also documented in <a href="https://github.com/chrwittm/FastAI2022/blob/main/lesson03/mnist/mnist2-kaggle/mnist05-from-scratch.ipynb">the notebook</a>, if you can guide me how to fix them, please let me know.</p>
+<p>The finale result of my from scratch-version is not up to the first implementation with resnet18, but I am proud of it for other reasons ;).</p>
+<p><img src="https://raw.githubusercontent.com/chrwittm/FastAI2022/main/lesson03/mnist/mnist2-kaggle/sub3-084817.png" class="img-fluid"></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<script src="https://utteranc.es/client.js" repo="chrwittm/chrwittm.github.io.comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+      <div class="nav-footer-center"><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+  </div>
+</footer>
+
+
+
+</body></html>
