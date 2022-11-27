@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "Christian’s Machine Learning Journey",
     "section": "",
-    "text": "kaggle\n\n\nmnist\n\n\nfast.ai\n\n\nvision\n\n\n\n\n\n\n\n\n\n\n\nNov 26, 2022\n\n\nChristian Wittmann\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nkaggle\n\n\ntitanic\n\n\nfast.ai\n\n\nml\n\n\ntabular\n\n\n\n\n\n\n\n\n\n\n\nNov 5, 2022\n\n\nChristian Wittmann\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nmath\n\n\npython\n\n\nnumpy\n\n\npytorch\n\n\n\n\n\n\n\n\n\n\n\nOct 28, 2022\n\n\nChristian Wittmann\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nblogging\n\n\nquarto\n\n\njupyter\n\n\n\n\n\n\n\n\n\n\n\nOct 21, 2022\n\n\nChristian Wittmann\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nblogging\n\n\nquarto\n\n\njupyter\n\n\n\n\n\n\n\n\n\n\n\nOct 18, 2022\n\n\nChristian Wittmann\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nfast.ai\n\n\nml\n\n\n\n\n\n\n\n\n\n\n\nOct 13, 2022\n\n\nChristian Wittmann\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nfast.ai\n\n\nml\n\n\n\n\n\n\n\n\n\n\n\nOct 3, 2022\n\n\nChristian Wittmann\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nblogging\n\n\n\n\n\n\n\n\n\n\n\nOct 1, 2022\n\n\nChristian Wittmann\n\n\n\n\n\n\nNo matching items"
+    "text": "kaggle\n\n\nmnist\n\n\nfast.ai\n\n\nvision\n\n\n\n\n\n\n\n\n\n\n\nNov 26, 2022\n\n\nChristian Wittmann\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nkaggle\n\n\ntitanic\n\n\nfast.ai\n\n\nml\n\n\ntabular\n\n\n\n\n\n\n\n\n\n\n\nNov 5, 2022\n\n\nChristian Wittmann\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nmath\n\n\npython\n\n\nnumpy\n\n\npytorch\n\n\n\n\n\n\n\n\n\n\n\nOct 28, 2022\n\n\nChristian Wittmann\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nblogging\n\n\nquarto\n\n\njupyter\n\n\n\n\n\n\n\n\n\n\n\nOct 27, 2022\n\n\nChristian Wittmann\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nblogging\n\n\nquarto\n\n\njupyter\n\n\n\n\n\n\n\n\n\n\n\nOct 21, 2022\n\n\nChristian Wittmann\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nblogging\n\n\nquarto\n\n\njupyter\n\n\n\n\n\n\n\n\n\n\n\nOct 18, 2022\n\n\nChristian Wittmann\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nfast.ai\n\n\nml\n\n\n\n\n\n\n\n\n\n\n\nOct 13, 2022\n\n\nChristian Wittmann\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nfast.ai\n\n\nml\n\n\n\n\n\n\n\n\n\n\n\nOct 3, 2022\n\n\nChristian Wittmann\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nblogging\n\n\n\n\n\n\n\n\n\n\n\nOct 1, 2022\n\n\nChristian Wittmann\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/2022-10-01-hello-world/index.html",
@@ -229,5 +229,33 @@
     "title": "MNIST, the ‘Hello World’ of Computer Vision",
     "section": "The from-scratch version",
     "text": "The from-scratch version\nDoing it all from scratch was an interesting learning exercise because I think that I already had a good understanding of what needed to be done even before implementing it. But, as it turns out, there is this tremendous difference between thinking that you understood it, and actually implementing it. There is a lot of fine print, and you have to pay attention to the details: Formatting the data, getting it into the correctly shaped tensors, and implementing the gradient descent. Irrespective of what I had learned/understood before, this has greatly deepened and solidified by implementing the MNIST challenge.\nSome minor mysteries remain, which I also documented in the notebook, if you can guide me how to fix them, please let me know.\nThe finale result of my from scratch-version is not up to the first implementation with resnet18, but I am proud of it for other reasons ;)."
+  },
+  {
+    "objectID": "posts/2022-11-27-rebuilding-quarto-blog/index.html",
+    "href": "posts/2022-11-27-rebuilding-quarto-blog/index.html",
+    "title": "When disaster strikes: Re-building a Quarto Blog",
+    "section": "",
+    "text": "For the last 2 months I have been a proud writer of this blog, until yesterday disaster struck: Upon publishing of my MNIST-blog post via the usual quarto publish gh-pages, I received the following error message 😨:\nThe publishing was not completed, and my blog only showed a naked header, but no posts any more, essentially everything was gone 😱 (at least online)\nTrying to google a quick fix did not reveal any real result. Due to lack of time, I had to (officially) stop for the day, but back in my mind, this was really nagging me…"
+  },
+  {
+    "objectID": "posts/2022-11-27-rebuilding-quarto-blog/index.html#what-is-needed-to-re-build-a-quarto-blog",
+    "href": "posts/2022-11-27-rebuilding-quarto-blog/index.html#what-is-needed-to-re-build-a-quarto-blog",
+    "title": "When disaster strikes: Re-building a Quarto Blog",
+    "section": "What is needed to Re-build a Quarto Blog?",
+    "text": "What is needed to Re-build a Quarto Blog?\nAs I kept thinking about this, the error message clearly pointed to something on my local machine. Additionally, I previously posted on how to avoid disaster, so what would be the best way to re-build everything?\nBut let’s think through the matter: What do you actually need to re-build a Quarto blog? You only need your posts-directory and a few other files (the ones mentioned here).\nThis is important, so let me re-phrase this: On your GitHub repo, there are (should be) 2 versions of your blog:\n\nIn the main-branch, you store your source-files:\n\nThe Jupyter notebooks, markdown files, some pictures used within your posts\nThe configuration files: Some .yml-, .qmd- and .css-files\n\nThe gh-pages branch gets generated to contain the rendered versions of your posts: When you check out your _site directory, it contains a file structure similar to the posts-directory in your main-branch, but the _site directory deals in html-, xml-, and json-files.\n\nTherefore, to re-build your site, as far as I understand it, you only need the content of your main branch, and the content of the gh-pages gets generated once you run quarto publish gh-pages."
+  },
+  {
+    "objectID": "posts/2022-11-27-rebuilding-quarto-blog/index.html#re-building-my-quarto-blog",
+    "href": "posts/2022-11-27-rebuilding-quarto-blog/index.html#re-building-my-quarto-blog",
+    "title": "When disaster strikes: Re-building a Quarto Blog",
+    "section": "Re-building my Quarto Blog",
+    "text": "Re-building my Quarto Blog\nWith the above in mind, here is what I did:\n\nI moved my local copy of the blog’s repo’s main branch to my temp folder (the milder version of deleting it)\nI re-cloned the repo (the main branch): git clone git@github.com:chrwittm/chrwittm.github.io.git\nI re-published the blog: quarto publish gh-pages\n\nAnd violà: My blog was back online. 😃"
+  },
+  {
+    "objectID": "posts/2022-11-27-rebuilding-quarto-blog/index.html#conclusion",
+    "href": "posts/2022-11-27-rebuilding-quarto-blog/index.html#conclusion",
+    "title": "When disaster strikes: Re-building a Quarto Blog",
+    "section": "Conclusion",
+    "text": "Conclusion\nFirst of all: With these kind of seeming disasters: Sit back and relax: Is this a big deal? Well my blog was down, who cared? Probably I cared the most about it - my ego 😉.\nDon’t panic: Think through a problem: What could be the root cause, from what angle can you approach the problem?\nI think, the solution is actually really nice. The setup with the 2 branches has some nice redundancy built-in, and without having tried it before, the disaster recovery performed very well.\nThe solution also reminded me of the fast-setup approach, which Jeremy discussed in the Live-Coding session 1: You should spend time using your tools, not configuring them. Quarto, at least to me, nicely proved that point that even if something goes wrong, you can quickly recover.\nHappy blogging!"
   }
 ]
