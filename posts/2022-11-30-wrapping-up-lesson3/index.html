@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Christian Wittmann">
+<meta name="dcterms.date" content="2022-11-30">
+
+<title>chrwittm.github.io - Wrapping-up Lesson 3</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-GF3YYKQQNH"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-GF3YYKQQNH', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  });
+});
+</script> 
+  
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">chrwittm.github.io</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html">About</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/chrwittm"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/chrwittm"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Wrapping-up Lesson 3</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">fast.ai</div>
+                <div class="quarto-category">kaggle</div>
+                <div class="quarto-category">ml</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Christian Wittmann </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">November 30, 2022</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<p><a href="https://www.youtube.com/watch?v=hBBOjCiFcuo">Lesson 3</a> took me a while to rework, because it churned out quite a few interesting projects:</p>
+<ul>
+<li><a href="https://chrwittm.github.io/posts/2022-10-13-visualizing-gradient-descent-in-3d/">Visualizing Gradient Descent in 3D</a></li>
+<li>Working on the Kaggle <a href="https://chrwittm.github.io/posts/2022-11-05-kaggle-titanic/">Titanic Competition</a></li>
+<li>Implementing a model for recognizing digits of the <a href="https://chrwittm.github.io/posts/2022-11-26-mnist/">MNIST-dataset</a></li>
+</ul>
+<p>Alongside these 3 main activities, I also started <a href="https://chrwittm.github.io/">a blog on my machine learning journey</a>, which is <a href="https://chrwittm.github.io/posts/2022-10-21-how-i-created-this-blog/">based on Quarto</a>.</p>
+<p>Let me summarize what I have done and learned.</p>
+<section id="gradient-descent" class="level2">
+<h2 class="anchored" data-anchor-id="gradient-descent">Gradient Descent</h2>
+<p>The main focus of <a href="https://www.youtube.com/watch?v=hBBOjCiFcuo&amp;t=1416s">lesson 3</a> for me was/is <a href="https://en.wikipedia.org/wiki/Gradient_descent">gradient descent</a>, which I found pretty easy to understand on a high level:</p>
+<ul>
+<li>Calculate the predictions and the loss (forward-pass)</li>
+<li>Calculate the derivatives of the parameters (i.e.&nbsp;how does changing the parameters change the loss) (backward-pass)</li>
+<li>Update the parameters (via the learning rate)</li>
+<li>Don’t forgot to <a href="https://twitter.com/karpathy/status/1013244313327681536?lang=en">initialize the gradients</a></li>
+<li>Restart</li>
+</ul>
+<p>However, in the actual implementation and its simplicity, there is a lot of magic, which I tried to unpack for myself. Working through Jeremy’s notebook “<a href="https://www.kaggle.com/code/jhoward/how-does-a-neural-net-really-work/">How does a neural net really work?</a>”, I tried to not only think through the concept, but also to visualize it. The result is available as</p>
+<ul>
+<li>a <a href="https://chrwittm.github.io/posts/2022-10-13-visualizing-gradient-descent-in-3d/">blog post</a></li>
+<li>a <a href="https://forums.fast.ai/t/visualizing-gradient-descent-in-3d/101084">forum post</a></li>
+<li>a <a href="https://www.kaggle.com/code/christianwittmann/visualizing-gradient-descent-in-3d">Kaggle notebook</a> in which you can easily also play with the visualizations interactively (by copying and running the notebook)</li>
+<li>a <a href="https://github.com/chrwittm/FastAI2022/blob/main/lesson03/visualizing-gradient-descent-in-3d.ipynb">GitHub notebook</a></li>
+</ul>
+<p>I was excited and honored to read that <a href="https://forums.fast.ai/u/benkarr">Ben</a>, a fellow Fast.AI student, created even <a href="https://ben-karr.github.io/react-3d-gradients/">better visualizations</a> building on my work. I highly recommend playing with it and also checking out <a href="https://ben-karr.github.io/">his other projects</a>.</p>
+<p>While I truly love the Fast.AI content, I also need to mention the great video “<a href="https://www.youtube.com/watch?v=VMj-3S1tku0">The spelled-out intro to neural networks and backpropagation: building micrograd</a>” from <a href="https://karpathy.ai/">Andrej Karpathy</a>, which dives at least one level deeper. If there is one key takeaway from this video, it is this one: “A single gradient tells us the effect changing a parameter has on the loss”. This insight is powerful, and somehow it tends to get lost from my point of view, because you either have a very complex model with many, many parameters so that this is difficult to grasp, or you have a seemingly simple model in which you mix up the slope of the quadratic with a gradient. Implementing the visualization of gradient descent was also about building the intuition of what is actually going on under to hood.</p>
+</section>
+<section id="the-titanic-competition" class="level2">
+<h2 class="anchored" data-anchor-id="the-titanic-competition">The Titanic Competition</h2>
+<p>Inspired by the <a href="https://www.youtube.com/watch?v=hBBOjCiFcuo&amp;list=PLfYUBJiXbdtSvpQjSnJJ_PmDQB_VyT5iU&amp;index=3&amp;t=3862s">Excel-based version</a> of the <a href="https://www.kaggle.com/c/titanic">Titanic Competition</a>, I decided to enter the kaggle competition. As with many good project, this resulted in a few other mini-projects:</p>
+<ul>
+<li>The logistics on how a kaggle competition actually works, which included <a href="https://chrwittm.github.io/posts/2022-11-05-kaggle-titanic/#installing-kaggle">installing kaggle</a> on my local machine. The <a href="https://forums.fast.ai/t/live-coding-aka-walk-thrus/96617">Live-Coding Sessions</a> of the 2022 Fast.AI course are probably quite underrated (at least looking at the number of views they get on Youtube). I find them a great addition to the official lessons because the tackle side problems like installing kaggle (in <a href="https://youtu.be/cagqUrHMDJ0">Live-Coding Session 7</a> and the related <a href="https://forums.fast.ai/t/live-coding-7/96811">official topic in the forums</a>) which otherwise would set you back some hours (or more). A big shout-out for these sessions!</li>
+<li>Revisiting <a href="https://chrwittm.github.io/posts/2022-10-28-matrix-multiplication/">matrix multiplication</a>. Apart from the math, this also was about some python basics for me. While the result of <a href="https://chrwittm.github.io/posts/2022-10-28-matrix-multiplication/#exercise-implement-matrix-multiplication-with-tensors">implementing matrix multiplication from scratch</a> has probably been done a million times, it still taught me some valuable lessons.</li>
+</ul>
+<p>In the actual <a href="https://chrwittm.github.io/posts/2022-11-05-kaggle-titanic/">Titanic Competition</a>, I did not focus too much on submitting a perfect result, but I rather aimed at re-visiting/solidifying the topic of gradient descent by replicating the actual lesson content. I built for following 2 notebooks</p>
+<ul>
+<li>The first one uses a <a href="https://github.com/chrwittm/FastAI2022/blob/main/lesson03/titanic/titanic1/titanic1.ipynb">Fast.AI tabular learner</a> to create a baseline while getting the know the data.</li>
+<li>Next, I re-implemented the Excel-based version from the video in python <a href="https://github.com/chrwittm/FastAI2022/blob/main/lesson03/titanic/titanic3/titanic3.ipynb">in this notebook</a>.</li>
+</ul>
+<p>While my final high score of 77.2% is far away from perfect, I decided to come back to this competition another time, focusing more on the content, not just on gradient descent (like this time).</p>
+</section>
+<section id="mnist-the-hello-world-of-computer-vision" class="level2">
+<h2 class="anchored" data-anchor-id="mnist-the-hello-world-of-computer-vision">MNIST, the ‘Hello World’ of Computer Vision</h2>
+<p>As Jeremy points out <a href="https://youtu.be/hBBOjCiFcuo?t=4882">at the end of lesson 3</a>, this lesson corresponds to <a href="https://github.com/fastai/fastbook/blob/master/04_mnist_basics.ipynb">chapter 4</a> of the book. Indeed, it covers very similar topics, but the example used is the light version of the MNIST dataset (which only contains 3s and 7s). Following the recommendation for further research, I <a href="https://chrwittm.github.io/posts/2022-11-26-mnist/">implemented a model for the complete MNIST dataset</a>. As predicted: <em>“This was a significant project and took you quite a bit of time to complete! I needed to do some of my own research to figure out how to overcome some obstacles on the way”.</em></p>
+<p>After all the previous activities around gradient descent, the actual mechanics of what needed to be done were not too difficult. Nonetheless, I found the competition to be hard, because of the actual technicalities of the python implementation. Put differently, I think I could have easily written a good specification on how to solve the MNIST competition, but actually doing it yourself is a different thing.</p>
+<p>Seemingly simple tasks like <a href="https://github.com/chrwittm/FastAI2022/blob/main/lesson03/mnist/mnist2-kaggle/mnist02-download-and-convert.ipynb">converting the csv-files to images</a>, converting a <a href="https://github.com/chrwittm/FastAI2022/blob/main/lesson03/mnist/mnist2-kaggle/mnist04-predict-on-csv-file.ipynb">PIL image to a Fast.AI PIL image</a>, or getting the tensors in the right shape took me some time to implement in python. I am still struggling with python as a language but I am seeing good progress, and the only way to improve is to keep coding.</p>
+</section>
+<section id="wrapping-up-lesson-3" class="level2">
+<h2 class="anchored" data-anchor-id="wrapping-up-lesson-3">Wrapping-up Lesson 3</h2>
+<p>While I could improve the results of my projects, both for Titanic and MNIST, it feels like it would be some way over-optimizing. I did not enter the competitions to win, but to learn about gradient descent. Having spent the last 8 weeks with my lesson 3-projects (and allowing myself to get somewhat side-tracked), and I feel it is time to move on to the next lesson. I am looking forward to the next challenging projects!</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<script src="https://utteranc.es/client.js" repo="chrwittm/chrwittm.github.io.comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+      <div class="nav-footer-center"><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+  </div>
+</footer>
+
+
+
+</body></html>
