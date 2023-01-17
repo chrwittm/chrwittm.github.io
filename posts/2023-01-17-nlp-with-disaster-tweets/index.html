@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Christian Wittmann">
+<meta name="dcterms.date" content="2023-01-10">
+
+<title>chrwittm.github.io - Natural Language Processing with Disaster Tweets</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-GF3YYKQQNH"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-GF3YYKQQNH', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  });
+});
+</script> 
+  
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">chrwittm.github.io</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html">About</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/chrwittm"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/chrwittm"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Natural Language Processing with Disaster Tweets</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">kaggle</div>
+                <div class="quarto-category">nlp</div>
+                <div class="quarto-category">hugging face</div>
+                <div class="quarto-category">ml</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Christian Wittmann </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">January 10, 2023</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<p>Based on the <a href="https://forums.fast.ai/t/lesson-4-official-topic/96441">Fast.AI lesson 4</a>, I was transferring the approach from Jeremy’s notebook “<a href="https://www.kaggle.com/code/jhoward/getting-started-with-nlp-for-absolute-beginners">Getting started with NLP for absolute beginners</a>” to the Kaggle competition “<a href="https://www.kaggle.com/competitions/nlp-getting-started">Natural Language Processing with Disaster Tweets</a>”. This post describes my approach and the key learnings.</p>
+<p>My approach was the following: Classifying tweets or patent phrases is essentially “the same” task:</p>
+<ul>
+<li>I started by creating a <a href="https://www.kaggle.com/code/christianwittmann/nlp-with-disaster-tweets-baseline">baseline-notebook</a> in which I used the same approach as presented in the lecture, porting it pretty much 1:1, but applied it to the classification of tweets as disasters or not - just using the text of the tweets.</li>
+<li>In the next iteration, I added the additional fields of the dataset and implemented quite a few improvements, also inspired by the notebook “<a href="https://www.kaggle.com/code/jhoward/iterate-like-a-grandmaster">Iterate like a grandmaster</a>”. I was, however, struggling to actually improve the baseline at all. As it turned out, more data is not always better: In this case the additional data was adding noise, not signal. Once I went back to only working with the tweets, omitting the additional fields, I immediately saw improvements.</li>
+<li>In the <a href="https://www.kaggle.com/code/christianwittmann/nlp-with-disaster-tweets-january-2023">final iteration</a> (so far), I further “upgraded” the notebook by enabling the usage of lager models, and I also optimized the result by using other training techniques, showing the model more data than just a fixed 75% of the training data.</li>
+</ul>
+<section id="key-learnings" class="level2">
+<h2 class="anchored" data-anchor-id="key-learnings">Key Learnings</h2>
+<p>In the last about 4 week I probably trained 250+ model and made 70+ submissions, trying to build up intuition on what works and what not. Therefore, please treat this as an empirical report, not as a scientific paper. I try to back my claims with actual data of my model training, but sometimes I can only report on observations and I try to reason why these observations makes sense. Here are my key learnings:</p>
+<ul>
+<li><strong>Cleaning the data helps, both syntactically and semantically</strong>: Not only did I clean up special (rubbish) character, but also re-classified some tweets, mainly automatically.</li>
+<li>Upon cleaning the data, <strong>keep a close eye on what is noise and what is signal</strong>, for example, converting everything to lower case did not help, because I believe that it removed signal.</li>
+<li>Helping the model understand the data helps by <strong>using special tokens</strong>, for example by replacing URLs with a special token.</li>
+<li><strong>Using bigger models helps</strong>, on average moving from the small to the base to the large versions of the deberta models increased the score by a few tenth. However, for training large models on Kaggle, you need to apply some tricks not to run out of memory. Additionally, training bigger models is comparable time-consuming.</li>
+<li><strong>Small batch sizes help</strong> to train models more quickly.</li>
+<li><strong>Showing the model more data</strong> then just the initial training set helps.</li>
+<li>Overall, the pre-trained models are already very good. My first version submission of the baseline notebook scored 0.81949, in the current <a href="https://www.kaggle.com/code/christianwittmann/nlp-with-disaster-tweets-january-2023">final iteration</a> <strong>my best submission scored 0.84676</strong>. That is an increase of only 2.7 percentage points. The bigger difference is the rank on the leaderboard. At the time of writing 0.81949 would have put me on 218/938 while 0.84278 put me on rank 34/938. If you deduct the submission which scored 100% (29 submission), I am pretty happy with rank 5. 😀</li>
+</ul>
+<p><img src="nlp-84676.png" class="img-fluid"></p>
+<p>On a side note: I wonder how I would score by hand-labeling all tweets in the test set. <strong>Would I beat AI or would AI beat me?</strong> Find out at the end.</p>
+</section>
+<section id="syntactical-data-cleansing" class="level2">
+<h2 class="anchored" data-anchor-id="syntactical-data-cleansing">Syntactical Data Cleansing</h2>
+<p>The dataset for the disaster tweets is far from perfect in terms of data quality, I guess it is just real world data 😉. Even though the model was doing a very good job at classifying tweets even without any additional work, some data cleaning was called for.</p>
+<p>There are quite a few non-sense special characters in the dataset, for example there are HTML representations spaces as <code>%20</code>, or leftovers of an unsuccessful unicode conversion, for example <code>Ûª</code> which should be <code>'</code>. I did replace the rubbish characters where possible, and I simply deleted any other non-ascii characters. I suspect that more could be done here to, for example trying to reconstruct emojis, but I could not find a way to do that. (suggestions welcome)</p>
+<p>I did not take the route of converting everything to lowercase or removing stop-word, because it did not have any positive training effect (just the opposite!). My theory on this would be that I would have removed signal by doing these optimizations (more on that in a bit). On another train of thought, a modern language model should be able to deal with stop word, abbreviation etc. anyway, so why bother to put in time and effort to clean data where it is not required. What is your experience or opinion? Are these kinds of optimizations becoming obsolete as we move from classical machine learning to large language models?</p>
+</section>
+<section id="semantic-data-cleansing-correcting-incorrectly-labeled-tweets" class="level2">
+<h2 class="anchored" data-anchor-id="semantic-data-cleansing-correcting-incorrectly-labeled-tweets">Semantic Data Cleansing: Correcting incorrectly labeled Tweets</h2>
+<p>Browsing through discussions on the competition, there was the claim that some tweets in the training set were not labeled correctly. As it turned out: That is true. But how to correct this without reading every tweet and potentially re-labeling it manually? (Something I definitely would not do!)</p>
+<p>As it turned out, there are also tweet duplicates which are sometimes not labeled identically. These were pretty easy to catch:</p>
+<ul>
+<li>Introducing a field which counts the occurrences of the tweets. (Since the duplicates were not 100% identical, for example, they contained different URLs, the counting was only possible after converting the URLs to special tokens (see below)).</li>
+<li>Creating a new field which contains the average tweet label</li>
+<li>Rounding the label to get a majority vote</li>
+</ul>
+<p>The only catch with this procedure is that tweets which have exactly one duplicate cannot be corrected this way. Well, what can you do about it, I had to re-label these ones manually.</p>
+</section>
+<section id="noise-vs.-signal" class="level2">
+<h2 class="anchored" data-anchor-id="noise-vs.-signal">Noise vs.&nbsp;Signal</h2>
+<p>When introducing new data or removing data, you need to think about what is <a href="https://en.wikipedia.org/wiki/Noise_(signal_processing)">noise</a> (i.e.&nbsp;unwanted interference) and what is <a href="https://en.wikipedia.org/wiki/Signal">signal</a> (i.e.&nbsp;data which is helpful). Or putting it into other words: Which elements of the data help the model to learn and which elements create confusion or distraction? Let’s consider the following examples.</p>
+<p>Inspired by the notebook “<a href="https://www.kaggle.com/code/jhoward/getting-started-with-nlp-for-absolute-beginners">Getting started with NLP for absolute beginners</a>” my first “improvement” was to concatenate the additional columns (keyword, location) of the dataset into the tweets. I was pretty disappointed that the result was worse then the baseline, and even with additional optimization (e.g.&nbsp;special tokens) it was impossible to beat the baseline. Finally, I removed the additional fields, and voilà, the result was immediately better! Why? The keywords added noise, not signal. The keyword “collision”, for example, is also assigned to many non-disaster tweets.</p>
+<p>Another source of noise can be the URLs which are part of the tweets: The content of the URLs themselves is pretty random, especially for shortened ones. To make the URLs more meaningful for the language model, I tried the following:</p>
+<ul>
+<li>Enclosing the URLs with special tokens for URL beginning and URL end -&gt; did not help</li>
+<li>Removing the URLs completely -&gt; better but not the best solution</li>
+<li>Replacing the URLs with a special token -&gt; empirically the best solution</li>
+</ul>
+<p>When thinking about it, it makes sense: The fact that there is a URL in a tweet seems to contain signal, but the content of the URL (i.e.&nbsp;random characters) does not.</p>
+<p>As a final topic for noise vs.&nbsp;signal, let’s consider capitalization. Even though suggested in many sources, converting the text to lower case did not yield a better result (quite the opposite!). Again, I could imagine that capitalization carries signal. Think of capitalization as shouting. Therefore, it makes sense not to convert everything to lower-case because you would remove signal from the tweets. Consider these 2 examples where there is a difference between “burning” and “BURNING”:</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings, logging</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>warnings.simplefilter(<span class="st">'ignore'</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>logging.disable(logging.WARNING)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> AutoModelForSequenceClassification,AutoTokenizer</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>tokz <span class="op">=</span> AutoTokenizer.from_pretrained(<span class="st">'microsoft/deberta-v3-small'</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>tokz.tokenize(<span class="st">"The house is BURNING."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>['▁The', '▁house', '▁is', '▁BURN', 'ING', '.']</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tokz.tokenize(<span class="st">"The house is burning."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>['▁The', '▁house', '▁is', '▁burning', '.']</code></pre>
+</div>
+</div>
+</section>
+<section id="working-with-special-tokens" class="level2">
+<h2 class="anchored" data-anchor-id="working-with-special-tokens">Working with Special Tokens</h2>
+<p>One of the steps of syntactically cleaning the dataset was the removal of special characters, many of them being misrepresentations of unicode characters. There are, however, also meaningful special characters. In the tweets, not prominent the hashtag <code>#</code> and the mention <code>@</code>. Since these special characters carry signal, I decided to turn them into special tokens. This time, however, I did not replace the whole mention or keyword with a special token, but I wrapped the mentions in special tokens:</p>
+<ul>
+<li><code>[MB]</code>: Mention Beginning</li>
+<li><code>[ME]</code>: Mention End</li>
+<li><code>[HB]</code>: Hashtag Beginning</li>
+<li><code>[HE]</code>: Hashtag End</li>
+</ul>
+<p>After stating what I have been doing in full confidence, I have to admit that, at the time of coding, I do not really know what I was doing, I was rather implementing it in analogy to the two notebooks “<a href="https://www.kaggle.com/code/jhoward/getting-started-with-nlp-for-absolute-beginners">Getting started with NLP for absolute beginners</a>” and “<a href="https://www.kaggle.com/code/jhoward/iterate-like-a-grandmaster">Iterate like a grandmaster</a>”.</p>
+<p>While writing up this blog post I was doing a little bit of research on special tokens, which was not as straight-forward as I imagined it to be. Chatting with ChatGTP quite was insightful, and I learned about the usage of the predefined special tokens, which can be retrieved by inspecting the attribute <code>tokz.all_special_tokens</code>: (I hope the following is accurate)</p>
+<ul>
+<li>The “<code>[CLS]</code>”-special token (“classification token”) is used to represent the entire input sequence in tasks such as text classification, sentiment analysis and named entity recognition etc. The token is added to the beginning of the input sequence and is then passed through the model along with the rest of the input. In the context of disaster tweets, if a tweet was “There is a fire”, after adding the token, the tweet looked like this: “[CLS] There is a fire”. In the final version of the notebook I did add the [CLS]-token to all the tweets, but I did not notice any improvement in model performance.</li>
+<li>The “<code>[SEP]</code>”-special token (“separation token”) is used to separate multiple sentences or segments within a single input sequence. The token is added at the end of each sentence or segment, and it is used to indicate the end of one segment and the beginning of another. I did not add any [SEP]-tokens to the tweets because a tweet is a unit of its own. Interestingly, the tokens for <code>.</code> and <code>[SEP]</code> are not the same, which makes sense, because not any <code>.</code>-character is automatically a separator.<br>
+</li>
+<li>The “<code>[UNK]</code>”-special token is used to represent unknown or out-of-vocabulary words that the model has not seen during training. During the preprocessing step, any word that is not in the vocabulary is replaced with the “[UNK]” token. Somehow I would have expected the tokenizer to replace unknown words with [UNK], but that did not happen whatever I tried.</li>
+<li>The “<code>[PAD]</code>”-special token is used to pad the input sequences to a fixed length. A BERT (and deberta) model is a transformer-based model which requires that all input sequences have the same length before they can be passed through the model. I did not use this token, but I trust the inner mechanics of the model to take care of this.</li>
+<li>The “<code>[MASK]</code>”-special token is used in the pre-training process called Masked Language Model (MLM). In this task, a proportion of tokens in the input sequence is replaced with the “[MASK]” token, and the model is trained to predict the original token that was replaced by the “[MASK]” token. This pre-training process allows the model to learn the context of the words in the sentence and understand the relationship between words in the sentence. Since this is a token used in training, I did not use it in my notebooks.</li>
+</ul>
+</section>
+<section id="training-bigger-models" class="level2">
+<h2 class="anchored" data-anchor-id="training-bigger-models">Training Bigger Models</h2>
+<p>After I was done cleaning the data, I tried to work with bigger models, and the result is: Yes, size does matter. The improvements were not dramatically better, nonetheless significant. I worked with <a href="https://huggingface.co/microsoft/deberta-v3-small"><code>microsoft/deberta-v3-small</code></a>, <a href="https://huggingface.co/microsoft/deberta-v3-base"><code>microsoft/deberta-v3-base</code></a> and <a href="https://huggingface.co/microsoft/deberta-v3-large"><code>microsoft/deberta-v3-large</code></a>. Here are the best scores by model (even though the training approaches are not 100% comparable):</p>
+<ul>
+<li><code>microsoft/deberta-v3-small</code>: 0.83757</li>
+<li><code>microsoft/deberta-v3-base</code> : 0.84002</li>
+<li><code>microsoft/deberta-v3-large</code>: 0.84676</li>
+</ul>
+<p>Upgrading from the small model to the base model was a smooth process. The expected trade off between better results and longer training time materialized as expected. When moving to the large model, that process was not so smooth, because the kaggle runtime was running out of memory both in the GPU and on disk. Here is how I fixed it:</p>
+<ul>
+<li>Fixing running out of GPU memory: Larger models require more memory in the GPU. This can easily be fixed by reducing the batch size. A small batch size may be a desired training parameter (as I will discuss later), however, if you do not want to increase the number of gradient descent steps, you can use gradient accumulation (also more on that in a later section).</li>
+<li>Fixing running out of disk memory: The Hugging Face <code>Trainer</code> saves huge checkpoint files after every 500 training steps by default. When working with small batch sizes or larger numbers of epochs, this can exceed the allowed disk space by Kaggle. The easy fix is to disable the checkpoint file creation. This can be done with the parameter <code>save_steps=-1</code> which you need to pass to the <code>TrainingArguments</code> class.</li>
+</ul>
+</section>
+<section id="gradient-accumulation" class="level2">
+<h2 class="anchored" data-anchor-id="gradient-accumulation">Gradient Accumulation</h2>
+<p>As presented in <a href="https://www.youtube.com/watch?v=zhBRynq9Yvo&amp;t=2820s">Live Coding Session 10</a>, Gradient Accumulation is a technique to train large models on regular hardware.</p>
+<p>If you run out of memory on a GPU, you need to decrease the batch size. With the same number of epochs this increases the number or optimization cycles. To train a larger model with the same number of iteration cycles, gradient accumulation can be used, because it results in updating the model only after x number of batches.</p>
+<p>As it turns out, gradient accumulation can also easily be used with a Hugging Face <code>Trainer</code>, you just need to pass the parameter <a href="https://huggingface.co/docs/transformers/v4.25.1/en/main_classes/trainer#transformers.TrainingArguments.gradient_accumulation_steps"><code>gradient_accumulation_steps</code></a> to the <code>TrainingArguments</code>-class:</p>
+<pre><code class="language-python">
+    args = TrainingArguments('outputs', learning_rate=lr, warmup_ratio=0.1, lr_scheduler_type='cosine', fp16=True,
+        evaluation_strategy="epoch", per_device_train_batch_size=bs, per_device_eval_batch_size=bs*2,
+        num_train_epochs=epochs, weight_decay=0.01, report_to='none', <b>gradient_accumulation_steps=gradient_accumulation_steps</b>)
+</code></pre>
+<p>When I first tried gradient accumulation, I was puzzled by the result. Smaller batch sizes yielded better results, and in my initial attempts, the bigger models even performed worse than small ones. This was, I assume by now, because I was accumulating the gradients too much.</p>
+<p>While gradient accumulation is for sure a good tool for some problems, it was not part of my best submissions because I also came to learn that the small batch sizes were more beneficial in training. What started as a perceived problem (being forced to lower the batch size), turned out to create better results and quicker training.</p>
+</section>
+<section id="implementing-metrics" class="level2">
+<h2 class="anchored" data-anchor-id="implementing-metrics">Implementing Metrics</h2>
+<p>Before turning to the discussion of smaller batch sizes, let me first address the computation of metrics, because it will be useful when evaluating the batch size.</p>
+<p>I did not pay too much attention to this at first because implementing metrics (in addition to the loss) was not part of my baseline, and I was focussing on other topics first (as outlines above), but upon writing this post, I noticed the white spot.</p>
+<p>The <a href="https://www.kaggle.com/competitions/nlp-getting-started/overview/evaluation">evaluation of the kaggle competition</a> is based on the <a href="https://en.wikipedia.org/wiki/F-score">F1 score</a>. Based on <a href="https://huggingface.co/course/chapter3/3?fw=pt">this tutorial</a> leveraging the <a href="https://github.com/huggingface/evaluate/">evaluate library</a>, the implementation was surprisingly easy.</p>
+<ul>
+<li>Implement a function based on the pattern described in the tutorial or <a href="https://github.com/huggingface/evaluate/blob/main/docs/source/transformers_integrations.mdx">in the evaluate docs</a></li>
+<li>As metrics, there is <a href="https://github.com/huggingface/evaluate/blob/main/docs/source/choosing_a_metric.mdx">a lot to choose from</a>: This is the <a href="https://github.com/huggingface/evaluate/tree/main/metrics">full list</a>.</li>
+</ul>
+<p>My final metric implementation looks like this:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> evaluate</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_metrics(eval_preds):</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    metric <span class="op">=</span> evaluate.load(<span class="st">"f1"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    preds, labels <span class="op">=</span> eval_preds</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">#predictions = np.argmax(logits, axis=-1) #not needed</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> metric.compute(predictions<span class="op">=</span>preds, references<span class="op">=</span>labels)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<blockquote class="blockquote">
+<p>Personal note: With the disaster tweet dataset, the line <code>predictions = np.argmax(logits, axis=-1)</code> caused a type error. For solving it, <a href="https://www.youtube.com/watch?v=rSPyvPw0p9k">this tutorial</a> had exactly the right input I needed to debug the problem.</p>
+</blockquote>
+</section>
+<section id="using-small-batch-sizes" class="level2">
+<h2 class="anchored" data-anchor-id="using-small-batch-sizes">Using Small Batch Sizes</h2>
+<p>What started as a curiosity got solidified when I found this <a href="https://twitter.com/ylecun/status/989610208497360896">tweet by Yan LeCun</a>:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://twitter.com/ylecun/status/989610208497360896"><img src="tweet-yann-lecun.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+<p>Therefore, small batch sizes are a recognized way to train faster in a way which can generalize better. There seems to be a tradeoff between smaller batch size and training time per epoch because the GPU is not used as efficiently with smaller batch sizes. In my disaster tweet project, small batch sizes proved to be helpful.</p>
+<p>Is there a way to intuit why a small batch size is a good thing? Yes, I think so: When you think about the training set as book with 1000 pictures that we want to learn the labels of, the batch size symbolizes how many pictures you look at before you think about what you have seen. With a batch size of 100, you would look at 100 pictures, reflect (i.e.&nbsp;doing the learning, or updating the model based on the gradients), look at another 100 pictures, reflect etc. Within an epoch, i.e.&nbsp;looking though the whole book, you would reflect on what you have seen 10 times. At a batch size of 10, you would look at 10 picture, reflect, look at 10 more pictures, reflect… Within an epoch, you would reflect 100 times (not 10 times), i.e.&nbsp;you would actually do more learning instead of just looking at the pictures. Therefore, it makes sense that a smaller batch size can result in better and quicker training results.</p>
+<p>Another way to thin about this: By lowering the batch size, the iteration speed is increased. <a href="https://youtu.be/TCH_1BHY58I?t=2645">Quoting Andrej Karpathy</a> with some additions [in bracket]:</p>
+<blockquote class="blockquote">
+<p><em>“[When] dealing with mini batches the quality of our gradient is lower, so the direction is not as reliable, it’s not the actual gradient direction [compared to taking a larger batch], but the gradient direction is good enough even when it’s estimating on only 32 examples that it is useful and so it’s much better to have an approximate gradient and just make more steps than it is to evaluate the exact gradient and take fewer steps. So that’s why in practice this works quite well.”</em></p>
+</blockquote>
+<p>To support the claim that smaller batch sized help/work, here is a comparison of training 4 epochs with different batch sizes. As a result, you can see that training time increases, but the training quality increases as well, so much that the model already shows signs of overfitting when training for more than 2 epochs at a batch size of 8 and below:</p>
+<p><img src="bs-comparison.png" class="img-fluid"></p>
+<p>You can also see how the model is getting more confident about the predictions in the histograms: The smaller the batch size, the more the predictions peak at <code>0</code> and <code>1</code>, and the number of uncertain cases decreases:</p>
+<p><img src="bs-histograms.png" class="img-fluid"></p>
+<p>I wonder how general this finding about smaller learning rates is… At least I am now sensitive to the topic and I will continue to watch it.</p>
+</section>
+<section id="showing-the-model-more-data" class="level2">
+<h2 class="anchored" data-anchor-id="showing-the-model-more-data">Showing the model more data</h2>
+<p>In the notebook “<a href="https://www.kaggle.com/code/jhoward/iterate-like-a-grandmaster">Iterate like a grandmaster</a>”, Jeremy suggested for further improvement: <em>“Before submitting a model, retrain it on the full dataset, rather than just the 75% training subset we’ve used here.”</em> I was wondering how I could follow the advice, and I came up with 2 ideas. The first one did not work, the second did:</p>
+<ul>
+<li>Training 3 models with differently shuffled training and validation sets. In the end the models would be averaged. I did not notice a significant effect, therefore I did not pursue this approach any further. When you think about it, it also makes sense, because in the end you are training identical model, because, if done right, even given different data, the model capabilities should converge to the same capabilities. Only if different training approaches had been used, the ensemble would help.</li>
+<li>Train a model, then re-shuffle the dataset again to show the model a different training set and a different validation set. Therefore a generically pre-trained model becomes a pre-pre-trained model. In this particular case the deberta model was trained on tweet classification now. It actually worked, shuffling had a good positive effect.
+<ul>
+<li>Shuffling once: Notebook V5 scored 0.83481</li>
+<li>Shuffling twice: Notebook V6 scored 0.83879</li>
+<li>Shuffling a third time: Notebook V7 scored 0.84002</li>
+<li>Shuffling more often had a negative effect, my notebook V8 scored only 0.83542, most likely due to over-fitting.</li>
+</ul></li>
+</ul>
+<p>To cross check that the improved training results were not just caused by more training, I did the following experiment, training the small model at batch size 32:</p>
+<ul>
+<li>Training 4 epochs: Score 0.82715</li>
+<li>Training 6 epochs: Score 0.8345</li>
+<li>Training 8 epochs: Score 0.83297</li>
+<li>Training 10 epochs: Score 0.8345</li>
+<li>Training 4 epochs, but re-shuffling 3 times and training 2 more epochs: Score 0.83634</li>
+</ul>
+<p>While the effect of “more training help” is definitively visible, the attempt including the reshuffling was the best result. This is not surprising, because the model can learn more by looking at more diverse data.</p>
+<p>Discussing the question of how to use 100% of the training data <a href="https://forums.fast.ai/t/using-100-of-the-training-data-for-training/103070">on the forums</a> lead to a third approach: First, I trained the model as “as usual”, specifically with training for 2 epochs with batch size 4, afterwards I showed the model the full dataset for another epoch. The results were better than doing the re-shuffling approach. Again, as a disclaimer, the training approaches were not identical, so it is difficult to directly compare the results. Nonetheless, my best result of 0.84676 used the following training approach: Training the large model for 2 epochs at bs=4. Afterwards training another epoch with the full training set and at bs=4 but half the learning rate.</p>
+<p>It would be interesting to systematically explore the matter. Maybe I will return to this another time.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>When starting out with lessen 4, I did not expect it to become such an extended endeavor. Porting the notebook notebook “<a href="https://www.kaggle.com/code/jhoward/getting-started-with-nlp-for-absolute-beginners">Getting started with NLP for absolute beginners</a>” to the Kaggle competition “<a href="https://www.kaggle.com/competitions/nlp-getting-started">Natural Language Processing with Disaster Tweets</a>” introduced me to many different aspects of natural language processing in particular and machine learning in general.</p>
+<p>Maybe the most profound learning is that natural language processing with pre-trained models is already very robust. Consider all the effort I put in to improve from a baseline of 0.81949 to 0.84676, where the majority of the improvement was due to better training parameters or bigger models. The dataset is challenging and an honest 100% score is impossible, because there is also quite some subjectivity in there, and quite a few tweets are ambiguous. Putting myself to the test: I tried to compete against my models, just relying on my pre-trained brain: Would I beat 84.6%?</p>
+<p>I must admit, I did not hand-label the whole dataset, but only the first 100 tweets of the test set. Then I compared my results to the <a href="https://www.kaggle.com/code/szelee/a-real-disaster-leaked-label/notebook">leaked 100%-solution</a>. My score was 81% (even worse than my baseline!) - so I lost the competition: AI beat me in this competition - who would have thought?</p>
+</section>
+<section id="credits-working-with-ai-as-a-team" class="level2">
+<h2 class="anchored" data-anchor-id="credits-working-with-ai-as-a-team">Credits: Working with AI as a Team</h2>
+<p>While I wrote this blog post myself (no longer a given these days…), I need to give credit to ChatGPT for helping me in the research and also for the implementation of some functions, especially the regular expressions. While not all the replies from ChatGPT were correct, they were mostly helpful and frequently pointed me in the right directions. I also enjoy just ChatGTP is a non-annoying website in the sense that is does not ask for cookies after each question, and it does not want me to sign up for newsletters etc. More time is spent on thinking and problem solving than on these distractions.</p>
+<p>The title picture of this blog post was generated by DALL-E 2 upon the prompt: “<a href="https://labs.openai.com/s/HnWFQ0fdlUTPTwdv4O5SkTMk">twitter logo on fire digital art</a>”.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<script src="https://utteranc.es/client.js" repo="chrwittm/chrwittm.github.io.comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+      <div class="nav-footer-center"><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+  </div>
+</footer>
+
+
+
+</body></html>
