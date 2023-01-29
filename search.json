@@ -389,7 +389,7 @@
     "href": "posts/2023-01-27-disaster-tweet-dataset-limitations/index.html",
     "title": "Discovering Disaster Tweet Dataset Limitations",
     "section": "",
-    "text": "What started out as a simple exercise to visualize model performance using a confusion matrix revealed that the training set contains lots of incorrectly labeled tweets, and that my trained model actually performed better than the score suggests.\nAfter I had published my first blog post on “Natural Language Processing with Disaster Tweets”, I realized that I had forgotten one element I planned to incorporate into the notebook: I wanted to visualize the model performance using a confusion matrix. Since the implementation was pretty straightforward, the subsequent data analysis will be the real content of this blog post."
+    "text": "What started out as a simple exercise to visualize model performance using a confusion matrix revealed that the training set contains lots of incorrectly labeled tweets, and that my trained model actually performed better than the score suggests.\n\n\nAfter I had published my first blog post on “Natural Language Processing with Disaster Tweets”), I realized that I had forgotten one element I planned to incorporate into the notebook: I wanted to visualize the model performance using a confusion matrix. Since the implementation was pretty straightforward, the subsequent data analysis will be the real content of this blog post."
   },
   {
     "objectID": "posts/2023-01-27-disaster-tweet-dataset-limitations/index.html#implementing-the-confusion-matrix",
