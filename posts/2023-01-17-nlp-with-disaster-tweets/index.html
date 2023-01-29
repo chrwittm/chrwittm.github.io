@@ -234,16 +234,20 @@ cookieconsent.run({
 
 
 
-<div style="display: flex;" data-markdown="1">
-<div style="width: 80%; padding: 20px;">
+
+<table style="width: 100%; border: none; border-collapse: collapse;">
+<tbody><tr>
+<td style="width: 70%; padding: 0px;">
 <p>
 Based on the <a href="https://forum.fast.ai/t/lesson-4-official-topic/96441">Fast.AI lesson 4</a>, I transferred the approach from Jeremy’s notebook “<a href="https://www.kaggle.com/code/jhoward/getting-started-with-nlp-for-absolute-beginners">Getting started with NLP for absolute beginners</a>” to the Kaggle competition “<a href="https://www.kaggle.com/competitions/nlp-getting-started">Natural Language Processing with Disaster Tweets</a>”. This post describes my approach and the key learnings.
 </p>
-</div>
-<div style="width: 20%; padding: 20px;">
-<pre><code>&lt;img src="twitter-on-fire-dalle2-crop-400px.png" alt="Disaster Tweets" width="200px" align="center"&gt;</code></pre>
-</div>
-</div>
+</td>
+<td style="width: 30%; padding: 0px;">
+<img src="twitter-on-fire-dalle2-crop-400px.png" alt="Disaster Tweets" width="200px">
+</td>
+</tr>
+
+</tbody></table>
 <p>My approach was the following: Classifying tweets or patent phrases is essentially “the same” task:</p>
 <ul>
 <li>I started by creating a <a href="https://www.kaggle.com/code/christianwittmann/nlp-with-disaster-tweets-baseline">baseline-notebook</a> in which I used the same approach as presented in the lecture, porting it pretty much 1:1, but applied it to the classification of tweets as disasters or not - just using the text of the tweets.</li>
@@ -296,21 +300,21 @@ Based on the <a href="https://forum.fast.ai/t/lesson-4-official-topic/96441">Fas
 <p>When thinking about it, it makes sense: The fact that there is a URL in a tweet seems to contain signal, but the content of the URL (i.e.&nbsp;random characters) does not.</p>
 <p>As a final topic for noise vs.&nbsp;signal, let’s consider capitalization. Even though suggested in many sources, converting the text to lower case did not yield a better result (quite the opposite!). Again, I could imagine that capitalization carries signal. Think of capitalization as shouting. Therefore, it makes sense not to convert everything to lower-case because you would remove signal from the tweets. Consider these 2 examples where there is a difference between “burning” and “BURNING”:</p>
 <div class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings, logging</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>warnings.simplefilter(<span class="st">'ignore'</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>logging.disable(logging.WARNING)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> AutoModelForSequenceClassification,AutoTokenizer</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>tokz <span class="op">=</span> AutoTokenizer.from_pretrained(<span class="st">'microsoft/deberta-v3-small'</span>)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>tokz.tokenize(<span class="st">"The house is BURNING."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings, logging</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>warnings.simplefilter(<span class="st">'ignore'</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>logging.disable(logging.WARNING)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> AutoModelForSequenceClassification,AutoTokenizer</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>tokz <span class="op">=</span> AutoTokenizer.from_pretrained(<span class="st">'microsoft/deberta-v3-small'</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>tokz.tokenize(<span class="st">"The house is BURNING."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>['▁The', '▁house', '▁is', '▁BURN', 'ING', '.']</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>tokz.tokenize(<span class="st">"The house is burning."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tokz.tokenize(<span class="st">"The house is burning."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>['▁The', '▁house', '▁is', '▁burning', '.']</code></pre>
 </div>
@@ -373,14 +377,14 @@ Based on the <a href="https://forum.fast.ai/t/lesson-4-official-topic/96441">Fas
 <li>As metrics, there is <a href="https://github.com/huggingface/evaluate/blob/main/docs/source/choosing_a_metric.mdx">a lot to choose from</a>: This is the <a href="https://github.com/huggingface/evaluate/tree/main/metrics">full list</a>.</li>
 </ul>
 <p>My final metric implementation looks like this:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> evaluate</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_metrics(eval_preds):</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    metric <span class="op">=</span> evaluate.load(<span class="st">"f1"</span>)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    preds, labels <span class="op">=</span> eval_preds</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">#predictions = np.argmax(logits, axis=-1) #not needed</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> metric.compute(predictions<span class="op">=</span>preds, references<span class="op">=</span>labels)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> evaluate</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_metrics(eval_preds):</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    metric <span class="op">=</span> evaluate.load(<span class="st">"f1"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    preds, labels <span class="op">=</span> eval_preds</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">#predictions = np.argmax(logits, axis=-1) #not needed</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> metric.compute(predictions<span class="op">=</span>preds, references<span class="op">=</span>labels)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <blockquote class="blockquote">
 <p>Personal note: With the disaster tweet dataset, the line <code>predictions = np.argmax(logits, axis=-1)</code> caused a type error. For solving it, <a href="https://www.youtube.com/watch?v=rSPyvPw0p9k">this tutorial</a> had exactly the right input I needed to debug the problem.</p>
 </blockquote>
