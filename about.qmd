@@ -13,6 +13,9 @@ about:
     - icon: github
       text: Github
       href: https://github.com/chrwittm
+    - icon: file-earmark-code
+      text: Kaggle
+      href: https://www.kaggle.com/christianwittmann
 
 ---
 
