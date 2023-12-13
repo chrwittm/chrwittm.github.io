@@ -2,62 +2,66 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://chrwittm.github.io/about.html</loc>
-    <lastmod>2023-03-12T12:06:51.492Z</lastmod>
-  </url>
-  <url>
-    <loc>https://chrwittm.github.io/index.html</loc>
-    <lastmod>2023-03-12T12:06:59.639Z</lastmod>
+    <lastmod>2023-12-13T10:18:23.538Z</lastmod>
   </url>
   <url>
     <loc>https://chrwittm.github.io/posts/2022-10-01-hello-world/index.html</loc>
-    <lastmod>2023-03-12T12:07:00.416Z</lastmod>
-  </url>
-  <url>
-    <loc>https://chrwittm.github.io/posts/2022-10-03-bear-detector-2022/index.html</loc>
-    <lastmod>2023-03-12T12:07:01.650Z</lastmod>
+    <lastmod>2023-12-13T10:18:22.384Z</lastmod>
   </url>
   <url>
     <loc>https://chrwittm.github.io/posts/2022-10-13-visualizing-gradient-descent-in-3d/index.html</loc>
-    <lastmod>2023-03-12T12:07:02.480Z</lastmod>
+    <lastmod>2023-12-13T10:18:21.580Z</lastmod>
   </url>
   <url>
-    <loc>https://chrwittm.github.io/posts/2022-10-18-blogging-with-jupyter-notebook/index.html</loc>
-    <lastmod>2023-03-12T12:07:03.739Z</lastmod>
-  </url>
-  <url>
-    <loc>https://chrwittm.github.io/posts/2022-10-21-how-i-created-this-blog/index.html</loc>
-    <lastmod>2023-03-12T12:07:05.155Z</lastmod>
-  </url>
-  <url>
-    <loc>https://chrwittm.github.io/posts/2022-10-28-matrix-multiplication/index.html</loc>
-    <lastmod>2023-03-12T12:07:06.510Z</lastmod>
-  </url>
-  <url>
-    <loc>https://chrwittm.github.io/posts/2022-11-05-kaggle-titanic/index.html</loc>
-    <lastmod>2023-03-12T12:07:07.676Z</lastmod>
-  </url>
-  <url>
-    <loc>https://chrwittm.github.io/posts/2022-11-26-mnist/index.html</loc>
-    <lastmod>2023-03-12T12:07:08.705Z</lastmod>
-  </url>
-  <url>
-    <loc>https://chrwittm.github.io/posts/2022-11-27-rebuilding-quarto-blog/index.html</loc>
-    <lastmod>2023-03-12T12:07:10.621Z</lastmod>
-  </url>
-  <url>
-    <loc>https://chrwittm.github.io/posts/2022-11-30-wrapping-up-lesson3/index.html</loc>
-    <lastmod>2023-03-12T12:07:12.023Z</lastmod>
+    <loc>https://chrwittm.github.io/posts/2022-10-03-bear-detector-2022/index.html</loc>
+    <lastmod>2023-12-13T10:18:20.956Z</lastmod>
   </url>
   <url>
     <loc>https://chrwittm.github.io/posts/2023-01-17-nlp-with-disaster-tweets/index.html</loc>
-    <lastmod>2023-03-12T12:07:13.735Z</lastmod>
+    <lastmod>2023-12-13T10:18:20.228Z</lastmod>
   </url>
   <url>
-    <loc>https://chrwittm.github.io/posts/2023-01-27-disaster-tweet-dataset-limitations/index.html</loc>
-    <lastmod>2023-03-12T12:07:15.259Z</lastmod>
+    <loc>https://chrwittm.github.io/posts/2022-11-30-wrapping-up-lesson3/index.html</loc>
+    <lastmod>2023-12-13T10:18:18.758Z</lastmod>
   </url>
   <url>
     <loc>https://chrwittm.github.io/posts/2023-03-05-titanic-with-chatgpt/index.html</loc>
-    <lastmod>2023-03-12T12:07:17.277Z</lastmod>
+    <lastmod>2023-12-13T10:18:18.022Z</lastmod>
+  </url>
+  <url>
+    <loc>https://chrwittm.github.io/posts/2023-01-27-disaster-tweet-dataset-limitations/index.html</loc>
+    <lastmod>2023-12-13T10:18:17.344Z</lastmod>
+  </url>
+  <url>
+    <loc>https://chrwittm.github.io/posts/2022-11-27-rebuilding-quarto-blog/index.html</loc>
+    <lastmod>2023-12-13T10:18:16.576Z</lastmod>
+  </url>
+  <url>
+    <loc>https://chrwittm.github.io/posts/2023-12-13-installing-fast-ai-on-apple-silicon/index.html</loc>
+    <lastmod>2023-12-13T10:18:17.653Z</lastmod>
+  </url>
+  <url>
+    <loc>https://chrwittm.github.io/posts/2022-10-28-matrix-multiplication/index.html</loc>
+    <lastmod>2023-12-13T10:18:18.398Z</lastmod>
+  </url>
+  <url>
+    <loc>https://chrwittm.github.io/posts/2022-11-05-kaggle-titanic/index.html</loc>
+    <lastmod>2023-12-13T10:18:19.370Z</lastmod>
+  </url>
+  <url>
+    <loc>https://chrwittm.github.io/posts/2022-10-18-blogging-with-jupyter-notebook/index.html</loc>
+    <lastmod>2023-12-13T10:18:20.705Z</lastmod>
+  </url>
+  <url>
+    <loc>https://chrwittm.github.io/posts/2022-11-26-mnist/index.html</loc>
+    <lastmod>2023-12-13T10:18:21.297Z</lastmod>
+  </url>
+  <url>
+    <loc>https://chrwittm.github.io/posts/2022-10-21-how-i-created-this-blog/index.html</loc>
+    <lastmod>2023-12-13T10:18:22.162Z</lastmod>
+  </url>
+  <url>
+    <loc>https://chrwittm.github.io/index.html</loc>
+    <lastmod>2023-12-13T10:18:23.304Z</lastmod>
   </url>
 </urlset>
