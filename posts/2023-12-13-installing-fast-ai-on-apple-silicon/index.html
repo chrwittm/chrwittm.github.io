@@ -280,7 +280,7 @@ cookieconsent.run({
 </section>
 <section id="setup-of-git" class="level2">
 <h2 class="anchored" data-anchor-id="setup-of-git">Setup of Git</h2>
-<p>Git was already installed on my machine which I did as part of the installation of VS Code, so here we only cover the setup done in the terminal:</p>
+<p>Git was already installed on my machine (<code>brew install git</code>) which I did as part of the installation of VS Code, so here we only cover the setup done in the terminal:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">"Your Name"</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">"your.mail@service.com"</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -288,6 +288,8 @@ cookieconsent.run({
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> ~/.ssh/id_rsa.pub</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Now you add the key to your <a href="https://github.com/settings/keys">Github keys</a>. Afterwards you should be able to login</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> git@github.com</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Adding Git Large File Storage (LFS) to be able to push large files to GitHub (like <code>.pkl</code>-files):</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install git-lfs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This concludes the installation of Fast.AI on an Apple Silicon Machine. In a follow-up blog post I will talk about my experience on running Fast.AI on Apple Silicon.</p>
 
 
