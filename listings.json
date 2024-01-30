@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/2024-01-27-how-to-call-openai-api/index.html",
       "/posts/2024-01-05-running-ml-on-apple-silicon/index.html",
       "/posts/2023-12-13-installing-fast-ai-on-apple-silicon/index.html",
       "/posts/2023-03-05-titanic-with-chatgpt/index.html",
