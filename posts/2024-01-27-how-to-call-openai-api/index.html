@@ -217,6 +217,20 @@ cookieconsent.run({
 <p>Exploring Large Language Models (LLMs) through their Web-based User Interfaces (WebUIs) is indeed insightful, particularly for experimenting with various prompt engineering techniques. However, accessing LLMs via their API unlocks a many additional possibilities. This approach not only allows you to craft your own applications but also enables the integration of LLMs into existing solutions. The use cases are endless: You can leverage LLMs for constructing comprehensive datasets, automating content creation, enhancing user interaction with natural language, personalizing user experiences, etc. The API access essentially opens doors to a more tailored LLM experience, more than just chatting with it.</p>
 <p>To demonstrate how to access the <a href="https://platform.openai.com/docs/guides/text-generation">OpenAI API for text generation</a>, I created a <a href="https://github.com/chrwittm/lm-hackers/blob/main/10-open-ai-api/accessing-openai-api.ipynb">Jupyter Notebook</a> with all the steps from installing the necessary python packages, via managing access keys to calling the API with some examples. While you can perform all the steps in the <a href="https://github.com/chrwittm/lm-hackers/blob/main/10-open-ai-api/accessing-openai-api.ipynb">Jupyter Notebook</a>, in this blog post I would like to explore the concepts and take a look at what is between the lines of code, including my biggest learning: How does the chat with an LLM actually work.</p>
 <p>This is the first blog post of a series in which I am reworking the <a href="https://youtu.be/jkrNMKz9pWU?si=rh31HHhAnaKPZw1I">hackers guide by Jeremy Howard</a> and the accompanying <a href="https://github.com/fastai/lm-hackers/blob/main/lm-hackers.ipynb">notebook</a>.</p>
+<style>
+  figure {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+</style>
+<figure class="figure">
+<img src="openai-api.png" alt="Dalle: Calling the OpenAI API on a Mac" style="width:50%;" class="figure-img">
+<figcaption class="figure-caption">
+Dalle: Calling the OpenAI API on a Mac
+</figcaption>
+</figure>
 <section id="setup" class="level2">
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <p>Before we can start calling the OpenAI API, we need to setup a few thing:</p>

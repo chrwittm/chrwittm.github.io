@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Christian Wittmann">
+<meta name="dcterms.date" content="2024-02-15">
+
+<title>chrwittm.github.io - Running LLama2 locally on a Mac</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-GF3YYKQQNH"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-GF3YYKQQNH', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  });
+});
+</script> 
+  
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">chrwittm.github.io</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/chrwittm" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/chrwittm" rel="" target=""><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.kaggle.com/christianwittmann" rel="" target=""><i class="bi bi-file-earmark-code" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Running LLama2 locally on a Mac</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Llama2</div>
+                <div class="quarto-category">Apple Silicon</div>
+                <div class="quarto-category">llama.cpp</div>
+                <div class="quarto-category">hugging face</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Christian Wittmann </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">February 15, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<p>Running a large language models (LLM), namely llama2, locally on my Mac was the next logical step for me working through the <a href="https://youtu.be/jkrNMKz9pWU?si=rh31HHhAnaKPZw1I">hacker’s guide by Jeremy Howard</a>. While it was possible to adjust Jeremy’s approach on Hugging Face to also work on Apple Silicon, I focussed on <a href="https://github.com/ggerganov/llama.cpp"><code>llama.cpp</code></a> and its python binding <a href="https://github.com/abetlen/llama-cpp-python"><code>llama-cpp-python</code></a> to talk to llama2.</p>
+<p>The whole journey consisted of the following steps, and I am going to take you though all of them to share my learnings along the way:</p>
+<ul>
+<li>Getting access to / downloading llama2</li>
+<li><a href="https://github.com/chrwittm/lm-hackers/blob/main/20-local-llama-on-mac/10-running-llama2-on-mac1-hf.ipynb">Running Llama2 via Hugging Face</a> and understanding why this is not a good approach on a Mac</li>
+<li><a href="https://github.com/chrwittm/lm-hackers/blob/main/20-local-llama-on-mac/20-running-llama2-on-mac2-cpp.ipynb">Running Llama2 via <code>llama.cpp</code>/<code>llama-cpp-python</code></a> and understanding why this approach works a lot better on a Mac</li>
+</ul>
+<style>
+  figure {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+</style>
+<figure class="figure">
+<img src="llama-on-mac.png" alt="Dalle: A llama on a Mac" style="width:50%;" class="figure-img">
+<figcaption class="figure-caption">
+Dalle: A llama on a Mac
+</figcaption>
+</figure>
+<section id="getting-access-to-llama2" class="level2">
+<h2 class="anchored" data-anchor-id="getting-access-to-llama2">Getting Access to Llama2</h2>
+<p>First things first: Before, you can access the Llama2 model, you need to agree to Meta’s the terms and conditions for Llama2. As per the time of writing this, the process was as follows:</p>
+<ul>
+<li>Visit <a href="https://huggingface.co/meta-llama/Llama-2-7b-hf">the model’s home page at Hugging Face</a></li>
+<li>Go to <a href="https://ai.meta.com/resources/models-and-libraries/llama-downloads/">Meta’s website</a>, and complete the registration form</li>
+<li>Confirm the terms and conditions on the Hugging Face Website (see <a href="access-llama2-on-hf.png">screenshot</a>)</li>
+</ul>
+<p>The approval only took a couple of minutes.</p>
+</section>
+<section id="running-llama2-via-hugging-face" class="level2">
+<h2 class="anchored" data-anchor-id="running-llama2-via-hugging-face">Running Llama2 via Hugging Face</h2>
+<p>Trying to stick as closely as possible to the original <a href="https://github.com/fastai/lm-hackers/blob/main/lm-hackers.ipynb">hacker’s guide</a>, I wanted to run LLama2 locally on my Mac using the Hugging Face API, just to see if it worked. Without Nvidia support, I needed to adapt the code to make it compatible with <a href="https://developer.apple.com/documentation/metalperformanceshaders">Apple’s Metal Framework</a>. For all all the details, what needed to be done to run llama2 via the Hugging Face API, please <a href="https://github.com/chrwittm/lm-hackers/blob/main/20-local-llama-on-mac/10-running-llama2-on-mac1-hf.ipynb">check out this notebook</a>.</p>
+<p>The final result was academically interesting, but performance left much to be desired 😉: What Jeremy’s machine did in 2 seconds took my MacBook more than 3 minutes. There are probably a couple of reasons which produced this dramatic difference in performance:</p>
+<ul>
+<li>Nvidia memory throughput is a lot better then Apple’s unified RAM</li>
+<li>The model I used was originally optimized and quantized for Nvidia GPUs. To run this model on my MacBook, I had to disable the 8-bit quantization (<code>load_in_8bit=False</code>) among other changes. While this adaptation was necessary for compatibility with Apple Silicon, it discarded all the optimizations.</li>
+<li>PyTorch’s optimization for CUDA is probably still way better than its MPS optimization.</li>
+</ul>
+<p>Here is a key learning: Running large language models (LLMs) locally requires more than brute force. Instead, hardware and software need to be aligned. Apple Silicon machines are extremely capable, but they need a different kind of optimization then Nvidia hardware. Consider the following analogy: Imagine you need to travel from Hamburg to Munich, and you have 2 hardware setups available, a car (let’s say this represents Nvidia hardware) or a plane (let’s say this represents Apple Silicon). Both these hardware setups require different optimizations to get from A to B.</p>
+<p>Driving from Hamburg to Munich by car (representing Nvidia hardware), you optimize your path along the roads. If you used the plane instead (representing Apple Silicon), the same optimization would not work well. Attempting to navigate the plane on the roads, as you would a car, is highly impractical. Therefore, you would use a different way to optimize the path: You take public transport or a taxi to the airport, you fly from Hamburg to Munich, and again, you take public transport or a taxi to reach your final destination. On both hardware setups you have reached your Munich, but the underlying setup and optimizations differed significantly.</p>
+<p>Therefore, let’s hop on the plane, and let’s explore a different way to run llama2 to on a Mac: Let’s turn our attention to llama.cpp.</p>
+<style>
+  figure {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+</style>
+<figure class="figure">
+<img src="llama-driving-flying.png" alt="Dalle: A llama driving a car and another llama flying a plane on the road from Hamburg to Munich" style="width:75%;" class="figure-img">
+<figcaption class="figure-caption">
+Dalle: A llama driving a car and another llama flying a plane on the road from Hamburg to Munich
+</figcaption>
+</figure>
+</section>
+<section id="what-is-llama.cpp" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-llama.cpp">What is <code>llama.cpp</code>?</h2>
+<p><a href="https://github.com/ggerganov/llama.cpp"><code>Llama.cpp</code></a> is an optimized library to run a large language model (LLM) like Llama2 on a Mac, but it also supports other platforms. How is this possible? For the details, please let me refer to this <a href="https://twitter.com/karpathy/status/1691844860599492721">tweet by Andrej Karpathy</a> and for even more details to this <a href="https://finbarr.ca/how-is-llama-cpp-possible/">blog post by Finbarr Timbers</a>. Here are my takeaways:</p>
+<ul>
+<li><a href="https://github.com/ggerganov/llama.cpp"><code>Llama.cpp</code></a> runs inference of LLMs in pure C/C++, therefore, it is significantly faster than implementations in higher languages like python.</li>
+<li>Additionally, <a href="https://github.com/ggerganov/llama.cpp?tab=readme-ov-file#description">the mission</a> of the project <em>“is to run the LLaMA model using 4-bit integer quantization on a MacBook”</em>. This means that numbers used to represent model weights and activations downsized from 32- or 16- bit floating points (the format of the base models) with 4-bit integers. This reduces memory usage and improves the performance and efficiency of the model during inference. The somewhat surprising thing is that model performance does not degrade by this downsizing.</li>
+</ul>
+<p>When I mentioned before that I had to turn off quantization on Hugging Face, here we turn it on a again, just differently.</p>
+</section>
+<section id="how-you-can-use-llama.cpp-from-python" class="level2">
+<h2 class="anchored" data-anchor-id="how-you-can-use-llama.cpp-from-python">How You Can Use llama.cpp from Python</h2>
+<p>The project <a href="https://github.com/abetlen/llama-cpp-python"><code>llama-cpp-python</code></a> serves as a binding for <a href="https://github.com/ggerganov/llama.cpp"><code>llama.cpp</code></a>, providing access to the C++ API to Llama2 from Python.</p>
+<p>In this context, a “<a href="https://en.wikipedia.org/wiki/Language_binding">binding</a>” is a bridge that facilitates interaction between two programming languages, i.e.&nbsp;a layer of code that allows two programming languages to interact with each other. <a href="https://github.com/ggerganov/llama.cpp"><code>Llama.cpp</code></a> is written in C/C++, and the <a href="https://github.com/abetlen/llama-cpp-python"><code>llama-cpp-python</code></a> binding allows this C/C++ library to be utilized within a Python environment. Essentially, the Python code wraps around the C/C++ code so that it can be called from a Python environment.</p>
+<p>While it might sound complicated, the concept is surprisingly accessible when you reduce the context to a simple example. To keep the focus in this blog post, I separated the exploration of C bindings into <a href="">this blog post</a> (LINK).</p>
+</section>
+<section id="installing-llama-cpp-python" class="level2">
+<h2 class="anchored" data-anchor-id="installing-llama-cpp-python">Installing <code>llama-cpp-python</code></h2>
+<p>First, we need to <a href="https://llama-cpp-python.readthedocs.io/en/latest/#installation">install</a> <code>llama-cpp-python</code> via <code>pip install llama-cpp-python</code>.</p>
+<p><a href="https://llama-cpp-python.readthedocs.io/en/latest/#upgrading-and-reinstalling">Upgrading</a> is done via <code>pip install llama-cpp-python  --upgrade --force-reinstall --no-cache-dir</code>.</p>
+<blockquote class="blockquote">
+<p>💡 Note: To execute the steps interactively, please check out <a href="https://github.com/chrwittm/lm-hackers/blob/main/20-local-llama-on-mac/20-running-llama2-on-mac2-cpp.ipynb">my related notebook</a>.</p>
+</blockquote>
+</section>
+<section id="downloading-the-model" class="level2">
+<h2 class="anchored" data-anchor-id="downloading-the-model">Downloading the Model</h2>
+<p>For all my experiments, I used the following model: <a href="https://huggingface.co/TheBloke/Llama-2-7b-Chat-GGUF">TheBloke/Llama-2-7b-Chat-GGUF</a></p>
+<p>To download the model, please please run the code below, assuming that you have stored your Hugging Face access token in the <code>.env</code>-file. For additional insights/troubleshooting, please also check out <a href="https://chrwittm.github.io/posts/2024-01-27-how-to-call-openai-api/">my previous blog post</a> / <a href="https://github.com/chrwittm/lm-hackers/blob/main/20-local-llama-on-mac/running-llm-on-mac1-hf.ipynb">my previous notebook</a>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>load_dotenv()</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>token <span class="op">=</span> os.getenv(<span class="st">'HF_TOKEN'</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">'HF_TOKEN'</span>] <span class="op">=</span> token</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>huggingface<span class="op">-</span>cli login <span class="op">--</span>token $HF_TOKEN</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>wget <span class="op">-</span>P ..<span class="op">/</span>models https:<span class="op">//</span>huggingface.co<span class="op">/</span>TheBloke<span class="op">/</span>Llama<span class="op">-</span><span class="dv">2</span><span class="op">-</span><span class="dv">7</span><span class="er">B</span><span class="op">-</span>Chat<span class="op">-</span>GGUF<span class="op">/</span>resolve<span class="op">/</span>main<span class="op">/</span>llama<span class="op">-</span><span class="dv">2</span><span class="op">-</span><span class="dv">7</span><span class="er">b</span><span class="op">-</span>chat.Q4_K_M.gguf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="loading-the-model" class="level2">
+<h2 class="anchored" data-anchor-id="loading-the-model">Loading the Model</h2>
+<p>Loading the model, only required 2 lines of code. Let’s talk about the parameters:</p>
+<ul>
+<li><code>n_ctx=2048</code>: This sets the context window to 2048 tokens. The maximum number of tokens for this model is 4096.</li>
+<li><code>verbose=False</code>: This makes the model less talkative. It only prints the actual results when prompted. Please feel free try turning it to <code>True</code> to get additional information from the model, not just the generated response.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> llama_cpp <span class="im">import</span> Llama</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>llm <span class="op">=</span> Llama(model_path<span class="op">=</span><span class="st">"../models/Llama-2-7b-chat/llama-2-7b-chat.Q4_K_M.gguf"</span>, n_ctx<span class="op">=</span><span class="dv">2048</span>, verbose<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#llm = Llama(model_path="../../../lm-hackers/models/llama-2-7b-chat.Q4_K_M.gguf", n_ctx=2048, verbose=False)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="completion-vs.-chat-completion-example" class="level2">
+<h2 class="anchored" data-anchor-id="completion-vs.-chat-completion-example">Completion vs.&nbsp;Chat Completion Example</h2>
+<p>There are 2 ways we can talk to the LLM: The completion method literally does what it promises: It completes a prompt. For having a conversation with the LLM, we need to use Chat Completion.</p>
+<p>As per the <a href="https://llama-cpp-python.readthedocs.io/en/latest/#high-level-api">Getting Started guide</a>, let’s look at one example each on how to use the API:</p>
+<p>Let’s do text completion first.</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>output <span class="op">=</span> llm(<span class="st">"Q: Name the planets in the solar system? A: "</span>, max_tokens<span class="op">=</span><span class="dv">128</span>, stop<span class="op">=</span>[<span class="st">"Q:"</span>, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>], echo<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(output[<span class="st">'choices'</span>][<span class="dv">0</span>][<span class="st">'text'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Q: Name the planets in the solar system? A: 1. Mercury 2. Venus 3. Earth 4. Mars 5. Jupiter 6. Saturn 7. Uranus 8. Neptune</code></pre>
+</div>
+</div>
+<p>For the chat completion, let’s re-write the code to reproduce the <a href="https://github.com/chrwittm/lm-hackers/blob/main/10-open-ai-api/accessing-openai-api.ipynb">example from the hackers guide</a> to make the LLM talk about money in aussie slang.</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>aussie_sys <span class="op">=</span> <span class="st">"You are an Aussie LLM that uses Aussie slang and analogies whenever possible."</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>messages<span class="op">=</span>[</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: aussie_sys},</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: <span class="st">"What is money?"</span>}]</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>model_response <span class="op">=</span> llm.create_chat_completion(messages <span class="op">=</span> messages, stream<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model_response[<span class="st">'choices'</span>][<span class="dv">0</span>][<span class="st">'message'</span>][<span class="st">'content'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Fair dinkum, mate! Money, eh? It's like the oxygen we breathe, ya know? (laughs) Just kiddin', but seriously, money is like the lifeblood of society. It's what keeps the economy tickin' over and allows us to buy the things we need and want.
+Think of it like this: money is like a big ol' pile of dough (get it? Dough? Like bread dough? Ah, never mind). We all gotta work hard to earn that dough, whether it's through our day job or by startin' our own business. And then we can use that dough to buy things like food, shelter, and a cold one at the pub after work.
+But here's the thing: money ain't everything, mate. There's more to life than just makin' dough. We gotta find meaning and purpose in our lives, or else we'll be livin' like a dog (sorry, dogs!). So, while money's important, it's not the only thing that matters.
+Now, I know some blokes might say, "Money, money, money! That's all that matters!" But let me tell you, mate, they're barkin' up the wrong tree (get it? Barkin' up the wrong tree? Ah, never mind). There's more to life than just chasin' after the green.
+So there you have it, mate! Money's like a big ol' pile of dough that we all gotta work hard to earn. But don't forget, there's more to life than just makin' dough. Keep on keepin' on, and always remember: money may not buy happiness, but it can buy a cold one at the pub after work! (laughs)</code></pre>
+</div>
+</div>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>Using the right approach, running an LLM, in this case llama2, in a Jupyter notebook on a Mac is not really difficult. Once you sorted out the setup (like terms and conditions), starting up llama2 via <code>llama-cpp-python</code> only requires a few lines of code. Happy chatting!</p>
+<style>
+  figure {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+</style>
+<figure class="figure">
+<img src="aussie-llm-money.png" alt="Dalle: Aussie LLM depicted as kangaroo talking about money with Aussie slang and analogies" style="width:50%;" class="figure-img">
+<figcaption class="figure-caption">
+Dalle: Aussie LLM depicted as kangaroo talking about money with Aussie slang and analogies
+</figcaption>
+</figure>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://utteranc.es/client.js" repo="chrwittm/chrwittm.github.io.comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center"><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>
