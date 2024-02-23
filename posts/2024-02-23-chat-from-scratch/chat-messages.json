@@ -1,0 +1,30 @@
+[
+    {
+      "role": "system",
+      "content": "For \"Question n\", please respond with \"Response n\"."
+    },
+    {
+      "role": "user",
+      "content": "Question 1"
+    },
+    {
+      "role": "assistant",
+      "content": "Response 1"
+    },
+    {
+      "role": "user",
+      "content": "Question 2"
+    },
+    {
+      "role": "assistant",
+      "content": "Response 2"
+    },
+    {
+      "role": "user",
+      "content": "Question 3"
+    },
+    {
+      "role": "assistant",
+      "content": "Response 3"
+    }
+  ]
