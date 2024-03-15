@@ -249,14 +249,13 @@ cookieconsent.run({
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sentence_transformers <span class="im">import</span> SentenceTransformer</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Large pool of animals from the keys of animal_groups dictionary</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>example_animals <span class="op">=</span> [<span class="st">"lion"</span>, <span class="st">"tiger"</span>, <span class="st">"flamingo"</span>, <span class="st">"clownfish"</span>]</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize your model (make sure to adjust the device according to your setup)</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>emb_model <span class="op">=</span> SentenceTransformer(<span class="st">"BAAI/bge-small-en-v1.5"</span>, device<span class="op">=</span><span class="st">"cpu"</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute embeddings for the large pool</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>example_animals_embeddings <span class="op">=</span> emb_model.encode(example_animals, convert_to_tensor<span class="op">=</span><span class="va">True</span>).cpu().detach().numpy()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>example_animals <span class="op">=</span> [<span class="st">"lion"</span>, <span class="st">"tiger"</span>, <span class="st">"flamingo"</span>, <span class="st">"clownfish"</span>]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize model</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>emb_model <span class="op">=</span> SentenceTransformer(<span class="st">"BAAI/bge-small-en-v1.5"</span>, device<span class="op">=</span><span class="st">"cpu"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute embeddings</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>example_animals_embeddings <span class="op">=</span> emb_model.encode(example_animals, convert_to_tensor<span class="op">=</span><span class="va">True</span>).cpu().detach().numpy()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>example_animals_embeddings.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -373,44 +372,43 @@ cookieconsent.run({
 <h2 class="anchored" data-anchor-id="visualizing-embeddings-with-more-data">Visualizing Embeddings with More Data</h2>
 <p>I hope, I did not loose you along the way. Things have gotten a bit technical, but now we are in a good position to create a more complex example which we can nonetheless intuitively understand.</p>
 <p>Let’s consider the following data for visualization:</p>
-<div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>group_colors <span class="op">=</span> {</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Cats"</span>: <span class="st">'red'</span>,</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Birds"</span>: <span class="st">'orange'</span>,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Insects"</span>: <span class="st">'brown'</span>,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Fish"</span>: <span class="st">'cyan'</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Dictionary mapping of animals to their corresponding groups</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>animal_groups <span class="op">=</span> {</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"cat"</span>: <span class="st">"Cats"</span>, <span class="st">"tiger"</span>: <span class="st">"Cats"</span>, <span class="st">"lion"</span>: <span class="st">"Cats"</span>, <span class="st">"bobcat"</span>: <span class="st">"Cats"</span>, <span class="st">"jaguar"</span>: <span class="st">"Cats"</span>, <span class="st">"leopard"</span>: <span class="st">"Cats"</span>, <span class="st">"lynx"</span>: <span class="st">"Cats"</span>, <span class="st">"cougar"</span>: <span class="st">"Cats"</span>,</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bird"</span>: <span class="st">"Birds"</span>, <span class="st">"sparrow"</span>: <span class="st">"Birds"</span>, <span class="st">"raven"</span>: <span class="st">"Birds"</span>, <span class="st">"eagle"</span>: <span class="st">"Birds"</span>, <span class="st">"crow"</span>: <span class="st">"Birds"</span>, <span class="st">"dove"</span>: <span class="st">"Birds"</span>, <span class="st">"penguin"</span>: <span class="st">"Birds"</span>, <span class="st">"flamingo"</span>: <span class="st">"Birds"</span>, <span class="st">"owl"</span>: <span class="st">"Birds"</span>, <span class="st">"hawk"</span>: <span class="st">"Birds"</span>,</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ant"</span>: <span class="st">"Insects"</span>, <span class="st">"beetle"</span>: <span class="st">"Insects"</span>, <span class="st">"spider"</span>: <span class="st">"Insects"</span>, <span class="st">"butterfly"</span>: <span class="st">"Insects"</span>, <span class="st">"bee"</span>: <span class="st">"Insects"</span>, <span class="st">"wasp"</span>: <span class="st">"Insects"</span>, <span class="st">"dragonfly"</span>: <span class="st">"Insects"</span>, <span class="st">"ladybug"</span>: <span class="st">"Insects"</span>,</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"goldfish"</span>: <span class="st">"Fish"</span>, <span class="st">"trout"</span>: <span class="st">"Fish"</span>, <span class="st">"salmon"</span>: <span class="st">"Fish"</span>, <span class="st">"clownfish"</span>: <span class="st">"Fish"</span>, <span class="st">"tuna"</span>: <span class="st">"Fish"</span>, <span class="st">"mackerel"</span>: <span class="st">"Fish"</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dictionary mapping animal groups to colors</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>group_colors <span class="op">=</span> {</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Cats"</span>: <span class="st">'red'</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Birds"</span>: <span class="st">'orange'</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Insects"</span>: <span class="st">'brown'</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Fish"</span>: <span class="st">'cyan'</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Dictionary mapping animals to their corresponding groups</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>animal_groups <span class="op">=</span> {</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"cat"</span>: <span class="st">"Cats"</span>, <span class="st">"tiger"</span>: <span class="st">"Cats"</span>, <span class="st">"lion"</span>: <span class="st">"Cats"</span>, <span class="st">"bobcat"</span>: <span class="st">"Cats"</span>, <span class="st">"jaguar"</span>: <span class="st">"Cats"</span>, <span class="st">"leopard"</span>: <span class="st">"Cats"</span>, <span class="st">"lynx"</span>: <span class="st">"Cats"</span>, <span class="st">"cougar"</span>: <span class="st">"Cats"</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bird"</span>: <span class="st">"Birds"</span>, <span class="st">"sparrow"</span>: <span class="st">"Birds"</span>, <span class="st">"raven"</span>: <span class="st">"Birds"</span>, <span class="st">"eagle"</span>: <span class="st">"Birds"</span>, <span class="st">"crow"</span>: <span class="st">"Birds"</span>, <span class="st">"dove"</span>: <span class="st">"Birds"</span>, <span class="st">"penguin"</span>: <span class="st">"Birds"</span>, <span class="st">"flamingo"</span>: <span class="st">"Birds"</span>, <span class="st">"owl"</span>: <span class="st">"Birds"</span>, <span class="st">"hawk"</span>: <span class="st">"Birds"</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ant"</span>: <span class="st">"Insects"</span>, <span class="st">"beetle"</span>: <span class="st">"Insects"</span>, <span class="st">"spider"</span>: <span class="st">"Insects"</span>, <span class="st">"butterfly"</span>: <span class="st">"Insects"</span>, <span class="st">"bee"</span>: <span class="st">"Insects"</span>, <span class="st">"wasp"</span>: <span class="st">"Insects"</span>, <span class="st">"dragonfly"</span>: <span class="st">"Insects"</span>, <span class="st">"ladybug"</span>: <span class="st">"Insects"</span>,</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"goldfish"</span>: <span class="st">"Fish"</span>, <span class="st">"trout"</span>: <span class="st">"Fish"</span>, <span class="st">"salmon"</span>: <span class="st">"Fish"</span>, <span class="st">"clownfish"</span>: <span class="st">"Fish"</span>, <span class="st">"tuna"</span>: <span class="st">"Fish"</span>, <span class="st">"mackerel"</span>: <span class="st">"Fish"</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Same as above, we calculate the embeddings using the <a href="https://huggingface.co/BAAI/bge-small-en-v1.5">BAAI/bge-small-en-v1.5</a> model, and we reduce the dimensionality via <a href="https://en.wikipedia.org/wiki/Principal_component_analysis">Principal Component Analysis (PCA)</a>.</p>
 <div class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sentence_transformers <span class="im">import</span> SentenceTransformer</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Large pool of animals from the keys of animal_groups dictionary</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>large_pool_texts <span class="op">=</span> <span class="bu">list</span>(animal_groups.keys())</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize your model (make sure to adjust the device according to your setup)</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>emb_model <span class="op">=</span> SentenceTransformer(<span class="st">"BAAI/bge-small-en-v1.5"</span>, device<span class="op">=</span><span class="st">"cpu"</span>)</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute embeddings for the large pool</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>large_pool_embeddings <span class="op">=</span> emb_model.encode(large_pool_texts, convert_to_tensor<span class="op">=</span><span class="va">True</span>).cpu().detach().numpy()</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply PCA to reduce to 2 dimensions</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>large_pool_embeddings_2d <span class="op">=</span> pca.fit_transform(large_pool_embeddings)</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Store the 2D embeddings in a dictionary, indexed by animal name</span></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>embeddings_2d_dict <span class="op">=</span> {animal: large_pool_embeddings_2d[i] <span class="cf">for</span> i, animal <span class="kw">in</span> <span class="bu">enumerate</span>(large_pool_texts)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>large_pool_texts <span class="op">=</span> <span class="bu">list</span>(animal_groups.keys())</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize model </span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>emb_model <span class="op">=</span> SentenceTransformer(<span class="st">"BAAI/bge-small-en-v1.5"</span>, device<span class="op">=</span><span class="st">"cpu"</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute embeddings</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>large_pool_embeddings <span class="op">=</span> emb_model.encode(large_pool_texts, convert_to_tensor<span class="op">=</span><span class="va">True</span>).cpu().detach().numpy()</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply PCA to reduce to 2 dimensions</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>large_pool_embeddings_2d <span class="op">=</span> pca.fit_transform(large_pool_embeddings)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Store the 2D embeddings in a dictionary, indexed by animal name</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>embeddings_2d_dict <span class="op">=</span> {animal: large_pool_embeddings_2d[i] <span class="cf">for</span> i, animal <span class="kw">in</span> <span class="bu">enumerate</span>(large_pool_texts)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s draw the Euclidean distance first by creating clusters of animals. It is important to clarify that these clusters were formed based on the predefined dataset rather than being algorithmically mined from the data. This was a deliberate choice to show that the embedding model has effectively learned to how to group animals. These fairly abstract concepts of “cat”, “bird” or “insect” are connoted in the embeddings, and we can see this because the model converts the strings “lion”, “flamingo” or “ant” into numerical representations which still contain semantic meaning. Creating the embedding therefore is not just a string-to-number conversion (like calculating a hash). It is a lot more nuanced transformation, and it is amazing to see that the embeddings even retain their semantic meaning after we have reduced their dimensionality to only 2 dimensions.</p>
 <div class="cell" data-execution_count="12">
@@ -419,7 +417,7 @@ cookieconsent.run({
 </div>
 </div>
 <p>Finally, let’s turn to the cosine similarity, which is the way the machine can even better work with similarity. Personally, I find the Euclidean distance more intuitive in 2D, but thinking back to the comparison of the 2 mechanism, I can also appreciate that the cosine similarity is more universals and computationally more effective. Nonetheless, we can see a similar pattern when plotting the cosine similarities.</p>
-<div class="cell" data-execution_count="21">
+<div class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <p><img src="index_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
 </div>
