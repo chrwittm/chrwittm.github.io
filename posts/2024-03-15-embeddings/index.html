@@ -343,43 +343,6 @@ cookieconsent.run({
 <h3 class="anchored" data-anchor-id="calculating-euclidean-distance">Calculating Euclidean Distance</h3>
 <p>Here is a visualization of the euclidean distances for our example dataset, confirming our observations.</p>
 <div class="cell" data-tags="[]" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.spatial.distance <span class="im">import</span> euclidean</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to plot the points and annotate distances</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_with_distances(embeddings, labels):</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot the points</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    plt.scatter(embeddings[:, <span class="dv">0</span>], embeddings[:, <span class="dv">1</span>], s<span class="op">=</span><span class="dv">100</span>)</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Annotate points with labels</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, label <span class="kw">in</span> <span class="bu">enumerate</span>(labels):</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        plt.annotate(label, (embeddings[i, <span class="dv">0</span>], embeddings[i, <span class="dv">1</span>]), textcoords<span class="op">=</span><span class="st">"offset points"</span>, xytext<span class="op">=</span>(<span class="dv">0</span>,<span class="dv">10</span>), ha<span class="op">=</span><span class="st">'center'</span>)</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Draw dotted lines and annotate distances</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(labels)):</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(i <span class="op">+</span> <span class="dv">1</span>, <span class="bu">len</span>(labels)):</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Compute the Euclidean distance</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>            distance <span class="op">=</span> euclidean(embeddings[i], embeddings[j])</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Draw a dotted line between points</span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>            plt.plot([embeddings[i, <span class="dv">0</span>], embeddings[j, <span class="dv">0</span>]], [embeddings[i, <span class="dv">1</span>], embeddings[j, <span class="dv">1</span>]], <span class="st">'k:'</span>, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Calculate midpoint for the distance label</span></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>            mid_point <span class="op">=</span> (embeddings[i] <span class="op">+</span> embeddings[j]) <span class="op">/</span> <span class="dv">2</span></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Annotate the line with distance</span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>            plt.text(mid_point[<span class="dv">0</span>], mid_point[<span class="dv">1</span>], <span class="ss">f'</span><span class="sc">{</span>distance<span class="sc">:.2f}</span><span class="ss">'</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">'Euclidean Distances Between Animal Embeddings'</span>)</span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">'PCA Component 1'</span>)</span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">'PCA Component 2'</span>)</span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    plt.grid(<span class="va">True</span>)</span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Call the function with your data</span></span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>plot_with_distances(example_animals_embeddings_2d, example_animals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="index_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
 </div>
@@ -390,108 +353,12 @@ cookieconsent.run({
 <h3 class="anchored" data-anchor-id="calculating-cosine-similarity">Calculating Cosine Similarity</h3>
 <p>Cosine similarity focuses on the orientation of the vectors with respect to each other without considering their magnitudes (lengths). It measures the similarity between two vectors as the cosine of the angle between them. Vectors pointing in the same direction (regardless of their length) have a cosine similarity of 1, indicating they are very similar. Vectors at 90 degrees to each other have a cosine similarity of 0, indicating no similarity, and vectors pointing in opposite directions have a cosine similarity of -1, indicating completely dissimilar. This principle holds true in higher-dimensional spaces as well. For instance, two vectors in a 3D space will adhere to the same value range for their cosine similarity. Hence, this measure can effectively express the similarity between vectors across any number of dimensions, focusing on how vectors are oriented with respect to each other rather than how far apart they are. This relation is plotted in the following cosine graph, which is colored to indicate similarity.</p>
 <div class="cell" data-tags="[]" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the range of values for x in radians from -2pi to 2pi</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>x_radians <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">2</span> <span class="op">*</span> np.pi, <span class="dv">2</span> <span class="op">*</span> np.pi, <span class="dv">1000</span>)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the cosine of each x value</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.cos(x_radians)</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>fig, ax1 <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))  <span class="co"># Set figure size and get primary axis</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>cmap <span class="op">=</span> plt.get_cmap(<span class="st">'RdYlGn'</span>)  <span class="co"># Get the colormap</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot x vs. cos(x) on primary axis with color mapping</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>color_mapped_y <span class="op">=</span> np.interp(y, (y.<span class="bu">min</span>(), y.<span class="bu">max</span>()), (<span class="dv">0</span>, <span class="dv">1</span>))  <span class="co"># Normalize y for color mapping</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>ax1.scatter(x_radians, y, c<span class="op">=</span>color_mapped_y, cmap<span class="op">=</span>cmap, label<span class="op">=</span><span class="st">'cos(x)'</span>)</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Set primary x-axis (radians) ticks and labels</span></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>radian_ticks <span class="op">=</span> np.arange(<span class="op">-</span><span class="dv">2</span> <span class="op">*</span> np.pi, <span class="fl">2.5</span> <span class="op">*</span> np.pi, np.pi <span class="op">/</span> <span class="dv">2</span>)</span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>radian_labels <span class="op">=</span> [<span class="st">'$-2\pi$'</span>, <span class="st">'$-3\pi/2$'</span>, <span class="st">'$-\pi$'</span>, <span class="st">'$-\pi/2$'</span>, <span class="st">'0'</span>, <span class="st">'$\pi/2$'</span>, <span class="st">'$\pi$'</span>, <span class="st">'$3\pi/2$'</span>, <span class="st">'$2\pi$'</span>]</span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>ax1.set_xticks(radian_ticks)</span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>ax1.set_xticklabels(radian_labels)</span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'Radians'</span>)</span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Set y-axis label</span></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'cos(x)'</span>, color<span class="op">=</span><span class="st">'b'</span>)</span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>ax1.tick_params(<span class="st">'y'</span>, colors<span class="op">=</span><span class="st">'b'</span>)</span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Define conversion functions for radians to degrees and vice versa</span></span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rad2deg(r):</span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> r <span class="op">*</span> <span class="dv">180</span> <span class="op">/</span> np.pi</span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Create secondary x-axis for degrees</span></span>
-<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>degree_ticks <span class="op">=</span> radian_ticks <span class="op">*</span> <span class="dv">180</span> <span class="op">/</span> np.pi</span>
-<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> ax1.secondary_xaxis(<span class="st">'top'</span>, functions<span class="op">=</span>(rad2deg, np.deg2rad))</span>
-<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>ax2.set_xticks(degree_ticks)</span>
-<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>ax2.set_xticklabels([<span class="ss">f"</span><span class="sc">{</span>tick<span class="sc">:.0f}</span><span class="ss">"</span> <span class="cf">for</span> tick <span class="kw">in</span> degree_ticks])</span>
-<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>ax2.set_xlabel(<span class="st">'Degrees'</span>)</span>
-<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Add vertical helper lines at multiples of π/2</span></span>
-<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> tick <span class="kw">in</span> radian_ticks:</span>
-<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>    ax1.axvline(tick, color<span class="op">=</span><span class="st">'gray'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Additional customizations</span></span>
-<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>ax1.axhline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>)  <span class="co"># Draw a horizontal line at y=0</span></span>
-<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>ax1.grid(<span class="va">True</span>, which<span class="op">=</span><span class="st">'both'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>)  <span class="co"># Add a grid</span></span>
-<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>ax1.legend()  <span class="co"># Add legend</span></span>
-<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Cosine Function with Radians and Degrees'</span>)  <span class="co"># Title of the plot</span></span>
-<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the plot</span></span>
-<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="index_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>Let’s transfer this our animal example. When thinking in terms of cosine similarity, we need to plot our 4 animals differently. Each animal is represented as vectors, and the magnitude of the vectors are normalized. Additionally, starting with the flamingo, the cosine of the angle in relation to “flamingo” is colored to indicate similarity.</p>
 <div class="cell" data-tags="[]" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> Normalize</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.cm <span class="im">import</span> ScalarMappable</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming 'example_animals_embeddings_2d' contains your PCA-transformed embeddings</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>animals <span class="op">=</span> [<span class="st">"lion"</span>, <span class="st">"tiger"</span>, <span class="st">"flamingo"</span>, <span class="st">"clownfish"</span>]</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>animal_vectors <span class="op">=</span> {animal: example_animals_embeddings_2d[animals.index(animal)] <span class="cf">for</span> animal <span class="kw">in</span> animals}</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Normalize each vector to have a length of 0.4</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>normalized_animal_vectors <span class="op">=</span> {animal: (vector <span class="op">/</span> np.linalg.norm(vector)) <span class="op">*</span> <span class="fl">0.4</span> <span class="cf">for</span> animal, vector <span class="kw">in</span> animal_vectors.items()}</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Colors for each vector that is neither green nor red</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>vector_colors <span class="op">=</span> {<span class="st">'lion'</span>: <span class="st">'blue'</span>, <span class="st">'tiger'</span>: <span class="st">'purple'</span>, <span class="st">'flamingo'</span>: <span class="st">'black'</span>, <span class="st">'clownfish'</span>: <span class="st">'orange'</span>}</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting setup</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>norm <span class="op">=</span> Normalize(vmin<span class="op">=</span><span class="dv">0</span>, vmax<span class="op">=</span><span class="dv">180</span>)</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>cmap <span class="op">=</span> plt.get_cmap(<span class="st">'RdYlGn'</span>)  <span class="co"># Red to Green color map</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>sm <span class="op">=</span> ScalarMappable(norm<span class="op">=</span>norm, cmap<span class="op">=</span>cmap)</span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate and plot additional vectors with colors based on their angle to the flamingo vector</span></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>vector_flamingo <span class="op">=</span> normalized_animal_vectors[<span class="st">'flamingo'</span>]  <span class="co"># Use the normalized flamingo vector</span></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> angle <span class="kw">in</span> np.linspace(<span class="dv">0</span>, <span class="dv">2</span><span class="op">*</span>np.pi, <span class="dv">360</span>):</span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    x, y <span class="op">=</span> np.cos(angle) <span class="op">*</span> <span class="fl">0.4</span>, np.sin(angle) <span class="op">*</span> <span class="fl">0.4</span>  <span class="co"># Vectors of length 0.4</span></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    angle_deg <span class="op">=</span> np.degrees(angle)</span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    angle_to_flamingo <span class="op">=</span> np.degrees(np.arctan2(vector_flamingo[<span class="dv">1</span>], vector_flamingo[<span class="dv">0</span>]))  <span class="co"># Angle of the flamingo vector</span></span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>    diff_angle <span class="op">=</span> np.<span class="bu">abs</span>((angle_deg <span class="op">-</span> angle_to_flamingo <span class="op">+</span> <span class="dv">180</span>) <span class="op">%</span> <span class="dv">360</span> <span class="op">-</span> <span class="dv">180</span>)  <span class="co"># Difference in angle</span></span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>    color <span class="op">=</span> sm.to_rgba(<span class="dv">180</span> <span class="op">-</span> diff_angle)  <span class="co"># Determine color based on difference in angle</span></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>    plt.quiver(<span class="dv">0</span>, <span class="dv">0</span>, x, y, angles<span class="op">=</span><span class="st">'xy'</span>, scale_units<span class="op">=</span><span class="st">'xy'</span>, scale<span class="op">=</span><span class="dv">1</span>, color<span class="op">=</span>color, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the normalized animal vectors</span></span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> animal, vector <span class="kw">in</span> normalized_animal_vectors.items():</span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>    plt.quiver(<span class="dv">0</span>, <span class="dv">0</span>, vector[<span class="dv">0</span>], vector[<span class="dv">1</span>], angles<span class="op">=</span><span class="st">'xy'</span>, scale_units<span class="op">=</span><span class="st">'xy'</span>, scale<span class="op">=</span><span class="dv">1</span>, color<span class="op">=</span>vector_colors[animal], label<span class="op">=</span>animal)</span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjust plot limits and labels</span></span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0.6</span>)</span>
-<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0.6</span>)</span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'PCA Component 1'</span>)</span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'PCA Component 2'</span>)</span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
-<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Vector Orientation Visualization with Normalized Lengths'</span>)</span>
-<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="index_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
 </div>
@@ -510,118 +377,46 @@ cookieconsent.run({
 <p>I hope, I did not loose you along the way. Things have gotten a bit technical, but now we are in a good position to create a more complex example which we can nonetheless intuitively understand.</p>
 <p>Let’s consider the following data for visualization:</p>
 <div class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>group_colors <span class="op">=</span> {</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Cats"</span>: <span class="st">'red'</span>,</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">#"Hoofed Animals": 'blue',</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">#"Rodents": 'green',</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Birds"</span>: <span class="st">'orange'</span>,</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">#"Reptiles": 'green',</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Insects"</span>: <span class="st">'brown'</span>,</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Fish"</span>: <span class="st">'cyan'</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Dictionary mapping of animals to their corresponding groups</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>animal_groups <span class="op">=</span> {</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"cat"</span>: <span class="st">"Cats"</span>, <span class="st">"tiger"</span>: <span class="st">"Cats"</span>, <span class="st">"lion"</span>: <span class="st">"Cats"</span>, <span class="st">"bobcat"</span>: <span class="st">"Cats"</span>, <span class="st">"jaguar"</span>: <span class="st">"Cats"</span>, <span class="st">"leopard"</span>: <span class="st">"Cats"</span>, <span class="st">"lynx"</span>: <span class="st">"Cats"</span>, <span class="st">"cougar"</span>: <span class="st">"Cats"</span>,</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">#"horse": "Hoofed Animals", "cow": "Hoofed Animals", "sheep": "Hoofed Animals", "goat": "Hoofed Animals", "lamb": "Hoofed Animals", "deer": "Hoofed Animals", "elk": "Hoofed Animals", "moose": "Hoofed Animals",</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">#"mouse": "Rodents", "rat": "Rodents", "squirrel": "Rodents", "beaver": "Rodents", "hamster": "Rodents", "rabbit": "Rodents",</span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bird"</span>: <span class="st">"Birds"</span>, <span class="st">"sparrow"</span>: <span class="st">"Birds"</span>, <span class="st">"raven"</span>: <span class="st">"Birds"</span>, <span class="st">"eagle"</span>: <span class="st">"Birds"</span>, <span class="st">"crow"</span>: <span class="st">"Birds"</span>, <span class="st">"dove"</span>: <span class="st">"Birds"</span>, <span class="st">"penguin"</span>: <span class="st">"Birds"</span>, <span class="st">"flamingo"</span>: <span class="st">"Birds"</span>, <span class="st">"owl"</span>: <span class="st">"Birds"</span>, <span class="st">"hawk"</span>: <span class="st">"Birds"</span>,</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">#"lizard": "Reptiles", "snake": "Reptiles", "turtle": "Reptiles", "crocodile": "Reptiles", "alligator": "Reptiles", "iguana": "Reptiles",</span></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ant"</span>: <span class="st">"Insects"</span>, <span class="st">"beetle"</span>: <span class="st">"Insects"</span>, <span class="st">"spider"</span>: <span class="st">"Insects"</span>, <span class="st">"butterfly"</span>: <span class="st">"Insects"</span>, <span class="st">"bee"</span>: <span class="st">"Insects"</span>, <span class="st">"wasp"</span>: <span class="st">"Insects"</span>, <span class="st">"dragonfly"</span>: <span class="st">"Insects"</span>, <span class="st">"ladybug"</span>: <span class="st">"Insects"</span>,</span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"goldfish"</span>: <span class="st">"Fish"</span>, <span class="st">"trout"</span>: <span class="st">"Fish"</span>, <span class="st">"salmon"</span>: <span class="st">"Fish"</span>, <span class="st">"clownfish"</span>: <span class="st">"Fish"</span>, <span class="st">"tuna"</span>: <span class="st">"Fish"</span>, <span class="st">"mackerel"</span>: <span class="st">"Fish"</span></span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>group_colors <span class="op">=</span> {</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Cats"</span>: <span class="st">'red'</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Birds"</span>: <span class="st">'orange'</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Insects"</span>: <span class="st">'brown'</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Fish"</span>: <span class="st">'cyan'</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Dictionary mapping of animals to their corresponding groups</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>animal_groups <span class="op">=</span> {</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"cat"</span>: <span class="st">"Cats"</span>, <span class="st">"tiger"</span>: <span class="st">"Cats"</span>, <span class="st">"lion"</span>: <span class="st">"Cats"</span>, <span class="st">"bobcat"</span>: <span class="st">"Cats"</span>, <span class="st">"jaguar"</span>: <span class="st">"Cats"</span>, <span class="st">"leopard"</span>: <span class="st">"Cats"</span>, <span class="st">"lynx"</span>: <span class="st">"Cats"</span>, <span class="st">"cougar"</span>: <span class="st">"Cats"</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bird"</span>: <span class="st">"Birds"</span>, <span class="st">"sparrow"</span>: <span class="st">"Birds"</span>, <span class="st">"raven"</span>: <span class="st">"Birds"</span>, <span class="st">"eagle"</span>: <span class="st">"Birds"</span>, <span class="st">"crow"</span>: <span class="st">"Birds"</span>, <span class="st">"dove"</span>: <span class="st">"Birds"</span>, <span class="st">"penguin"</span>: <span class="st">"Birds"</span>, <span class="st">"flamingo"</span>: <span class="st">"Birds"</span>, <span class="st">"owl"</span>: <span class="st">"Birds"</span>, <span class="st">"hawk"</span>: <span class="st">"Birds"</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ant"</span>: <span class="st">"Insects"</span>, <span class="st">"beetle"</span>: <span class="st">"Insects"</span>, <span class="st">"spider"</span>: <span class="st">"Insects"</span>, <span class="st">"butterfly"</span>: <span class="st">"Insects"</span>, <span class="st">"bee"</span>: <span class="st">"Insects"</span>, <span class="st">"wasp"</span>: <span class="st">"Insects"</span>, <span class="st">"dragonfly"</span>: <span class="st">"Insects"</span>, <span class="st">"ladybug"</span>: <span class="st">"Insects"</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"goldfish"</span>: <span class="st">"Fish"</span>, <span class="st">"trout"</span>: <span class="st">"Fish"</span>, <span class="st">"salmon"</span>: <span class="st">"Fish"</span>, <span class="st">"clownfish"</span>: <span class="st">"Fish"</span>, <span class="st">"tuna"</span>: <span class="st">"Fish"</span>, <span class="st">"mackerel"</span>: <span class="st">"Fish"</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Same as above, we calculate the embeddings using the <a href="https://huggingface.co/BAAI/bge-small-en-v1.5">BAAI/bge-small-en-v1.5</a> model, and we reduce the dimensionality via <a href="https://en.wikipedia.org/wiki/Principal_component_analysis">Principal Component Analysis (PCA)</a>.</p>
 <div class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sentence_transformers <span class="im">import</span> SentenceTransformer</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Large pool of animals from the keys of animal_groups dictionary</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>large_pool_texts <span class="op">=</span> <span class="bu">list</span>(animal_groups.keys())</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize your model (make sure to adjust the device according to your setup)</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>emb_model <span class="op">=</span> SentenceTransformer(<span class="st">"BAAI/bge-small-en-v1.5"</span>, device<span class="op">=</span><span class="st">"cpu"</span>)</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute embeddings for the large pool</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>large_pool_embeddings <span class="op">=</span> emb_model.encode(large_pool_texts, convert_to_tensor<span class="op">=</span><span class="va">True</span>).cpu().detach().numpy()</span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply PCA to reduce to 2 dimensions</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>large_pool_embeddings_2d <span class="op">=</span> pca.fit_transform(large_pool_embeddings)</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Store the 2D embeddings in a dictionary, indexed by animal name</span></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>embeddings_2d_dict <span class="op">=</span> {animal: large_pool_embeddings_2d[i] <span class="cf">for</span> i, animal <span class="kw">in</span> <span class="bu">enumerate</span>(large_pool_texts)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sentence_transformers <span class="im">import</span> SentenceTransformer</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Large pool of animals from the keys of animal_groups dictionary</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>large_pool_texts <span class="op">=</span> <span class="bu">list</span>(animal_groups.keys())</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize your model (make sure to adjust the device according to your setup)</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>emb_model <span class="op">=</span> SentenceTransformer(<span class="st">"BAAI/bge-small-en-v1.5"</span>, device<span class="op">=</span><span class="st">"cpu"</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute embeddings for the large pool</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>large_pool_embeddings <span class="op">=</span> emb_model.encode(large_pool_texts, convert_to_tensor<span class="op">=</span><span class="va">True</span>).cpu().detach().numpy()</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply PCA to reduce to 2 dimensions</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>large_pool_embeddings_2d <span class="op">=</span> pca.fit_transform(large_pool_embeddings)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Store the 2D embeddings in a dictionary, indexed by animal name</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>embeddings_2d_dict <span class="op">=</span> {animal: large_pool_embeddings_2d[i] <span class="cf">for</span> i, animal <span class="kw">in</span> <span class="bu">enumerate</span>(large_pool_texts)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s draw the Euclidean distance first by creating clusters of animals. It is important to clarify that these clusters were formed based on the predefined dataset rather than being algorithmically mined from the data. This was a deliberate choice to show that the embedding model has effectively learned to how to group animals. These fairly abstract concepts of “cat”, “bird” or “insect” are connoted in the embeddings, and we can see this because the model converts the strings “lion”, “flamingo” or “ant” into numerical representations which still contain semantic meaning. Creating the embedding therefore is not just a string-to-number conversion (like calculating a hash). It is a lot more nuanced transformation, and it is amazing to see that the embeddings even retain their semantic meaning after we have reduced their dimensionality to only 2 dimensions.</p>
 <div class="cell" data-tags="[]" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> HTML</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.animation <span class="im">import</span> FuncAnimation</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sentence_transformers <span class="im">import</span> SentenceTransformer</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.patches <span class="im">as</span> patches</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup the plot</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'PCA 1'</span>)</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'PCA 2'</span>)</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'2D Visualization of Animal Embeddings with Euclidean Distance'</span>)</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>animals_to_visualize <span class="op">=</span> large_pool_texts</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the bounds for the plot</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>all_embeddings <span class="op">=</span> np.array([embeddings_2d_dict[animal] <span class="cf">for</span> animal <span class="kw">in</span> embeddings_2d_dict])</span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>x_min, x_max <span class="op">=</span> all_embeddings[:, <span class="dv">0</span>].<span class="bu">min</span>() <span class="op">-</span> <span class="fl">0.1</span>, all_embeddings[:, <span class="dv">0</span>].<span class="bu">max</span>() <span class="op">+</span> <span class="fl">0.1</span></span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>y_min, y_max <span class="op">=</span> all_embeddings[:, <span class="dv">1</span>].<span class="bu">min</span>() <span class="op">-</span> <span class="fl">0.1</span>, all_embeddings[:, <span class="dv">1</span>].<span class="bu">max</span>() <span class="op">+</span> <span class="fl">0.1</span></span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the axes limits</span></span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>plt.xlim(x_min, x_max)</span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>plt.ylim(y_min, y_max)</span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Add grid</span></span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw the origin</span></span>
-<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>plt.axhline(y<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">'k'</span>)</span>
-<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">'k'</span>)</span>
-<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Pre-plotting for legend purposes</span></span>
-<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> group, color <span class="kw">in</span> group_colors.items():</span>
-<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>    ax.scatter([], [], color<span class="op">=</span>color, label<span class="op">=</span>group)</span>
-<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the full legend</span></span>
-<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
-<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>plotted_animals <span class="op">=</span> []</span>
-<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> animate(i):</span>
-<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">&lt;</span> <span class="bu">len</span>(animals_to_visualize):</span>
-<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Plot each animal</span></span>
-<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>        animal <span class="op">=</span> animals_to_visualize[i]</span>
-<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>        group <span class="op">=</span> animal_groups[animal]</span>
-<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>        color <span class="op">=</span> group_colors[group]</span>
-<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>        embedding_2d <span class="op">=</span> embeddings_2d_dict[animal]</span>
-<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a>        plotted_animals.append(ax.scatter(embedding_2d[<span class="dv">0</span>], embedding_2d[<span class="dv">1</span>], color<span class="op">=</span>color))</span>
-<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>        ax.text(embedding_2d[<span class="dv">0</span>]<span class="op">+</span><span class="fl">0.01</span>, embedding_2d[<span class="dv">1</span>]<span class="op">+</span><span class="fl">0.01</span>, animal, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
-<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> i <span class="op">==</span> <span class="bu">len</span>(animals_to_visualize):</span>
-<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Draw transparent bubbles for each group</span></span>
-<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> group, color <span class="kw">in</span> group_colors.items():</span>
-<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>            group_embeddings <span class="op">=</span> np.array([embeddings_2d_dict[animal] <span class="cf">for</span> animal <span class="kw">in</span> animal_groups <span class="cf">if</span> animal_groups[animal] <span class="op">==</span> group])</span>
-<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="bu">len</span>(group_embeddings) <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>                <span class="cf">continue</span></span>
-<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a>            centroid <span class="op">=</span> np.mean(group_embeddings, axis<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a>            std_dev <span class="op">=</span> np.std(group_embeddings, axis<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a>            ellipse <span class="op">=</span> patches.Ellipse((centroid[<span class="dv">0</span>], centroid[<span class="dv">1</span>]), std_dev[<span class="dv">0</span>]<span class="op">*</span><span class="dv">4</span>, std_dev[<span class="dv">1</span>]<span class="op">*</span><span class="dv">4</span>, color<span class="op">=</span>color, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
-<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a>            ax.add_patch(ellipse)</span>
-<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjust the frames parameter to include an additional frame for drawing bubbles</span></span>
-<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a>ani <span class="op">=</span> FuncAnimation(fig, animate, frames<span class="op">=</span><span class="bu">len</span>(animals_to_visualize) <span class="op">+</span> <span class="dv">1</span>, interval<span class="op">=</span><span class="dv">200</span>, repeat<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a><span class="co"># To display the animation in Jupyter</span></span>
-<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a>HTML(ani.to_jshtml())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="25">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -25229,61 +25024,6 @@ ugAAAABJRU5ErkJggg==\
 </div>
 <p>Finally, let’s turn to the cosine similarity, which is the way the machine can even better work with similarity. Personally, I find the Euclidean distance more intuitive in 2D, but thinking back to the comparison of the 2 mechanism, I can also appreciate that the cosine similarity is more universals and computationally more effective. Nonetheless, we can see a similar pattern when plotting the cosine similarities.</p>
 <div class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming embeddings_2d_dict and group_colors are defined as in your data preparation</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'PCA 1'</span>)</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'PCA 2'</span>)</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'2D Visualization of Animal Embeddings with Cosine Similarity'</span>)</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Set limits for the plot based on the normalized vectors</span></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="op">-</span><span class="fl">1.1</span>, <span class="fl">1.1</span>)</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="op">-</span><span class="fl">1.1</span>, <span class="fl">1.1</span>)</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Add grid</span></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw the origin</span></span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>plt.axhline(y<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">'k'</span>)</span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">'k'</span>)</span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Normalize vectors and plot</span></span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> animal, embedding <span class="kw">in</span> embeddings_2d_dict.items():</span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Normalize the vector to have a fixed length</span></span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>    norm <span class="op">=</span> np.linalg.norm(embedding)</span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> norm <span class="op">==</span> <span class="dv">0</span>:   <span class="co"># To avoid division by zero</span></span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>    normalized_vector <span class="op">=</span> embedding <span class="op">/</span> norm</span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate direction for the vector</span></span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>    dx <span class="op">=</span> normalized_vector[<span class="dv">0</span>]</span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>    dy <span class="op">=</span> normalized_vector[<span class="dv">1</span>]</span>
-<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fixed length for all vectors</span></span>
-<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>    length <span class="op">=</span> <span class="fl">0.8</span></span>
-<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Set color based on the animal group</span></span>
-<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>    group <span class="op">=</span> animal_groups[animal]</span>
-<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>    color <span class="op">=</span> group_colors[group]</span>
-<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot vector</span></span>
-<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>    ax.arrow(<span class="dv">0</span>, <span class="dv">0</span>, dx<span class="op">*</span>length, dy<span class="op">*</span>length, head_width<span class="op">=</span><span class="fl">0.03</span>, head_length<span class="op">=</span><span class="fl">0.05</span>, fc<span class="op">=</span>color, ec<span class="op">=</span>color)</span>
-<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add text label</span></span>
-<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>    ax.text(dx<span class="op">*</span>length, dy<span class="op">*</span>length, animal, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
-<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the full legend</span></span>
-<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.lines <span class="im">import</span> Line2D</span>
-<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a>legend_elements <span class="op">=</span> [Line2D([<span class="dv">0</span>], [<span class="dv">0</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'w'</span>, label<span class="op">=</span>group,</span>
-<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>                          markerfacecolor<span class="op">=</span>color, markersize<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>                   <span class="cf">for</span> group, color <span class="kw">in</span> group_colors.items()]</span>
-<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>ax.legend(handles<span class="op">=</span>legend_elements)</span>
-<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="index_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
 </div>
