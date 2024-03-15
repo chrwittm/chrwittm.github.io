@@ -2,6 +2,8 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/2024-03-15-embeddings/index.html",
+      "/posts/2024-03-08-how-to-convert-wordpress-into-markdown/index.html",
       "/posts/2024-02-23-chat-from-scratch/index.html",
       "/posts/2024-02-16-c-binding-example/index.html",
       "/posts/2024-02-15-running-llama2-on-mac/index.html",
