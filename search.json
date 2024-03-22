@@ -480,7 +480,7 @@
     "href": "posts/2024-03-08-how-to-convert-wordpress-into-markdown/index.html",
     "title": "How to Convert a Wordpress Blog into Markdown",
     "section": "",
-    "text": "In this blog post, I will guide you through the steps to convert a Wordpress blog into markdown. While this my seem like a unrelated subject of this blog, it is a preparative for building a Retrieval Augmented Generation (RAG) notebook.\nWhy did I turn it into a blog post of its own? First of all, the conversion process was more difficult and extensive than expected, therefore I felt that this is worth sharing. Additionally, it highlights (again) that data is key in any machine learning project, and that data preparation can be a project of its own.\nBy now, the Wittmann-Tours blog is available my Wittmann-Tours GitHub repo under license CC-BY NC."
+    "text": "In this blog post, I will guide you through the steps to convert a Wordpress blog into markdown. While this my seem like a unrelated subject of this blog, it is a preparative for writing a Retrieval Augmented Generation (RAG) blog post / notebook.\nWhy did I turn this conversion into a blog post of its own? First of all, the conversion process was more difficult and extensive than expected, therefore I felt that this is worth sharing. Additionally, it highlights (again) that data is key in any machine learning project, and that data preparation can be a project of its own.\nBy now, the Wittmann-Tours blog is available my Wittmann-Tours GitHub repo under license CC-BY NC."
   },
   {
     "objectID": "posts/2024-03-08-how-to-convert-wordpress-into-markdown/index.html#before-we-start",
@@ -529,7 +529,7 @@
     "href": "posts/2024-03-08-how-to-convert-wordpress-into-markdown/index.html#conclusion",
     "title": "How to Convert a Wordpress Blog into Markdown",
     "section": "Conclusion",
-    "text": "Conclusion\nConverting a Wordpress blog into Markdown turned out to be more complex than anticipated. Somehow I had anticipated there would be a simple, straightforward Wordpress plugin to get this done quickly, but no…\nIn the process to doing the conversion, I decided to document each step of the conversion in detail within this blog post. Not only did I want a reference for myself, knowing that revisiting the process even after a few weeks could be challenging without detailed notes, but I hope this guide is also useful for you reading this blog post.\nFinally, preparing the data source for my RAG project is done, which turned out to be a project of its own. (LINK will be updated soon)"
+    "text": "Conclusion\nConverting a Wordpress blog into Markdown turned out to be more complex than anticipated. Somehow I had anticipated there would be a simple, straightforward Wordpress plugin to get this done quickly, but no…\nIn the process to doing the conversion, I decided to document each step of the conversion in detail within this blog post. Not only did I want a reference for myself, knowing that revisiting the process even after a few weeks could be challenging without detailed notes, but I hope this guide is also useful for you reading this blog post.\nFinally, preparing the data source for my RAG project is done, which turned out to be a project of its own."
   },
   {
     "objectID": "posts/2023-01-17-nlp-with-disaster-tweets/index.html",
