@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.555">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -49,7 +49,13 @@ ul.task-list li input[type="checkbox"] {
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -58,6 +64,7 @@ ul.task-list li input[type="checkbox"] {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -113,6 +120,8 @@ cookieconsent.run({
   "notice_banner_reject_button_hide":false,
   "preferences_center_close_button_hide":false,
   "website_name":""
+  ,
+"language":"en"
   });
 });
 </script> 
@@ -121,16 +130,43 @@ cookieconsent.run({
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 <link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">chrwittm.github.io</span>
     </a>
@@ -142,33 +178,33 @@ cookieconsent.run({
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/chrwittm" rel="" target=""><i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/chrwittm"> <i class="bi bi-github" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com/chrwittm" rel="" target=""><i class="bi bi-twitter" role="img">
+    <a class="nav-link" href="https://twitter.com/chrwittm"> <i class="bi bi-twitter-x" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://de.linkedin.com/in/chrwittm" rel="" target=""><i class="bi bi-linkedin" role="img">
+    <a class="nav-link" href="https://de.linkedin.com/in/chrwittm"> <i class="bi bi-linkedin" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://www.kaggle.com/christianwittmann" rel="" target=""><i class="bi bi-file-earmark-code" role="img">
+    <a class="nav-link" href="https://www.kaggle.com/christianwittmann"> <i class="bi bi-file-earmark-code" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -181,7 +217,7 @@ cookieconsent.run({
   </div>
     
   
-  <div class="quarto-title-meta">
+  <div class="quarto-title-meta column-page-left">
 
       
     
@@ -205,21 +241,22 @@ cookieconsent.run({
 
 
 
+
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="llm,nlp,training" data-listing-date-sort="1718920800000" data-listing-file-modified-sort="1718947188586" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="35">
+<div class="quarto-post image-right" data-index="0" data-categories="llm,nlp,training" data-listing-date-sort="1718920800000" data-listing-file-modified-sort="1718947188586" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="35" data-listing-word-count-sort="6974">
 <div class="thumbnail">
-<p><a href="./posts/2024-06-21-how-llms-are-trained/index.html"> <img src="./posts/2024-06-21-how-llms-are-trained/llm-training.png" class="thumbnail-image"> </a></p>
+<p><a href="./posts/2024-06-21-how-llms-are-trained/index.html" class="no-external"></a></p><a href="./posts/2024-06-21-how-llms-are-trained/index.html" class="no-external">
+<p><img src="./posts/2024-06-21-how-llms-are-trained/llm-training.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/2024-06-21-how-llms-are-trained/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2024-06-21-how-llms-are-trained/index.html">
 <h3 class="no-anchor listing-title">
-How LLMs are Trained
+<a href="./posts/2024-06-21-how-llms-are-trained/index.html" class="no-external">How LLMs are Trained</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2024-06-21-how-llms-are-trained/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('llm'); return false;">
 llm
@@ -231,14 +268,12 @@ nlp
 training
 </div>
 </div>
-<a href="./posts/2024-06-21-how-llms-are-trained/index.html">
 <div class="listing-description">
-Large Language Models (LLMs) like ChatGPT have become invaluable tools for many of us. But what lies beneath the surface of these sophisticated models? How have they been…
+<a href="./posts/2024-06-21-how-llms-are-trained/index.html" class="no-external">Large Language Models (LLMs) like ChatGPT have become invaluable tools for many of us. But what lies beneath the surface of these sophisticated models? How have they been…</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2024-06-21-how-llms-are-trained/index.html">
+<a href="./posts/2024-06-21-how-llms-are-trained/index.html" class="no-external">
 <div class="listing-date">
 Jun 21, 2024
 </div>
@@ -248,19 +283,19 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="rag,llm,nlp" data-listing-date-sort="1711062000000" data-listing-file-modified-sort="1711097366576" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10">
+<div class="quarto-post image-right" data-index="1" data-categories="rag,llm,nlp" data-listing-date-sort="1711062000000" data-listing-file-modified-sort="1711097366576" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1826">
 <div class="thumbnail">
-<p><a href="./posts/2024-03-22-rag1-remembering-world-trip/index.html"> <img src="./posts/2024-03-22-rag1-remembering-world-trip/remembering-world-trip.png" class="thumbnail-image"> </a></p>
+<p><a href="./posts/2024-03-22-rag1-remembering-world-trip/index.html" class="no-external"></a></p><a href="./posts/2024-03-22-rag1-remembering-world-trip/index.html" class="no-external">
+<p><img src="./posts/2024-03-22-rag1-remembering-world-trip/remembering-world-trip.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/2024-03-22-rag1-remembering-world-trip/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2024-03-22-rag1-remembering-world-trip/index.html">
 <h3 class="no-anchor listing-title">
-Remembering the Wittmann Tours World Trip with RAG
+<a href="./posts/2024-03-22-rag1-remembering-world-trip/index.html" class="no-external">Remembering the Wittmann Tours World Trip with RAG</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2024-03-22-rag1-remembering-world-trip/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('rag'); return false;">
 rag
@@ -272,14 +307,12 @@ llm
 nlp
 </div>
 </div>
-<a href="./posts/2024-03-22-rag1-remembering-world-trip/index.html">
 <div class="listing-description">
-Back in 2017/2018 my wife and I did a world trip, and we documented it on our blog Wittmann-Tours.de. These 14 month were among the most exciting times of my life, but nonetheless, I start forgetting details. Therefore, I thought it would be great…
+<a href="./posts/2024-03-22-rag1-remembering-world-trip/index.html" class="no-external">Back in 2017/2018 my wife and I did a world trip, and we documented it on our blog Wittmann-Tours.de. These 14 month were among the most exciting times of my life, but…</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2024-03-22-rag1-remembering-world-trip/index.html">
+<a href="./posts/2024-03-22-rag1-remembering-world-trip/index.html" class="no-external">
 <div class="listing-date">
 Mar 22, 2024
 </div>
@@ -289,19 +322,19 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-categories="embeddings,llm,nlp" data-listing-date-sort="1710457200000" data-listing-file-modified-sort="1710513339275" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12">
+<div class="quarto-post image-right" data-index="2" data-categories="embeddings,llm,nlp" data-listing-date-sort="1710457200000" data-listing-file-modified-sort="1710513339275" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2389">
 <div class="thumbnail">
-<p><a href="./posts/2024-03-15-embeddings/index.html"> <img src="./posts/2024-03-15-embeddings/animal-embeddings-euclidean.png" class="thumbnail-image"> </a></p>
+<p><a href="./posts/2024-03-15-embeddings/index.html" class="no-external"></a></p><a href="./posts/2024-03-15-embeddings/index.html" class="no-external">
+<p><img src="./posts/2024-03-15-embeddings/animal-embeddings-euclidean.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/2024-03-15-embeddings/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2024-03-15-embeddings/index.html">
 <h3 class="no-anchor listing-title">
-Visualizing Embeddings in 2D
+<a href="./posts/2024-03-15-embeddings/index.html" class="no-external">Visualizing Embeddings in 2D</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2024-03-15-embeddings/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('embeddings'); return false;">
 embeddings
@@ -313,14 +346,12 @@ llm
 nlp
 </div>
 </div>
-<a href="./posts/2024-03-15-embeddings/index.html">
 <div class="listing-description">
-Did you ever try to explain what embeddings are to people who have no or only a limited background in machine learning or computer science? I recently tried this in an…
+<a href="./posts/2024-03-15-embeddings/index.html" class="no-external">Did you ever try to explain what embeddings are to people who have no or only a limited background in machine learning or computer science? I recently tried this in an…</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2024-03-15-embeddings/index.html">
+<a href="./posts/2024-03-15-embeddings/index.html" class="no-external">
 <div class="listing-date">
 Mar 15, 2024
 </div>
@@ -330,19 +361,19 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="3" data-categories="wordpress,markdown,dataset" data-listing-date-sort="1709852400000" data-listing-file-modified-sort="1711097923061" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8">
+<div class="quarto-post image-right" data-index="3" data-categories="wordpress,markdown,dataset" data-listing-date-sort="1709852400000" data-listing-file-modified-sort="1711097923061" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1427">
 <div class="thumbnail">
-<p><a href="./posts/2024-03-08-how-to-convert-wordpress-into-markdown/index.html"> <img src="./posts/2024-03-08-how-to-convert-wordpress-into-markdown/wordpress2markdown.png" class="thumbnail-image"> </a></p>
+<p><a href="./posts/2024-03-08-how-to-convert-wordpress-into-markdown/index.html" class="no-external"></a></p><a href="./posts/2024-03-08-how-to-convert-wordpress-into-markdown/index.html" class="no-external">
+<p><img src="./posts/2024-03-08-how-to-convert-wordpress-into-markdown/wordpress2markdown.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/2024-03-08-how-to-convert-wordpress-into-markdown/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2024-03-08-how-to-convert-wordpress-into-markdown/index.html">
 <h3 class="no-anchor listing-title">
-How to Convert a Wordpress Blog into Markdown
+<a href="./posts/2024-03-08-how-to-convert-wordpress-into-markdown/index.html" class="no-external">How to Convert a Wordpress Blog into Markdown</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2024-03-08-how-to-convert-wordpress-into-markdown/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('wordpress'); return false;">
 wordpress
@@ -354,14 +385,12 @@ markdown
 dataset
 </div>
 </div>
-<a href="./posts/2024-03-08-how-to-convert-wordpress-into-markdown/index.html">
 <div class="listing-description">
-In this blog…
+<a href="./posts/2024-03-08-how-to-convert-wordpress-into-markdown/index.html" class="no-external">In this blog post, I will guide you through the steps to convert a Wordpress blog into markdown. While this my seem like a unrelated subject of this blog, it is a…</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2024-03-08-how-to-convert-wordpress-into-markdown/index.html">
+<a href="./posts/2024-03-08-how-to-convert-wordpress-into-markdown/index.html" class="no-external">
 <div class="listing-date">
 Mar 8, 2024
 </div>
@@ -371,19 +400,19 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="4" data-categories="chat,jupyter,llama2,llm" data-listing-date-sort="1708642800000" data-listing-file-modified-sort="1708698355329" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
+<div class="quarto-post image-right" data-index="4" data-categories="chat,jupyter,llama2,llm" data-listing-date-sort="1708642800000" data-listing-file-modified-sort="1708698355329" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="828">
 <div class="thumbnail">
-<p><a href="./posts/2024-02-23-chat-from-scratch/index.html"> <img src="./posts/2024-02-23-chat-from-scratch/llama-lets-chat.png" class="thumbnail-image"> </a></p>
+<p><a href="./posts/2024-02-23-chat-from-scratch/index.html" class="no-external"></a></p><a href="./posts/2024-02-23-chat-from-scratch/index.html" class="no-external">
+<p><img src="./posts/2024-02-23-chat-from-scratch/llama-lets-chat.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/2024-02-23-chat-from-scratch/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2024-02-23-chat-from-scratch/index.html">
 <h3 class="no-anchor listing-title">
-Building Chat for Jupyter Notebooks from Scratch
+<a href="./posts/2024-02-23-chat-from-scratch/index.html" class="no-external">Building Chat for Jupyter Notebooks from Scratch</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2024-02-23-chat-from-scratch/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('chat'); return false;">
 chat
@@ -398,14 +427,12 @@ llama2
 llm
 </div>
 </div>
-<a href="./posts/2024-02-23-chat-from-scratch/index.html">
 <div class="listing-description">
-Let’s build a light-weight chat for llama2 from scratch which can be reused in your Jupyter notebooks.
+<a href="./posts/2024-02-23-chat-from-scratch/index.html" class="no-external">Let’s build a light-weight chat for llama2 from scratch which can be reused in your Jupyter notebooks.</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2024-02-23-chat-from-scratch/index.html">
+<a href="./posts/2024-02-23-chat-from-scratch/index.html" class="no-external">
 <div class="listing-date">
 Feb 23, 2024
 </div>
@@ -415,19 +442,19 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="5" data-categories="c,binding,llama.cpp,llm" data-listing-date-sort="1708038000000" data-listing-file-modified-sort="1708071431158" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4">
+<div class="quarto-post image-right" data-index="5" data-categories="c,binding,llama.cpp,llm" data-listing-date-sort="1708038000000" data-listing-file-modified-sort="1708071431158" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="655">
 <div class="thumbnail">
-<p><a href="./posts/2024-02-16-c-binding-example/index.html"> <img src="./posts/2024-02-16-c-binding-example/c-binding-python.png" class="thumbnail-image"> </a></p>
+<p><a href="./posts/2024-02-16-c-binding-example/index.html" class="no-external"></a></p><a href="./posts/2024-02-16-c-binding-example/index.html" class="no-external">
+<p><img src="./posts/2024-02-16-c-binding-example/c-binding-python.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/2024-02-16-c-binding-example/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2024-02-16-c-binding-example/index.html">
 <h3 class="no-anchor listing-title">
-How to Implement a C Binding in Python with ctypes
+<a href="./posts/2024-02-16-c-binding-example/index.html" class="no-external">How to Implement a C Binding in Python with ctypes</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2024-02-16-c-binding-example/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('c'); return false;">
 c
@@ -442,14 +469,12 @@ llama.cpp
 llm
 </div>
 </div>
-<a href="./posts/2024-02-16-c-binding-example/index.html">
 <div class="listing-description">
-How can compute intensive large language models (LLMs) run on consumer-grade laptops? C bindings are part of this magic, they create wrappers around the C code to make is…<code></code>
+<a href="./posts/2024-02-16-c-binding-example/index.html" class="no-external">How can compute intensive large language models (LLMs) run on consumer-grade laptops? C bindings are part of this magic, they create wrappers around the C code to make is…<code></code></a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2024-02-16-c-binding-example/index.html">
+<a href="./posts/2024-02-16-c-binding-example/index.html" class="no-external">
 <div class="listing-date">
 Feb 16, 2024
 </div>
@@ -459,19 +484,19 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="6" data-categories="llama2,apple silicon,llama.cpp,hugging face,llm" data-listing-date-sort="1707951600000" data-listing-file-modified-sort="1708069803687" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7">
+<div class="quarto-post image-right" data-index="6" data-categories="llama2,apple silicon,llama.cpp,hugging face,llm" data-listing-date-sort="1707951600000" data-listing-file-modified-sort="1708069803687" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1369">
 <div class="thumbnail">
-<p><a href="./posts/2024-02-15-running-llama2-on-mac/index.html"> <img src="./posts/2024-02-15-running-llama2-on-mac/llama-on-mac.png" class="thumbnail-image"> </a></p>
+<p><a href="./posts/2024-02-15-running-llama2-on-mac/index.html" class="no-external"></a></p><a href="./posts/2024-02-15-running-llama2-on-mac/index.html" class="no-external">
+<p><img src="./posts/2024-02-15-running-llama2-on-mac/llama-on-mac.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/2024-02-15-running-llama2-on-mac/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2024-02-15-running-llama2-on-mac/index.html">
 <h3 class="no-anchor listing-title">
-Running LLama2 locally on a Mac
+<a href="./posts/2024-02-15-running-llama2-on-mac/index.html" class="no-external">Running LLama2 locally on a Mac</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2024-02-15-running-llama2-on-mac/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('llama2'); return false;">
 llama2
@@ -489,14 +514,12 @@ hugging face
 llm
 </div>
 </div>
-<a href="./posts/2024-02-15-running-llama2-on-mac/index.html">
 <div class="listing-description">
-Running a large language models (LLM), namely llama2, locally on my Mac was the next logical step for me working through the hacker’s guide by Jeremy Howard. While it was possible to adjust Jeremy’s approach on Hugging Face to also work on Apple…<code></code><code></code>
+<a href="./posts/2024-02-15-running-llama2-on-mac/index.html" class="no-external">Running a large language models (LLM), namely llama2, locally on my Mac was the next logical step for me working through the hacker’s guide by Jeremy Howard. While it was…<code></code><code></code></a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2024-02-15-running-llama2-on-mac/index.html">
+<a href="./posts/2024-02-15-running-llama2-on-mac/index.html" class="no-external">
 <div class="listing-date">
 Feb 15, 2024
 </div>
@@ -506,19 +529,19 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="7" data-categories="openai,jupyter,api,llm" data-listing-date-sort="1706310000000" data-listing-file-modified-sort="1708069771728" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
+<div class="quarto-post image-right" data-index="7" data-categories="openai,jupyter,api,llm" data-listing-date-sort="1706310000000" data-listing-file-modified-sort="1708069771728" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="839">
 <div class="thumbnail">
-<p><a href="./posts/2024-01-27-how-to-call-openai-api/index.html"> <img src="./posts/2024-01-27-how-to-call-openai-api/openai-api-512px.png" class="thumbnail-image"> </a></p>
+<p><a href="./posts/2024-01-27-how-to-call-openai-api/index.html" class="no-external"></a></p><a href="./posts/2024-01-27-how-to-call-openai-api/index.html" class="no-external">
+<p><img src="./posts/2024-01-27-how-to-call-openai-api/openai-api-512px.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/2024-01-27-how-to-call-openai-api/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2024-01-27-how-to-call-openai-api/index.html">
 <h3 class="no-anchor listing-title">
-How to call the OpenAI API from a Jupyter Notebook
+<a href="./posts/2024-01-27-how-to-call-openai-api/index.html" class="no-external">How to call the OpenAI API from a Jupyter Notebook</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2024-01-27-how-to-call-openai-api/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('openai'); return false;">
 openai
@@ -533,14 +556,12 @@ api
 llm
 </div>
 </div>
-<a href="./posts/2024-01-27-how-to-call-openai-api/index.html">
 <div class="listing-description">
-Exploring Large Language Models (LLMs) through their Web-based User Interfaces (WebUIs) is indeed insightful, particularly for experimenting with various prompt engineering…
+<a href="./posts/2024-01-27-how-to-call-openai-api/index.html" class="no-external">Exploring Large Language Models (LLMs) through their Web-based User Interfaces (WebUIs) is indeed insightful, particularly for experimenting with various prompt engineering…</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2024-01-27-how-to-call-openai-api/index.html">
+<a href="./posts/2024-01-27-how-to-call-openai-api/index.html" class="no-external">
 <div class="listing-date">
 Jan 27, 2024
 </div>
@@ -550,19 +571,19 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="8" data-categories="ml,fast.ai,apple silicon,hugging face,mnist,nlp" data-listing-date-sort="1704409200000" data-listing-file-modified-sort="1708069439153" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8">
+<div class="quarto-post image-right" data-index="8" data-categories="ml,fast.ai,apple silicon,hugging face,mnist,nlp" data-listing-date-sort="1704409200000" data-listing-file-modified-sort="1708069439153" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1473">
 <div class="thumbnail">
-<p><a href="./posts/2024-01-05-running-ml-on-apple-silicon/index.html"> <img src="./posts/2024-01-05-running-ml-on-apple-silicon/running-ml-on-apple-silicon.png" class="thumbnail-image"> </a></p>
+<p><a href="./posts/2024-01-05-running-ml-on-apple-silicon/index.html" class="no-external"></a></p><a href="./posts/2024-01-05-running-ml-on-apple-silicon/index.html" class="no-external">
+<p><img src="./posts/2024-01-05-running-ml-on-apple-silicon/running-ml-on-apple-silicon.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/2024-01-05-running-ml-on-apple-silicon/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2024-01-05-running-ml-on-apple-silicon/index.html">
 <h3 class="no-anchor listing-title">
-Running Fast.AI / Huggingface Transformers on Apple Silicon
+<a href="./posts/2024-01-05-running-ml-on-apple-silicon/index.html" class="no-external">Running Fast.AI / Huggingface Transformers on Apple Silicon</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2024-01-05-running-ml-on-apple-silicon/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('ml'); return false;">
 ml
@@ -583,14 +604,12 @@ mnist
 nlp
 </div>
 </div>
-<a href="./posts/2024-01-05-running-ml-on-apple-silicon/index.html">
 <div class="listing-description">
-In my previous blog post, I described how I setup my Fast.AI development environment on Apple Silicon. In this one, let me share my experience running some notebooks on Apple Silicon. I focus on…
+<a href="./posts/2024-01-05-running-ml-on-apple-silicon/index.html" class="no-external">In my previous blog post, I described how I setup my Fast.AI development environment on Apple Silicon. In this one, let me share my experience running some notebooks on…</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2024-01-05-running-ml-on-apple-silicon/index.html">
+<a href="./posts/2024-01-05-running-ml-on-apple-silicon/index.html" class="no-external">
 <div class="listing-date">
 Jan 5, 2024
 </div>
@@ -600,19 +619,19 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="9" data-categories="ml,fast.ai,apple silicon,install" data-listing-date-sort="1702422000000" data-listing-file-modified-sort="1708069460464" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
+<div class="quarto-post image-right" data-index="9" data-categories="ml,fast.ai,apple silicon,install" data-listing-date-sort="1702422000000" data-listing-file-modified-sort="1708069460464" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="578">
 <div class="thumbnail">
-<p><a href="./posts/2023-12-13-installing-fast-ai-on-apple-silicon/index.html"> <img src="./posts/2023-12-13-installing-fast-ai-on-apple-silicon/fast-ai-on-apple-silicon-512px.png" class="thumbnail-image"> </a></p>
+<p><a href="./posts/2023-12-13-installing-fast-ai-on-apple-silicon/index.html" class="no-external"></a></p><a href="./posts/2023-12-13-installing-fast-ai-on-apple-silicon/index.html" class="no-external">
+<p><img src="./posts/2023-12-13-installing-fast-ai-on-apple-silicon/fast-ai-on-apple-silicon-512px.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/2023-12-13-installing-fast-ai-on-apple-silicon/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2023-12-13-installing-fast-ai-on-apple-silicon/index.html">
 <h3 class="no-anchor listing-title">
-Installing Fast.AI on Apple Silicon
+<a href="./posts/2023-12-13-installing-fast-ai-on-apple-silicon/index.html" class="no-external">Installing Fast.AI on Apple Silicon</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2023-12-13-installing-fast-ai-on-apple-silicon/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('ml'); return false;">
 ml
@@ -627,14 +646,12 @@ apple silicon
 install
 </div>
 </div>
-<a href="./posts/2023-12-13-installing-fast-ai-on-apple-silicon/index.html">
 <div class="listing-description">
-I recently moved from Windows to Mac. One of the things which needed attention in making that shift was to re-install everything around Fast.AI.
+<a href="./posts/2023-12-13-installing-fast-ai-on-apple-silicon/index.html" class="no-external">I recently moved from Windows to Mac. One of the things which needed attention in making that shift was to re-install everything around Fast.AI.</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2023-12-13-installing-fast-ai-on-apple-silicon/index.html">
+<a href="./posts/2023-12-13-installing-fast-ai-on-apple-silicon/index.html" class="no-external">
 <div class="listing-date">
 Dec 13, 2023
 </div>
@@ -644,19 +661,19 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="10" data-categories="ml,kaggle,titanic,chatgpt,eda" data-listing-date-sort="1677970800000" data-listing-file-modified-sort="1706677797199" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6">
+<div class="quarto-post image-right" data-index="10" data-categories="ml,kaggle,titanic,chatgpt,eda" data-listing-date-sort="1677970800000" data-listing-file-modified-sort="1706677797199" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1133">
 <div class="thumbnail">
-<p><a href="./posts/2023-03-05-titanic-with-chatgpt/index.html"> <img src="./posts/2023-03-05-titanic-with-chatgpt/the_captain_of_the_titanic_talking_to_a_chatbot.png" class="thumbnail-image"> </a></p>
+<p><a href="./posts/2023-03-05-titanic-with-chatgpt/index.html" class="no-external"></a></p><a href="./posts/2023-03-05-titanic-with-chatgpt/index.html" class="no-external">
+<p><img src="./posts/2023-03-05-titanic-with-chatgpt/the_captain_of_the_titanic_talking_to_a_chatbot.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/2023-03-05-titanic-with-chatgpt/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2023-03-05-titanic-with-chatgpt/index.html">
 <h3 class="no-anchor listing-title">
-Titanic with ChatGPT
+<a href="./posts/2023-03-05-titanic-with-chatgpt/index.html" class="no-external">Titanic with ChatGPT</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2023-03-05-titanic-with-chatgpt/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('ml'); return false;">
 ml
@@ -674,14 +691,12 @@ chatgpt
 eda
 </div>
 </div>
-<a href="./posts/2023-03-05-titanic-with-chatgpt/index.html">
 <div class="listing-description">
-Reworking Lesson 5, I returned to the Titanic Competition to learn more Fast.AI-concepts. Additionally, I explored how ChatGPT could increase my productivity.
+<a href="./posts/2023-03-05-titanic-with-chatgpt/index.html" class="no-external">Reworking Lesson 5, I returned to the Titanic Competition to learn more Fast.AI-concepts. Additionally, I explored how ChatGPT could increase my productivity.</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2023-03-05-titanic-with-chatgpt/index.html">
+<a href="./posts/2023-03-05-titanic-with-chatgpt/index.html" class="no-external">
 <div class="listing-date">
 Mar 5, 2023
 </div>
@@ -691,19 +706,19 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="11" data-categories="ml,data,hugging face,nlp,kaggle" data-listing-date-sort="1674774000000" data-listing-file-modified-sort="1675012544000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8">
+<div class="quarto-post image-right" data-index="11" data-categories="ml,data,hugging face,nlp,kaggle" data-listing-date-sort="1674774000000" data-listing-file-modified-sort="1675012544000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1541">
 <div class="thumbnail">
-<p><a href="./posts/2023-01-27-disaster-tweet-dataset-limitations/index.html"> <img src="./posts/2023-01-27-disaster-tweet-dataset-limitations/twitter-on-fire-dalle2-2.png" class="thumbnail-image"> </a></p>
+<p><a href="./posts/2023-01-27-disaster-tweet-dataset-limitations/index.html" class="no-external"></a></p><a href="./posts/2023-01-27-disaster-tweet-dataset-limitations/index.html" class="no-external">
+<p><img src="./posts/2023-01-27-disaster-tweet-dataset-limitations/twitter-on-fire-dalle2-2.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/2023-01-27-disaster-tweet-dataset-limitations/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2023-01-27-disaster-tweet-dataset-limitations/index.html">
 <h3 class="no-anchor listing-title">
-Discovering Disaster Tweet Dataset Limitations
+<a href="./posts/2023-01-27-disaster-tweet-dataset-limitations/index.html" class="no-external">Discovering Disaster Tweet Dataset Limitations</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2023-01-27-disaster-tweet-dataset-limitations/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('ml'); return false;">
 ml
@@ -721,15 +736,13 @@ nlp
 kaggle
 </div>
 </div>
-<a href="./posts/2023-01-27-disaster-tweet-dataset-limitations/index.html">
 <div class="listing-description">
-
-What started out as a simple exercise to visualize model performance…
+<a href="./posts/2023-01-27-disaster-tweet-dataset-limitations/index.html" class="no-external">
+What started out as a simple exercise to visualize model performance using a confusion matrix revealed that the training set contains lots of incorrectly labeled tweets…</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2023-01-27-disaster-tweet-dataset-limitations/index.html">
+<a href="./posts/2023-01-27-disaster-tweet-dataset-limitations/index.html" class="no-external">
 <div class="listing-date">
 Jan 27, 2023
 </div>
@@ -739,19 +752,19 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="12" data-categories="kaggle,nlp,hugging face,ml" data-listing-date-sort="1673910000000" data-listing-file-modified-sort="1675012574000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="20">
+<div class="quarto-post image-right" data-index="12" data-categories="kaggle,nlp,hugging face,ml" data-listing-date-sort="1673910000000" data-listing-file-modified-sort="1675012574000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="20" data-listing-word-count-sort="3976">
 <div class="thumbnail">
-<p><a href="./posts/2023-01-17-nlp-with-disaster-tweets/index.html"> <img src="./posts/2023-01-17-nlp-with-disaster-tweets/twitter-on-fire-dalle2-crop-400px.png" class="thumbnail-image"> </a></p>
+<p><a href="./posts/2023-01-17-nlp-with-disaster-tweets/index.html" class="no-external"></a></p><a href="./posts/2023-01-17-nlp-with-disaster-tweets/index.html" class="no-external">
+<p><img src="./posts/2023-01-17-nlp-with-disaster-tweets/twitter-on-fire-dalle2-crop-400px.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/2023-01-17-nlp-with-disaster-tweets/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2023-01-17-nlp-with-disaster-tweets/index.html">
 <h3 class="no-anchor listing-title">
-Natural Language Processing with Disaster Tweets
+<a href="./posts/2023-01-17-nlp-with-disaster-tweets/index.html" class="no-external">Natural Language Processing with Disaster Tweets</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2023-01-17-nlp-with-disaster-tweets/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('kaggle'); return false;">
 kaggle
@@ -766,15 +779,13 @@ hugging face
 ml
 </div>
 </div>
-<a href="./posts/2023-01-17-nlp-with-disaster-tweets/index.html">
 <div class="listing-description">
-
-Based on the Fast.AI lesson 4, I transferred the approach from Jeremy’s notebook “Getting started with NLP for absolute beginners” to the Kaggle competition “Natural Language Processing…
+<a href="./posts/2023-01-17-nlp-with-disaster-tweets/index.html" class="no-external">
+Based on the Fast.AI lesson 4, I transferred the approach from Jeremy’s notebook “Getting started with NLP for absolute beginners” to the Kaggle competition “Natural…</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2023-01-17-nlp-with-disaster-tweets/index.html">
+<a href="./posts/2023-01-17-nlp-with-disaster-tweets/index.html" class="no-external">
 <div class="listing-date">
 Jan 17, 2023
 </div>
@@ -784,19 +795,19 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="13" data-categories="fast.ai,kaggle,ml" data-listing-date-sort="1669762800000" data-listing-file-modified-sort="1669970114000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
+<div class="quarto-post image-right" data-index="13" data-categories="fast.ai,kaggle,ml" data-listing-date-sort="1669762800000" data-listing-file-modified-sort="1669970114000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="932">
 <div class="thumbnail">
-<p><a href="./posts/2022-11-30-wrapping-up-lesson3/index.html"> <img src="./posts/2022-11-30-wrapping-up-lesson3/fastai-logo.png" class="thumbnail-image"> </a></p>
+<p><a href="./posts/2022-11-30-wrapping-up-lesson3/index.html" class="no-external"></a></p><a href="./posts/2022-11-30-wrapping-up-lesson3/index.html" class="no-external">
+<p><img src="./posts/2022-11-30-wrapping-up-lesson3/fastai-logo.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/2022-11-30-wrapping-up-lesson3/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2022-11-30-wrapping-up-lesson3/index.html">
 <h3 class="no-anchor listing-title">
-Wrapping-up Lesson 3
+<a href="./posts/2022-11-30-wrapping-up-lesson3/index.html" class="no-external">Wrapping-up Lesson 3</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2022-11-30-wrapping-up-lesson3/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('fast.ai'); return false;">
 fast.ai
@@ -808,14 +819,12 @@ kaggle
 ml
 </div>
 </div>
-<a href="./posts/2022-11-30-wrapping-up-lesson3/index.html">
 <div class="listing-description">
-Lesson 3 took me a while to rework, because it churned out quite a few interesting projects:
+<a href="./posts/2022-11-30-wrapping-up-lesson3/index.html" class="no-external">Lesson 3 took me a while to rework, because it churned out quite a few interesting projects:</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2022-11-30-wrapping-up-lesson3/index.html">
+<a href="./posts/2022-11-30-wrapping-up-lesson3/index.html" class="no-external">
 <div class="listing-date">
 Nov 30, 2022
 </div>
@@ -825,19 +834,19 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="14" data-categories="blogging,quarto,jupyter" data-listing-date-sort="1669503600000" data-listing-file-modified-sort="1669552384000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
+<div class="quarto-post image-right" data-index="14" data-categories="blogging,quarto,jupyter" data-listing-date-sort="1669503600000" data-listing-file-modified-sort="1669552384000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="483">
 <div class="thumbnail">
-<p><a href="./posts/2022-11-27-rebuilding-quarto-blog/index.html"> <img src="./posts/2022-11-27-rebuilding-quarto-blog/quarto.png" class="thumbnail-image"> </a></p>
+<p><a href="./posts/2022-11-27-rebuilding-quarto-blog/index.html" class="no-external"></a></p><a href="./posts/2022-11-27-rebuilding-quarto-blog/index.html" class="no-external">
+<p><img src="./posts/2022-11-27-rebuilding-quarto-blog/quarto.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/2022-11-27-rebuilding-quarto-blog/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2022-11-27-rebuilding-quarto-blog/index.html">
 <h3 class="no-anchor listing-title">
-When disaster strikes: Re-building a Quarto Blog
+<a href="./posts/2022-11-27-rebuilding-quarto-blog/index.html" class="no-external">When disaster strikes: Re-building a Quarto Blog</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2022-11-27-rebuilding-quarto-blog/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('blogging'); return false;">
 blogging
@@ -849,14 +858,12 @@ quarto
 jupyter
 </div>
 </div>
-<a href="./posts/2022-11-27-rebuilding-quarto-blog/index.html">
 <div class="listing-description">
-For the last 2 months I have been a proud writer of this blog, until yesterday disaster struck: Upon publishing of my MNIST-blog post via the usual <code>quarto publish gh-pages</code>, I received the following error…
+<a href="./posts/2022-11-27-rebuilding-quarto-blog/index.html" class="no-external">For the last 2 months I have been a proud writer of this blog, until yesterday disaster struck: Upon publishing of my MNIST-blog post via the usual <code>quarto publish gh-pages</code>…</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2022-11-27-rebuilding-quarto-blog/index.html">
+<a href="./posts/2022-11-27-rebuilding-quarto-blog/index.html" class="no-external">
 <div class="listing-date">
 Nov 27, 2022
 </div>
@@ -866,19 +873,19 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="15" data-categories="kaggle,mnist,fast.ai,vision" data-listing-date-sort="1669417200000" data-listing-file-modified-sort="1669618548000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
+<div class="quarto-post image-right" data-index="15" data-categories="kaggle,mnist,fast.ai,vision" data-listing-date-sort="1669417200000" data-listing-file-modified-sort="1669618548000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="826">
 <div class="thumbnail">
-<p><a href="./posts/2022-11-26-mnist/index.html"> <img src="./posts/2022-11-26-mnist/mnist-digits.png" class="thumbnail-image"> </a></p>
+<p><a href="./posts/2022-11-26-mnist/index.html" class="no-external"></a></p><a href="./posts/2022-11-26-mnist/index.html" class="no-external">
+<p><img src="./posts/2022-11-26-mnist/mnist-digits.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/2022-11-26-mnist/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2022-11-26-mnist/index.html">
 <h3 class="no-anchor listing-title">
-MNIST, the ‘Hello World’ of Computer Vision
+<a href="./posts/2022-11-26-mnist/index.html" class="no-external">MNIST, the ‘Hello World’ of Computer Vision</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2022-11-26-mnist/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('kaggle'); return false;">
 kaggle
@@ -893,14 +900,12 @@ fast.ai
 vision
 </div>
 </div>
-<a href="./posts/2022-11-26-mnist/index.html">
 <div class="listing-description">
-After Cat vs.&nbsp;Dog, this is the next challenge for me in computer vision: Building on chapter 4 of the book, I challenged myself to implement a model based on the MNIST dataset, as recommended as further…
+<a href="./posts/2022-11-26-mnist/index.html" class="no-external">After Cat vs.&nbsp;Dog, this is the next challenge for me in computer vision: Building on chapter 4 of the book, I challenged myself to implement a model based on the MNIST datase…</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2022-11-26-mnist/index.html">
+<a href="./posts/2022-11-26-mnist/index.html" class="no-external">
 <div class="listing-date">
 Nov 26, 2022
 </div>
@@ -910,19 +915,19 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="16" data-categories="kaggle,titanic,fast.ai,ml,tabular" data-listing-date-sort="1667602800000" data-listing-file-modified-sort="1669703488000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
+<div class="quarto-post image-right" data-index="16" data-categories="kaggle,titanic,fast.ai,ml,tabular" data-listing-date-sort="1667602800000" data-listing-file-modified-sort="1669703488000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="986">
 <div class="thumbnail">
-<p><a href="./posts/2022-11-05-kaggle-titanic/index.html"> <img src="./posts/2022-11-05-kaggle-titanic/Kaggle_logo.png" class="thumbnail-image"> </a></p>
+<p><a href="./posts/2022-11-05-kaggle-titanic/index.html" class="no-external"></a></p><a href="./posts/2022-11-05-kaggle-titanic/index.html" class="no-external">
+<p><img src="./posts/2022-11-05-kaggle-titanic/Kaggle_logo.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/2022-11-05-kaggle-titanic/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2022-11-05-kaggle-titanic/index.html">
 <h3 class="no-anchor listing-title">
-My First Kaggle Competition: Titanic
+<a href="./posts/2022-11-05-kaggle-titanic/index.html" class="no-external">My First Kaggle Competition: Titanic</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2022-11-05-kaggle-titanic/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('kaggle'); return false;">
 kaggle
@@ -940,14 +945,12 @@ ml
 tabular
 </div>
 </div>
-<a href="./posts/2022-11-05-kaggle-titanic/index.html">
 <div class="listing-description">
-For more practical experience with gradient descent, I decided to participate in the Titanic Competition. Here is how I did it and what I learned.
+<a href="./posts/2022-11-05-kaggle-titanic/index.html" class="no-external">For more practical experience with gradient descent, I decided to participate in the Titanic Competition. Here is how I did it and what I learned.</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2022-11-05-kaggle-titanic/index.html">
+<a href="./posts/2022-11-05-kaggle-titanic/index.html" class="no-external">
 <div class="listing-date">
 Nov 5, 2022
 </div>
@@ -957,19 +960,19 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="17" data-categories="math,python,numpy,pytorch" data-listing-date-sort="1666908000000" data-listing-file-modified-sort="1669539952000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4">
+<div class="quarto-post image-right" data-index="17" data-categories="math,python,numpy,pytorch" data-listing-date-sort="1666908000000" data-listing-file-modified-sort="1669539952000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="756">
 <div class="thumbnail">
-<p><a href="./posts/2022-10-28-matrix-multiplication/index.html"> <img src="./posts/2022-10-28-matrix-multiplication/khan-matrix-dimensions.png" class="thumbnail-image"> </a></p>
+<p><a href="./posts/2022-10-28-matrix-multiplication/index.html" class="no-external"></a></p><a href="./posts/2022-10-28-matrix-multiplication/index.html" class="no-external">
+<p><img src="./posts/2022-10-28-matrix-multiplication/khan-matrix-dimensions.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/2022-10-28-matrix-multiplication/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2022-10-28-matrix-multiplication/index.html">
 <h3 class="no-anchor listing-title">
-Matrix Multiplication
+<a href="./posts/2022-10-28-matrix-multiplication/index.html" class="no-external">Matrix Multiplication</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2022-10-28-matrix-multiplication/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('math'); return false;">
 math
@@ -984,14 +987,12 @@ numpy
 pytorch
 </div>
 </div>
-<a href="./posts/2022-10-28-matrix-multiplication/index.html">
 <div class="listing-description">
-Since matrix multiplication is a big thing for deep learning and visualizations like http://matrixmultiplication.xyz/ were a bit to fast for me to properly re-understand what I learned in highschool, I decided dive in more systematically without falling into the trap of learning lots of…
+<a href="./posts/2022-10-28-matrix-multiplication/index.html" class="no-external">Since matrix multiplication is a big thing for deep learning and visualizations like http://matrixmultiplication.xyz/ were a bit to fast for me to properly re-understand…</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2022-10-28-matrix-multiplication/index.html">
+<a href="./posts/2022-10-28-matrix-multiplication/index.html" class="no-external">
 <div class="listing-date">
 Oct 28, 2022
 </div>
@@ -1001,19 +1002,19 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="18" data-categories="blogging,quarto,jupyter" data-listing-date-sort="1666303200000" data-listing-file-modified-sort="1669539952000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6">
+<div class="quarto-post image-right" data-index="18" data-categories="blogging,quarto,jupyter" data-listing-date-sort="1666303200000" data-listing-file-modified-sort="1669539952000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1038">
 <div class="thumbnail">
-<p><a href="./posts/2022-10-21-how-i-created-this-blog/index.html"> <img src="./posts/2022-10-21-how-i-created-this-blog/quarto.png" class="thumbnail-image"> </a></p>
+<p><a href="./posts/2022-10-21-how-i-created-this-blog/index.html" class="no-external"></a></p><a href="./posts/2022-10-21-how-i-created-this-blog/index.html" class="no-external">
+<p><img src="./posts/2022-10-21-how-i-created-this-blog/quarto.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/2022-10-21-how-i-created-this-blog/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2022-10-21-how-i-created-this-blog/index.html">
 <h3 class="no-anchor listing-title">
-How I created this Blog
+<a href="./posts/2022-10-21-how-i-created-this-blog/index.html" class="no-external">How I created this Blog</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2022-10-21-how-i-created-this-blog/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('blogging'); return false;">
 blogging
@@ -1025,14 +1026,12 @@ quarto
 jupyter
 </div>
 </div>
-<a href="./posts/2022-10-21-how-i-created-this-blog/index.html">
 <div class="listing-description">
-Blogging is an essential part of the Fast.AI methodology, therefore, I decided to follow the advice and start my blog to document…
+<a href="./posts/2022-10-21-how-i-created-this-blog/index.html" class="no-external">Blogging is an essential part of the Fast.AI methodology, therefore, I decided to follow the advice and start my blog to document my “Machine Learning Journey”. Here are the…</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2022-10-21-how-i-created-this-blog/index.html">
+<a href="./posts/2022-10-21-how-i-created-this-blog/index.html" class="no-external">
 <div class="listing-date">
 Oct 21, 2022
 </div>
@@ -1042,19 +1041,19 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="19" data-categories="blogging,quarto,jupyter" data-listing-date-sort="1666044000000" data-listing-file-modified-sort="1669539952000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
+<div class="quarto-post image-right" data-index="19" data-categories="blogging,quarto,jupyter" data-listing-date-sort="1666044000000" data-listing-file-modified-sort="1669539952000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="221">
 <div class="thumbnail">
-<p><a href="./posts/2022-10-18-blogging-with-jupyter-notebook/index.html"> <img src="./posts/2022-10-18-blogging-with-jupyter-notebook/jupyter_logo.png" class="thumbnail-image"> </a></p>
+<p><a href="./posts/2022-10-18-blogging-with-jupyter-notebook/index.html" class="no-external"></a></p><a href="./posts/2022-10-18-blogging-with-jupyter-notebook/index.html" class="no-external">
+<p><img src="./posts/2022-10-18-blogging-with-jupyter-notebook/jupyter_logo.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/2022-10-18-blogging-with-jupyter-notebook/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2022-10-18-blogging-with-jupyter-notebook/index.html">
 <h3 class="no-anchor listing-title">
-Creating a Blog Post using a Jupyter Notebook
+<a href="./posts/2022-10-18-blogging-with-jupyter-notebook/index.html" class="no-external">Creating a Blog Post using a Jupyter Notebook</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2022-10-18-blogging-with-jupyter-notebook/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('blogging'); return false;">
 blogging
@@ -1066,14 +1065,12 @@ quarto
 jupyter
 </div>
 </div>
-<a href="./posts/2022-10-18-blogging-with-jupyter-notebook/index.html">
 <div class="listing-description">
-This is somehow a “Hello World”-notebook, since its only purpose is to demonstrate how you can use a jupyter notebook to write a blog post using Quarto.
+<a href="./posts/2022-10-18-blogging-with-jupyter-notebook/index.html" class="no-external">This is somehow a “Hello World”-notebook, since its only purpose is to demonstrate how you can use a jupyter notebook to write a blog post using Quarto.</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2022-10-18-blogging-with-jupyter-notebook/index.html">
+<a href="./posts/2022-10-18-blogging-with-jupyter-notebook/index.html" class="no-external">
 <div class="listing-date">
 Oct 18, 2022
 </div>
@@ -1083,19 +1080,19 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="20" data-categories="fast.ai,ml" data-listing-date-sort="1665612000000" data-listing-file-modified-sort="1669539952000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
+<div class="quarto-post image-right" data-index="20" data-categories="fast.ai,ml" data-listing-date-sort="1665612000000" data-listing-file-modified-sort="1669539952000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="246">
 <div class="thumbnail">
-<p><a href="./posts/2022-10-13-visualizing-gradient-descent-in-3d/index.html"> <p class="card-img-top"><img src="posts/2022-10-13-visualizing-gradient-descent-in-3d/visualizing-gradient-descent-in-3d.png"  class="thumbnail-image card-img"/></p> </a></p>
+<p><a href="./posts/2022-10-13-visualizing-gradient-descent-in-3d/index.html" class="no-external"></a></p><a href="./posts/2022-10-13-visualizing-gradient-descent-in-3d/index.html" class="no-external">
+<p class="card-img-top"><img src="posts/2022-10-13-visualizing-gradient-descent-in-3d/visualizing-gradient-descent-in-3d.png"  class="thumbnail-image card-img"/></p>
+</a><p><a href="./posts/2022-10-13-visualizing-gradient-descent-in-3d/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2022-10-13-visualizing-gradient-descent-in-3d/index.html">
 <h3 class="no-anchor listing-title">
-Visualizing Gradient Descent in 3D
+<a href="./posts/2022-10-13-visualizing-gradient-descent-in-3d/index.html" class="no-external">Visualizing Gradient Descent in 3D</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2022-10-13-visualizing-gradient-descent-in-3d/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('fast.ai'); return false;">
 fast.ai
@@ -1104,14 +1101,12 @@ fast.ai
 ml
 </div>
 </div>
-<a href="./posts/2022-10-13-visualizing-gradient-descent-in-3d/index.html">
 <div class="listing-description">
-If you want to understand Machine…
+<a href="./posts/2022-10-13-visualizing-gradient-descent-in-3d/index.html" class="no-external">If you want to understand Machine Learning you have to understand gradient descent, we have all heard that before ;). Since I am a visual person, I tried to not only think…</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2022-10-13-visualizing-gradient-descent-in-3d/index.html">
+<a href="./posts/2022-10-13-visualizing-gradient-descent-in-3d/index.html" class="no-external">
 <div class="listing-date">
 Oct 13, 2022
 </div>
@@ -1121,19 +1116,19 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="21" data-categories="fast.ai,ml" data-listing-date-sort="1664748000000" data-listing-file-modified-sort="1669539952000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="quarto-post image-right" data-index="21" data-categories="fast.ai,ml" data-listing-date-sort="1664748000000" data-listing-file-modified-sort="1669539952000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="59">
 <div class="thumbnail">
-<p><a href="./posts/2022-10-03-bear-detector-2022/index.html"> <p class="card-img-top"><img src="posts/2022-10-03-bear-detector-2022/bear-detector-2022.jpeg"  class="thumbnail-image card-img"/></p> </a></p>
+<p><a href="./posts/2022-10-03-bear-detector-2022/index.html" class="no-external"></a></p><a href="./posts/2022-10-03-bear-detector-2022/index.html" class="no-external">
+<p class="card-img-top"><img src="posts/2022-10-03-bear-detector-2022/bear-detector-2022.jpeg"  class="thumbnail-image card-img"/></p>
+</a><p><a href="./posts/2022-10-03-bear-detector-2022/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2022-10-03-bear-detector-2022/index.html">
 <h3 class="no-anchor listing-title">
-Fast.AI with Bears, Cats and Dogs
+<a href="./posts/2022-10-03-bear-detector-2022/index.html" class="no-external">Fast.AI with Bears, Cats and Dogs</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2022-10-03-bear-detector-2022/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('fast.ai'); return false;">
 fast.ai
@@ -1142,14 +1137,12 @@ fast.ai
 ml
 </div>
 </div>
-<a href="./posts/2022-10-03-bear-detector-2022/index.html">
 <div class="listing-description">
-The 2022-version of the Fast.AI course was a welcome and well-timed opportunity for me to continue my machine learning journey.
+<a href="./posts/2022-10-03-bear-detector-2022/index.html" class="no-external">The 2022-version of the Fast.AI course was a welcome and well-timed opportunity for me to continue my machine learning journey.</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2022-10-03-bear-detector-2022/index.html">
+<a href="./posts/2022-10-03-bear-detector-2022/index.html" class="no-external">
 <div class="listing-date">
 Oct 3, 2022
 </div>
@@ -1159,32 +1152,30 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="22" data-categories="blogging" data-listing-date-sort="1664575200000" data-listing-file-modified-sort="1669539952000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="quarto-post image-right" data-index="22" data-categories="blogging" data-listing-date-sort="1664575200000" data-listing-file-modified-sort="1669539952000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="2">
 <div class="thumbnail">
-<p><a href="./posts/2022-10-01-hello-world/index.html"> <img src="./posts/2022-10-01-hello-world/hello-world.png" class="thumbnail-image"> </a></p>
+<p><a href="./posts/2022-10-01-hello-world/index.html" class="no-external"></a></p><a href="./posts/2022-10-01-hello-world/index.html" class="no-external">
+<p><img src="./posts/2022-10-01-hello-world/hello-world.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/2022-10-01-hello-world/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/2022-10-01-hello-world/index.html">
 <h3 class="no-anchor listing-title">
-Hello World!
+<a href="./posts/2022-10-01-hello-world/index.html" class="no-external">Hello World!</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/2022-10-01-hello-world/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('blogging'); return false;">
 blogging
 </div>
 </div>
-<a href="./posts/2022-10-01-hello-world/index.html">
 <div class="listing-description">
-Hello World!
+<a href="./posts/2022-10-01-hello-world/index.html" class="no-external">Hello World!</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/2022-10-01-hello-world/index.html">
+<a href="./posts/2022-10-01-hello-world/index.html" class="no-external">
 <div class="listing-date">
 Oct 1, 2022
 </div>
@@ -1278,10 +1269,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/chrwittm\.github\.io\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1291,8 +1299,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1304,7 +1321,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1348,6 +1488,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1373,6 +1514,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1438,12 +1605,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">
       &nbsp;
     </div>   
-    <div class="nav-footer-center"><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
   </div>
 </footer>
+
 
 
 

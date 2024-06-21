@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.555">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -24,7 +24,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -83,7 +83,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -92,6 +98,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -118,6 +125,8 @@ cookieconsent.run({
   "notice_banner_reject_button_hide":false,
   "preferences_center_close_button_hide":false,
   "website_name":""
+  ,
+"language":"en"
   });
 });
 </script> 
@@ -133,10 +142,10 @@ cookieconsent.run({
 <body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">chrwittm.github.io</span>
     </a>
@@ -148,33 +157,33 @@ cookieconsent.run({
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/chrwittm" rel="" target=""><i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/chrwittm"> <i class="bi bi-github" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com/chrwittm" rel="" target=""><i class="bi bi-twitter" role="img">
+    <a class="nav-link" href="https://twitter.com/chrwittm"> <i class="bi bi-twitter-x" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://de.linkedin.com/in/chrwittm" rel="" target=""><i class="bi bi-linkedin" role="img">
+    <a class="nav-link" href="https://de.linkedin.com/in/chrwittm"> <i class="bi bi-linkedin" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://www.kaggle.com/christianwittmann" rel="" target=""><i class="bi bi-file-earmark-code" role="img">
+    <a class="nav-link" href="https://www.kaggle.com/christianwittmann"> <i class="bi bi-file-earmark-code" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -222,6 +231,7 @@ cookieconsent.run({
 
 
 
+
 <p>Large Language Models (LLMs) like ChatGPT have become invaluable tools for many of us. But what lies beneath the surface of these sophisticated models? How have they been trained to deliver such a seemingly magical experience? In this blog post, we will conceptually explore the training methods used for LLMs and dive into some details. In line with Jeremy Howard’s <a href="https://www.youtube.com/watch?v=jkrNMKz9pWU">Hackers’ Guide to Language Models</a> [1], our journey begins with the foundational <a href="https://arxiv.org/abs/1801.06146">ULMFit Paper</a> [2], which introduced a three-step approach to language model training. After a brief detour into tokenization, we will examine how this three-step approach is implemented today by analyzing the LLaMA papers and other sources. By exploring the different phases, you will gain a deeper understanding of the inner mechanics of large language model training and build intuition on how these models learn a broad range of skills by simply predicting the next token in a sequence of tokens. In conclusion, we will see that today’s large language model training involves at least four steps, with an optional fifth step.</p>
 <style>
   figure {
@@ -233,7 +243,7 @@ cookieconsent.run({
 </style>
 <figure class="figure">
 <img src="llm-training.png" alt="Dalle: LLM training on vast amounts of text and human feedback" style="width:50%;" class="figure-img">
-<figcaption class="figure-caption">
+<figcaption>
 Dalle: LLM training on vast amounts of text and human feedback
 </figcaption>
 </figure>
@@ -256,7 +266,7 @@ Dalle: LLM training on vast amounts of text and human feedback
 </style>
 <figure class="figure">
 <img src="ulmfit-training.png" alt="The 3-step ULMFiT Training Approach" style="width:100%;" class="figure-img">
-<figcaption class="figure-caption">
+<figcaption>
 The 3-step ULMFiT Training Approach
 </figcaption>
 </figure>
@@ -264,9 +274,10 @@ The 3-step ULMFiT Training Approach
 <section id="the-3-steps-of-training-large-language-models" class="level2">
 <h2 class="anchored" data-anchor-id="the-3-steps-of-training-large-language-models">The 3 Steps of Training Large Language Models</h2>
 <p>While the techniques have evolved, training a large language models today still fits a 3-step approach of pre-training, followed by two fine-tuning steps: Instruction tuning and reinforcement learning by human feedback (RLHF). When you read through the papers or announcements of recent LLMs (<a href="https://openai.com/index/chatgpt">ChatGPT</a> or <a href="https://ai.meta.com/blog/meta-llama-3/">Llama3</a>), you will often find references to pre-training and fine-tuning, but many details are hidden between the lines about the process. The <a href="https://arxiv.org/abs/2307.09288">Llama2 paper</a> [3], not surprisingly due to Meta’s open-source approach, is one of the best resources to read about the process. Andrej Karpathy’s video <a href="https://youtu.be/zjkBMFhNj_g?si=u5xdOeSHC0BjcZ-A">Intro to Large Language Models</a> [4] also excellently explains the different stages of the training process. Let me break it down for you.</p>
-<div class="cell">
+<div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
+<p></p><figure class="figure"><p></p>
 <div>
 <pre class="mermaid mermaid-js">sequenceDiagram
     participant DP as Data Provider
@@ -291,6 +302,7 @@ The 3-step ULMFiT Training Approach
     TP --&gt;&gt; DP: Return RLHF-Tuned Language Model (Chat Model)
 </pre>
 </div>
+<p></p></figure><p></p>
 </div>
 </div>
 </div>
@@ -312,7 +324,7 @@ The 3-step ULMFiT Training Approach
 </style>
 <figure class="figure">
 <img src="tokenizer-example-crop.png" alt="Tokenization illustrated via Tiktokenizer" style="width:100%;" class="figure-img">
-<figcaption class="figure-caption">
+<figcaption>
 Tokenization illustrated via <a href="https://tiktokenizer.vercel.app/?model=gpt-4">Tiktokenizer</a>
 </figcaption>
 </figure>
@@ -332,8 +344,8 @@ Tokenization illustrated via <a href="https://tiktokenizer.vercel.app/?model=gpt
 <h3 class="anchored" data-anchor-id="how-large-is-vast">How large is “vast”?</h3>
 <p>When we say that during pre-training, the model “reads” vast amounts of text, how large is “vast” actually?</p>
 <p>Let’s try a human-centric comparison: How much can a human read in a lifetime compared to the training set of an LLM? For a first reference point, let’s calculate the amount of text a human could read in a lifetime:</p>
-<div class="cell" data-execution_count="4">
-<details>
+<div id="cell-11" class="cell" data-execution_count="4">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Constants</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>hours_per_day <span class="op">=</span> <span class="dv">2</span></span>
@@ -360,7 +372,7 @@ Tokenization illustrated via <a href="https://tiktokenizer.vercel.app/?model=gpt
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the results with formatted numbers</span></span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Using the parameters defined in the code, a human might read for </span><span class="sc">{</span>total_hours<span class="sc">:,}</span><span class="ss"> hours in a lifetime."</span>)</span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"To put this into numbers, a human would have read:"</span>)</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f" - </span><span class="sc">{</span>total_books<span class="sc">:,</span><span class="fl">.2</span><span class="er">f</span><span class="sc">}</span><span class="ss"> books"</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f" - </span><span class="sc">{</span>total_books<span class="sc">:,.2f}</span><span class="ss"> books"</span>)</span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f" - </span><span class="sc">{</span>total_words<span class="sc">:,}</span><span class="ss"> words"</span>)</span>
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f" - </span><span class="sc">{</span><span class="bu">int</span>(total_tokens)<span class="sc">:,}</span><span class="ss"> tokens"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -373,7 +385,7 @@ To put this into numbers, a human would have read:
 </div>
 </div>
 <p>Let’s compare this to the training data of a large language models. The following table contains data from <a href="https://en.wikipedia.org/wiki/Large_language_model#List">Wikipedia</a> with some additions. It turns out that even the “ancient” GPT-2 was trained on almost an order of magnitude more tokens than a human can read in a lifetime:</p>
-<table class="table">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 8%">
 <col style="width: 14%">
@@ -439,7 +451,7 @@ To put this into numbers, a human would have read:
 </style>
 <figure class="figure">
 <img src="pre-training-data-llama.png" alt="Pre-training data used to train Meta's llama models" style="width:50%;" class="figure-img">
-<figcaption class="figure-caption">
+<figcaption>
 Pre-training data used to train Meta’s llama models (<a href="https://arxiv.org/abs/2302.13971">Source</a>)
 </figcaption>
 </figure>
@@ -485,7 +497,7 @@ Pre-training data used to train Meta’s llama models (<a href="https://arxiv.or
 </style>
 <figure class="figure">
 <img src="openorca.png" alt="Example from the OpenOrca Dataset" style="width:100%;" class="figure-img">
-<figcaption class="figure-caption">
+<figcaption>
 Example from the <a href="https://huggingface.co/datasets/Open-Orca/OpenOrca">OpenOrca Dataset</a>
 </figcaption>
 </figure>
@@ -507,7 +519,7 @@ Example from the <a href="https://huggingface.co/datasets/Open-Orca/OpenOrca">Op
 </style>
 <figure class="figure">
 <img src="llama2-training-flow.png" alt="How Llama2 was trained, illustration from the Llama2 paper" style="width:100%;" class="figure-img">
-<figcaption class="figure-caption">
+<figcaption>
 How Llama2 was trained, illustration from the <a href="https://arxiv.org/abs/2307.09288">Llama2 paper</a>
 </figcaption>
 </figure>
@@ -531,7 +543,7 @@ How Llama2 was trained, illustration from the <a href="https://arxiv.org/abs/230
 <h2 class="anchored" data-anchor-id="summary-of-steps-1-to-3">Summary of Steps 1 to 3</h2>
 <p>Let’s recap the key points of the training stages of large language models to start wrapping up this blog post. The first step in large language model training is self-supervised pre-training, during which a randomly initialized model learns from scratch without any human supervision. We have discussed how pre-training works and built up some intuition on how a model can learn not only grammar and syntax but also semantics and how a model can gain real-world knowledge. Instruction tuning transitions the model from mere text completion into an assistant. By baking in instructions and problem-solving skills, this phase also reduces the need for giving instructions/examples to the model. To put this in different words, the model’s zero-shot performance increases by learning few-shot variants during instruction tuning. Finally, reinforcement learning by human feedback (RLHF) aligns the model with human preferences and further improves performance to create an experience like ChatGPT.</p>
 <p>For a more detailed summary, here is a table comparing the three different types of models created by the different training stages.</p>
-<table class="table">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 13%">
 <col style="width: 27%">
@@ -622,9 +634,10 @@ How Llama2 was trained, illustration from the <a href="https://arxiv.org/abs/230
 <h2 class="anchored" data-anchor-id="conclusion-large-language-models-are-trained-in-5-steps">Conclusion: Large Language Models are Trained in 5 Steps</h2>
 <p>We started with the ULMFiT paper, transferred the learning approach to today’s large language models, and discovered that the three steps of the ULMFiT paper are still visible in today’s training approaches, but that the techniques of the different phases have changed in the meantime. We also mentioned two additional steps. Training a tokenizer is a necessary initial step before pre-training can start, because all subsequent training steps are performed on tokenized data. Additional fine-tuning or RAG are optional final steps. The interesting point to make is that steps 0 to 3 are almost exclusively done by large organizations because of the massive datasets and compute required for these steps. Step 4 is the primary way you can customize a large language model. Therefore, for AI practitioners, it is essential to understand the inner mechanics of large language models to choose the right tools for improving model performance.</p>
 <p>In closing, the final diagram shows all the five phases which are relevant for training large language models.</p>
-<div class="cell">
+<div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
+<p></p><figure class="figure"><p></p>
 <div>
 <pre class="mermaid mermaid-js">sequenceDiagram
     participant DP as Data Provider
@@ -659,6 +672,7 @@ How Llama2 was trained, illustration from the <a href="https://arxiv.org/abs/230
     TP --&gt;&gt; DP: Return Fine-Tuned Language Model (Custom Chat Model)
 </pre>
 </div>
+<p></p></figure><p></p>
 </div>
 </div>
 </div>
@@ -758,10 +772,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/chrwittm\.github\.io\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -771,8 +802,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -784,7 +824,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -828,6 +991,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -853,6 +1017,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -920,12 +1110,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">
       &nbsp;
     </div>   
-    <div class="nav-footer-center"><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
   </div>
 </footer>
+
 
 
 
