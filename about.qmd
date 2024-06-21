@@ -4,8 +4,8 @@ image: profile.png
 about:
   template: jolla
   links:
-    - icon: twitter
-      text: Twitter
+    - icon: twitter-x
+      text: X
       href: https://twitter.com/chrwittm  
     - icon: linkedin
       text: LinkedIn
@@ -19,12 +19,10 @@ about:
 
 ---
 
-In this blog, I am documenting my learning journey in machine learning:
+Welcome to my blog, where I document my "Machine Learning Journey".
 
-"The Machine Learning Journey" ;)
+The main purpose of this blog is to explain and clarify concepts to myself through writing, which sometimes is surprisingly difficult.
 
-I am mainly writing for myself, trying to explain/clarify concepts to myself while writing,
+I firmly believe in the idea that "The best way to learn is to teach." Therefore, I am using the Feynman Technique on myself: Breaking down complex ideas into simple terms as if teaching someone else.
 
-therefore implementing the concept of "The Best Way to Learn Is to Teach".
-
-If you stumbled across this blog and you even find it useful, that would make me happy :)
+If you happen to stumble across this blog and find it useful, that would truly make me happy. 😊
