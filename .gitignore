@@ -2,3 +2,6 @@
 .env
 .DS_Store
 _site
+
+# Ignore the entire .vscode directory
+.vscode/
