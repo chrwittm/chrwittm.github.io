@@ -4,7 +4,7 @@ image: profile.png
 about:
   template: jolla
   links:
-    - icon: twitter
+    - icon: twitter-x
       text: X (Twitter)
       href: https://twitter.com/chrwittm  
     - icon: linkedin
