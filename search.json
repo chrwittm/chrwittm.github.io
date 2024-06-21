@@ -4,7 +4,7 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "In this blog, I am documenting my learning journey in machine learning:\n“The Machine Learning Journey” ;)\nI am mainly writing for myself, trying to explain/clarify concepts to myself while writing,\ntherefore implementing the concept of “The Best Way to Learn Is to Teach”.\nIf you stumbled across this blog and you even find it useful, that would make me happy :)"
+    "text": "Welcome to my blog, where I document my “Machine Learning Journey”.\nThe main purpose of this blog is to explain and clarify concepts to myself through writing, which sometimes is surprisingly difficult.\nI firmly believe in the idea that “The best way to learn is to teach.” Therefore, I am using the Feynman Technique on myself: Breaking down complex ideas into simple terms as if teaching someone else.\nIf you happen to stumble across this blog and find it useful, that would truly make me happy. 😊"
   },
   {
     "objectID": "posts/2022-10-01-hello-world/index.html",
@@ -158,7 +158,7 @@
     "href": "posts/2024-06-21-how-llms-are-trained/index.html#references",
     "title": "How LLMs are Trained",
     "section": "References",
-    "text": "References\n[1] Howard, J. (2023). A Hackers’ Guide to Language Models\n[2] Howard, J., & Ruder, S. (2018). Universal Language Model Fine-tuning for Text Classification\n[3] Touvron, H., Lavril, T., Izacard, G., Martinet, X., Lachaux, M.-A., Lacroix, T., Rozière, B., Goyal, N., Hambro, E., Azhar, F., Rodriguez, A., Joulin, A., Grave, E., & Lample, G. (2023). Llama 2: Open Foundation and Fine-Tuned Chat Models\n[4] Karpathy, A. (2023). Intro to Large Language Models\n[5] Grant Sanderson (3Blue1Brown). (2024). But what is a GPT? Visual intro to transformers\n[6] Karpathy, A. (2024). Let’s build the GPT Tokenizer by Andrej Karpathy\n[7] Touvron, H., Izacard, G., Joulin, A., & Lample, G. (2023). LLaMA: Open and Efficient Foundation Language Models\n[8] Grant Sanderson (3Blue1Brown). (2024). Attention in transformers, visually explained by 3Blue1Brown\n[9] Wei, J., Bosma, M., Zhao, V. Y., Guu, S., Yu, A. W., Lester, B., Du, N., Dai, A. M., & Le, Q. V. (2021). Finetuned Language Models Are Zero-Shot Learners"
+    "text": "References\n[1] Howard, J. (2023). A Hackers’ Guide to Language Models\n[2] Howard, J., & Ruder, S. (2018). Universal Language Model Fine-tuning for Text Classification\n[3] Touvron, H., Lavril, T., Izacard, G., Martinet, X., Lachaux, M.-A., Lacroix, T., Rozière, B., Goyal, N., Hambro, E., Azhar, F., Rodriguez, A., Joulin, A., Grave, E., & Lample, G. (2023). Llama 2: Open Foundation and Fine-Tuned Chat Models\n[4] Karpathy, A. (2023). Intro to Large Language Models\n[5] Sanderson G. (3Blue1Brown). (2024). But what is a GPT? Visual intro to transformers\n[6] Karpathy, A. (2024). Let’s build the GPT Tokenizer by Andrej Karpathy\n[7] Touvron, H., Izacard, G., Joulin, A., & Lample, G. (2023). LLaMA: Open and Efficient Foundation Language Models\n[8] Sanderson, G. (3Blue1Brown). (2024). Attention in transformers, visually explained by 3Blue1Brown\n[9] Wei, J., Bosma, M., Zhao, V. Y., Guu, S., Yu, A. W., Lester, B., Du, N., Dai, A. M., & Le, Q. V. (2021). Finetuned Language Models Are Zero-Shot Learners"
   },
   {
     "objectID": "posts/2024-02-15-running-llama2-on-mac/index.html",
