@@ -186,7 +186,7 @@
     "href": "posts/2024-06-22-quarto-update-and-helpful-features/index.html#including-mermaid-chartsdiagrams",
     "title": "Updating Quarto and Helpful Features",
     "section": "Including Mermaid Charts/Diagrams",
-    "text": "Including Mermaid Charts/Diagrams\nMermaid charts or diagrams are my go-to choice for visualizations in markdown and Jupyter notebooks because the programmatic approach saves a lot of time compared to tedious PowerPoint editing. When including a mermaid diagram in a Jupyter notebook for a blog post, code block starting with ```mermaid are, however, not rendered correctly. To use a mermaid code block in the context of Quarto, it needs to use additional curly braces {} like this:\n```{mermaid} \n\n  put mermaid diagram here"
+    "text": "Including Mermaid Charts/Diagrams\nMermaid charts or diagrams are my go-to choice for visualizations in markdown and Jupyter notebooks because the programmatic approach saves a lot of time compared to tedious PowerPoint editing. When including a mermaid diagram in a Jupyter notebook for a blog post, a code block starting with ```mermaid, however, does not rendered correctly. To use a mermaid code block in the context of Quarto, it needs to use additional curly braces {} like this:\n```{mermaid}\n\n  put mermaid diagram here\n\n```\nP.S.: Thanks to Christian Long for the markdown syntax to render a complete code block."
   },
   {
     "objectID": "posts/2022-10-18-blogging-with-jupyter-notebook/index.html",

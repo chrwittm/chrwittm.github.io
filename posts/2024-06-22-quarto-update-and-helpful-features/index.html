@@ -274,11 +274,13 @@ cookieconsent.run({
 </section>
 <section id="including-mermaid-chartsdiagrams" class="level2">
 <h2 class="anchored" data-anchor-id="including-mermaid-chartsdiagrams">Including Mermaid Charts/Diagrams</h2>
-<p><a href="https://mermaid.js.org/intro/">Mermaid</a> charts or diagrams are my go-to choice for visualizations in markdown and Jupyter notebooks because the programmatic approach saves a lot of time compared to tedious PowerPoint editing. When including a mermaid diagram in a Jupyter notebook for a blog post, code block starting with <code>```mermaid</code> are, however, not rendered correctly. To use a <a href="https://quarto.org/docs/authoring/diagrams.html#mermaid">mermaid code block</a> in the context of <a href="https://mine-cetinkaya-rundel.github.io/quarto-tip-a-day/posts/21-diagrams/">Quarto</a>, it needs to use additional curly braces <code>{}</code> like this:</p>
-<pre><code>```{mermaid} 
+<p><a href="https://mermaid.js.org/intro/">Mermaid</a> charts or diagrams are my go-to choice for visualizations in markdown and Jupyter notebooks because the programmatic approach saves a lot of time compared to tedious PowerPoint editing. When including a mermaid diagram in a Jupyter notebook for a blog post, a code block starting with <code>```mermaid</code>, however, does not rendered correctly. To use a <a href="https://quarto.org/docs/authoring/diagrams.html#mermaid">mermaid code block</a> in the context of <a href="https://mine-cetinkaya-rundel.github.io/quarto-tip-a-day/posts/21-diagrams/">Quarto</a>, it needs to use additional curly braces <code>{}</code> like this:</p>
+<pre><code>```{mermaid}
 
   put mermaid diagram here
-</code></pre>
+
+```</code></pre>
+<p>P.S.: Thanks to <a href="https://meta.stackexchange.com/a/300821">Christian Long</a> for the markdown syntax to render a complete code block.</p>
 
 
 </section>
