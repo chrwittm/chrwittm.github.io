@@ -131,6 +131,9 @@ cookieconsent.run({
 });
 </script> 
   
+<script src="../../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
@@ -310,7 +313,7 @@ The calculator as part of LLM OS
 <li>Finally, we will assemble the whole calculator and</li>
 <li>Wrap up this blog post.</li>
 </ul>
-<p>If you like to interactively run this notebook, hop over to GitHub: Here is the Jupyter notebook version of this blog post. (TODO!)</p>
+<p>If you like to interactively run this notebook, hop over to GitHub: Here is the <a href="https://github.com/chrwittm/lm-hackers/blob/main/50-function-calling/llm-calculator1/index.ipynb">Jupyter notebook version of this blog post</a>.</p>
 </section>
 <section id="creating-a-basic-chat-client" class="level2">
 <h2 class="anchored" data-anchor-id="creating-a-basic-chat-client">Creating a Basic Chat Client</h2>
@@ -711,7 +714,7 @@ Tool call: [ChatCompletionMessageToolCall(id='call_qP9MhfCgWyjNZHWGyWNEjP2e', fu
 <p>So, (6573 * 9132) * 5423 = 60024636</p>
 </div>
 </div>
-<p>To solve <code>6573 * 9132 * 5423</code>, ChatGPT needed to return 2 sets of tool calls: First it calculates <code>6573 * 9132</code>, and, strangely, it also calculates <code>5423*1</code>. In the second tool call it calculates <code>60024636*5423</code>. It is really interesting to observe how ChatGPT iteratively solved the problem before returning the final assistant message.</p>
+<p>To solve <span class="math inline">\(6573 \times 9132 \times 5423\)</span>, ChatGPT needed to return 2 sets of tool calls: First it calculates <span class="math inline">\(6573 \times 9132\)</span>, and, strangely, it also calculates <span class="math inline">\(5423 \times 1\)</span>. In the second tool call it calculates <span class="math inline">\(60024636 \times 5423\)</span>. It is really interesting to observe how ChatGPT iteratively solved the problem before returning the final assistant message.</p>
 <p>Taking a step back, this iterative way of calling tools is called “ReAct”. Let’s explore the theoretical foundations.</p>
 </section>
 <section id="the-react-paper" class="level2">
@@ -719,7 +722,12 @@ Tool call: [ChatCompletionMessageToolCall(id='call_qP9MhfCgWyjNZHWGyWNEjP2e', fu
 <p>The <a href="https://react-lm.github.io/">ReAct paper</a> [4] introduced a framework that combines <strong>Re</strong>asoning and <strong>Act</strong>ing (“ReAct”) to enhance the capabilities of LLMs. The core idea of the ReAct framework is to run reasoning and acting in a cyclical process. This means that the LLM does not simply produce an output based on an input, but rather it reasons about the task, determines the actions needed, performs these actions, and incorporates the results into its reasoning process. This loop continues until the task is completed.</p>
 <p>Today’s LLMs are remarkably intelligent and can reason about the prompts they are tasked to perform. Function calling gives the LLM the capabilities to act and perform specific actions. In our setup, the tools are the arithmetical operations, and the LLM needs to reason about the sequence to run the calculations. These reasoning capabilities and the knowledge about how to perform the task are knowledge the LLM has acquired during its training phase. It knows that multiplication or division needs to be done before addition or subtraction. It also understands how brackets signal the sequence of calculations. For example, when calculating <span class="math inline">\((6573 + 1) \times 9132\)</span>, the LLM must first reason that it needs to perform addition, then multiplication. Based on this reasoning, it acts by calling the respective tools in the correct sequence.</p>
 <p>The following chart summarizes this framework based on what we have seen so far.</p>
-<pre class="mermaid"><code>sequenceDiagram
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">sequenceDiagram
     autonumber
 
     actor User
@@ -744,7 +752,13 @@ Tool call: [ChatCompletionMessageToolCall(id='call_qP9MhfCgWyjNZHWGyWNEjP2e', fu
 
     LLM-&gt;&gt;ChatClient: Return final result
     ChatClient-&gt;&gt;User: Output final result
-</code></pre>
+
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 <p>We implemented the ReAct framework not only by providing the tools to the LLM but also by allowing recursive processing of tool calls in our chat client. This way, the chat client can handle multiple tool calls it receives from the LLM, ensuring that the LLM can continue reasoning and acting until the task is complete.</p>
 </section>
 <section id="creating-the-calculator" class="level2">
@@ -752,57 +766,57 @@ Tool call: [ChatCompletionMessageToolCall(id='call_qP9MhfCgWyjNZHWGyWNEjP2e', fu
 <p>Now that we know how function calling works, and we understand how the LLM uses tools by reasoning and acting, it is time to create the full calculator.</p>
 <p>The only thing we need to do is to define more functions the LLM can use as tools.</p>
 <div id="cell-61" class="cell" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add(a: <span class="bu">float</span>, b: <span class="bu">float</span> <span class="op">=</span> <span class="fl">1.0</span>):</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"Adds a + b"</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">+</span> b</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> subtract(a: <span class="bu">float</span>, b: <span class="bu">float</span> <span class="op">=</span> <span class="fl">1.0</span>):</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">"Subtracts a - b"</span></span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">-</span> b</span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> multiply(a: <span class="bu">float</span>, b: <span class="bu">float</span> <span class="op">=</span> <span class="fl">1.0</span>):</span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">"Multiplies a * b"</span></span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">*</span> b</span>
-<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> divide(a: <span class="bu">float</span>, b: <span class="bu">float</span> <span class="op">=</span> <span class="fl">1.0</span>):</span>
-<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">"Divides a / b"</span></span>
-<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> b <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Division by zero is not allowed."</span></span>
-<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">/</span> b</span>
-<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>funcs_ok <span class="op">=</span> {<span class="st">'add'</span>, <span class="st">'subtract'</span>, <span class="st">'multiply'</span>, <span class="st">'divide'</span>}</span>
-<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_calc_tools():</span>
-<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [get_schema(add), get_schema(subtract), get_schema(multiply), get_schema(divide)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add(a: <span class="bu">float</span>, b: <span class="bu">float</span> <span class="op">=</span> <span class="fl">1.0</span>):</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"Adds a + b"</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">+</span> b</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> subtract(a: <span class="bu">float</span>, b: <span class="bu">float</span> <span class="op">=</span> <span class="fl">1.0</span>):</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">"Subtracts a - b"</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">-</span> b</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> multiply(a: <span class="bu">float</span>, b: <span class="bu">float</span> <span class="op">=</span> <span class="fl">1.0</span>):</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">"Multiplies a * b"</span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">*</span> b</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> divide(a: <span class="bu">float</span>, b: <span class="bu">float</span> <span class="op">=</span> <span class="fl">1.0</span>):</span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">"Divides a / b"</span></span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> b <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Division by zero is not allowed."</span></span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">/</span> b</span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>funcs_ok <span class="op">=</span> {<span class="st">'add'</span>, <span class="st">'subtract'</span>, <span class="st">'multiply'</span>, <span class="st">'divide'</span>}</span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_calc_tools():</span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [get_schema(add), get_schema(subtract), get_schema(multiply), get_schema(divide)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note the intersting definition of the <code>divide</code>-function. Traditionally, you would expect a definition like this:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> divide(a: <span class="bu">float</span>, b: <span class="bu">float</span> <span class="op">=</span> <span class="fl">1.0</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"Divides a / b"</span></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> b <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Division by zero is not allowed."</span>)</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">/</span> b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> divide(a: <span class="bu">float</span>, b: <span class="bu">float</span> <span class="op">=</span> <span class="fl">1.0</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"Divides a / b"</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> b <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Division by zero is not allowed."</span>)</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">/</span> b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>In the context of LLM function calling, however, raising a <code>ValueError</code> is not very useful, because the LLM needs to receive the result in the <code>tool</code>-message. Therefore, returning a string <code>"Division by zero is not allowed."</code> is more useful.</p>
 <p>Let’s run a first test: <span class="math inline">\((6573 + 1) \times 9132\)</span></p>
 <div id="cell-63" class="cell" data-execution_count="29">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>system_prompt <span class="op">=</span> (</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"You are a calculator. </span><span class="ch">\n</span><span class="st">"</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Do not do even the simplest computations on your own, </span><span class="ch">\n</span><span class="st">"</span></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"but use the tools provided. </span><span class="ch">\n</span><span class="st">"</span></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"After the tool calls, explain the steps you took when answering. </span><span class="ch">\n</span><span class="st">"</span></span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Answer with an accuracy of 3 decimals. </span><span class="ch">\n</span><span class="st">"</span></span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Respond in markdown, no LaTeX."</span></span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>system_prompt <span class="op">=</span> (</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"You are a calculator. </span><span class="ch">\n</span><span class="st">"</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Do not do even the simplest computations on your own, </span><span class="ch">\n</span><span class="st">"</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"but use the tools provided. </span><span class="ch">\n</span><span class="st">"</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"After the tool calls, explain the steps you took when answering. </span><span class="ch">\n</span><span class="st">"</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Answer with an accuracy of 3 decimals. </span><span class="ch">\n</span><span class="st">"</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Respond in markdown, no LaTeX."</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div id="cell-64" class="cell" data-execution_count="30">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Expected result: </span><span class="sc">{</span>(<span class="dv">6573</span> <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> <span class="dv">9132</span><span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"LLM response:"</span>)</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>chat_client <span class="op">=</span> ChatClient(system_message<span class="op">=</span>system_prompt, tools<span class="op">=</span>get_calc_tools())</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>chat_client.ask_gpt(<span class="st">"What is (6573 + 1) * 9132?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Expected result: </span><span class="sc">{</span>(<span class="dv">6573</span> <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> <span class="dv">9132</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"LLM response:"</span>)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>chat_client <span class="op">=</span> ChatClient(system_message<span class="op">=</span>system_prompt, tools<span class="op">=</span>get_calc_tools())</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>chat_client.ask_gpt(<span class="st">"What is (6573 + 1) * 9132?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Expected result: 60033768
@@ -815,7 +829,7 @@ LLM response:</code></pre>
 </div>
 <p>For a more detailed we, we can inspect the chat messages:</p>
 <div id="cell-66" class="cell" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>chat_client._chat_messages.get_debug_view()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>chat_client._chat_messages.get_debug_view()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="31">
 <p><strong>system</strong>: You are a calculator. Do not do even the simplest computations on your own, but use the tools provided. After the tool calls, explain the steps you took when answering. Answer with an accuracy of 3 decimals. Respond in markdown, no LaTeX.</p>
 <p><strong>user</strong>: What is (6573 + 1) * 9132?</p>
@@ -834,10 +848,10 @@ LLM response:</code></pre>
 <div id="cell-68" class="cell" data-execution_count="32">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Expected result: </span><span class="sc">{</span>( ( <span class="dv">5647</span> <span class="op">+</span> <span class="dv">3241</span> ) <span class="op">/</span> ( <span class="dv">7</span> <span class="op">*</span> <span class="dv">2</span> ) ) <span class="op">-</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"LLM response:"</span>)</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>chat_client <span class="op">=</span> ChatClient(system_message<span class="op">=</span>system_prompt, tools<span class="op">=</span>get_calc_tools())</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>chat_client.ask_gpt(<span class="st">"What is ( ( 5647 + 3241 ) / ( 7 * 2 ) ) - 1?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Expected result: </span><span class="sc">{</span>( ( <span class="dv">5647</span> <span class="op">+</span> <span class="dv">3241</span> ) <span class="op">/</span> ( <span class="dv">7</span> <span class="op">*</span> <span class="dv">2</span> ) ) <span class="op">-</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"LLM response:"</span>)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>chat_client <span class="op">=</span> ChatClient(system_message<span class="op">=</span>system_prompt, tools<span class="op">=</span>get_calc_tools())</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>chat_client.ask_gpt(<span class="st">"What is ( ( 5647 + 3241 ) / ( 7 * 2 ) ) - 1?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Expected result: 633.8571428571429
@@ -849,7 +863,7 @@ LLM response:</code></pre>
 </div>
 </div>
 <div id="cell-69" class="cell" data-execution_count="33">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>chat_client._chat_messages.get_debug_view()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>chat_client._chat_messages.get_debug_view()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="33">
 <p><strong>system</strong>: You are a calculator. Do not do even the simplest computations on your own, but use the tools provided. After the tool calls, explain the steps you took when answering. Answer with an accuracy of 3 decimals. Respond in markdown, no LaTeX.</p>
 <p><strong>user</strong>: What is ( ( 5647 + 3241 ) / ( 7 * 2 ) ) - 1?</p>
@@ -881,25 +895,25 @@ LLM response:</code></pre>
 <div id="cell-71" class="cell" data-execution_count="34">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>models <span class="op">=</span> [<span class="st">"gpt-3.5-turbo"</span>, <span class="st">"gpt-4o-mini"</span>, <span class="st">"gpt-4o"</span>]</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>calculations <span class="op">=</span> [</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"( 6574 * 9132 )"</span>,</span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"( 6573 + 9132 ) * 5423"</span>,</span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"( 6573 * 9132 ) * 5423"</span>,</span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"( 5647 + 3241 ) / ( 7 * 2 ) - 1 "</span>,</span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"( 5647 + 3241 ) / ( 7 * 2 ) + ( ( 657 + 343 ) * 2 )"</span> ]</span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> []</span>
-<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> calculation <span class="kw">in</span> calculations:</span>
-<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
-<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> <span class="bu">eval</span>(calculation)</span>
-<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>        results.append(result)</span>
-<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
-<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a>        results.append(<span class="ss">f"Error in calculation: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> calc, res <span class="kw">in</span> <span class="bu">zip</span>(calculations, results):</span>
-<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>calc<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>res<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>models <span class="op">=</span> [<span class="st">"gpt-3.5-turbo"</span>, <span class="st">"gpt-4o-mini"</span>, <span class="st">"gpt-4o"</span>]</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>calculations <span class="op">=</span> [</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"( 6574 * 9132 )"</span>,</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"( 6573 + 9132 ) * 5423"</span>,</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"( 6573 * 9132 ) * 5423"</span>,</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"( 5647 + 3241 ) / ( 7 * 2 ) - 1 "</span>,</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"( 5647 + 3241 ) / ( 7 * 2 ) + ( ( 657 + 343 ) * 2 )"</span> ]</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> []</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> calculation <span class="kw">in</span> calculations:</span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> <span class="bu">eval</span>(calculation)</span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>        results.append(result)</span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a>        results.append(<span class="ss">f"Error in calculation: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> calc, res <span class="kw">in</span> <span class="bu">zip</span>(calculations, results):</span>
+<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>calc<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>res<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>( 6574 * 9132 ) = 60033768.000
@@ -912,53 +926,53 @@ LLM response:</code></pre>
 <div id="cell-72" class="cell" data-execution_count="37">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>system_prompt <span class="op">=</span> (</span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"You are a calculator. </span><span class="ch">\n</span><span class="st">"</span></span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Do not do even the simplest computations on your own, </span><span class="ch">\n</span><span class="st">"</span></span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"but use the tools provided. </span><span class="ch">\n</span><span class="st">"</span></span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Answer with an accuracy of 3 decimals. </span><span class="ch">\n</span><span class="st">"</span></span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Strictly only respond only with the result of the calculation, just one number, no additional text."</span></span>
-<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Store results in a dictionary</span></span>
-<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> {calc: {} <span class="cf">for</span> calc <span class="kw">in</span> calculations}</span>
-<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Run calculations for each model</span></span>
-<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> model <span class="kw">in</span> models:</span>
-<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a>    model_name <span class="op">=</span> model</span>
-<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> calculation <span class="kw">in</span> calculations:</span>
-<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a>        chat_client <span class="op">=</span> ChatClient(system_message<span class="op">=</span>system_prompt, tools<span class="op">=</span>get_calc_tools())</span>
-<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> chat_client.ask_gpt(calculation)</span>
-<span id="cb50-20"><a href="#cb50-20" aria-hidden="true" tabindex="-1"></a>        result_number <span class="op">=</span> <span class="bu">float</span>(result.data)</span>
-<span id="cb50-21"><a href="#cb50-21" aria-hidden="true" tabindex="-1"></a>        actual_result <span class="op">=</span> <span class="bu">eval</span>(calculation)</span>
-<span id="cb50-22"><a href="#cb50-22" aria-hidden="true" tabindex="-1"></a>        results[calculation][model] <span class="op">=</span> <span class="bu">abs</span>(result_number <span class="op">-</span> actual_result) <span class="op">&lt;</span> <span class="fl">0.001</span></span>
-<span id="cb50-23"><a href="#cb50-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-24"><a href="#cb50-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dataframe for the results</span></span>
-<span id="cb50-25"><a href="#cb50-25" aria-hidden="true" tabindex="-1"></a>df_results <span class="op">=</span> pd.DataFrame(results).T</span>
-<span id="cb50-26"><a href="#cb50-26" aria-hidden="true" tabindex="-1"></a>df_results.columns <span class="op">=</span> models</span>
-<span id="cb50-27"><a href="#cb50-27" aria-hidden="true" tabindex="-1"></a>df_results.index.name <span class="op">=</span> <span class="st">'Calculation'</span></span>
-<span id="cb50-28"><a href="#cb50-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-29"><a href="#cb50-29" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> HTML</span>
-<span id="cb50-30"><a href="#cb50-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-31"><a href="#cb50-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Style the DataFrame for better visualization</span></span>
-<span id="cb50-32"><a href="#cb50-32" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> color_true_false(val):</span>
-<span id="cb50-33"><a href="#cb50-33" aria-hidden="true" tabindex="-1"></a>    color <span class="op">=</span> <span class="st">'green'</span> <span class="cf">if</span> val <span class="cf">else</span> <span class="st">'red'</span></span>
-<span id="cb50-34"><a href="#cb50-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f'color: </span><span class="sc">{</span>color<span class="sc">}</span><span class="ss">; background-color: white'</span></span>
-<span id="cb50-35"><a href="#cb50-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-36"><a href="#cb50-36" aria-hidden="true" tabindex="-1"></a>styled_df <span class="op">=</span> df_results.style <span class="op">\</span></span>
-<span id="cb50-37"><a href="#cb50-37" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">map</span>(<span class="kw">lambda</span> x: <span class="st">'color: green; background-color: white'</span> <span class="cf">if</span> x <span class="cf">else</span> <span class="st">'color: red; background-color: white'</span>) <span class="op">\</span></span>
-<span id="cb50-38"><a href="#cb50-38" aria-hidden="true" tabindex="-1"></a>    .set_table_styles([</span>
-<span id="cb50-39"><a href="#cb50-39" aria-hidden="true" tabindex="-1"></a>        {<span class="st">'selector'</span>: <span class="st">'th'</span>, <span class="st">'props'</span>: [(<span class="st">'background-color'</span>, <span class="st">'white'</span>), (<span class="st">'color'</span>, <span class="st">'black'</span>), (<span class="st">'border'</span>, <span class="st">'1px solid black'</span>), (<span class="st">'text-align'</span>, <span class="st">'center'</span>), (<span class="st">'vertical-align'</span>, <span class="st">'middle'</span>)]},</span>
-<span id="cb50-40"><a href="#cb50-40" aria-hidden="true" tabindex="-1"></a>        {<span class="st">'selector'</span>: <span class="st">'td'</span>, <span class="st">'props'</span>: [(<span class="st">'border'</span>, <span class="st">'1px solid black'</span>)]},</span>
-<span id="cb50-41"><a href="#cb50-41" aria-hidden="true" tabindex="-1"></a>        {<span class="st">'selector'</span>: <span class="st">'caption'</span>, <span class="st">'props'</span>: [(<span class="st">'caption-side'</span>, <span class="st">'top'</span>), (<span class="st">'font-size'</span>, <span class="st">'1.25em'</span>), (<span class="st">'font-weight'</span>, <span class="st">'bold'</span>)]}</span>
-<span id="cb50-42"><a href="#cb50-42" aria-hidden="true" tabindex="-1"></a>    ]) <span class="op">\</span></span>
-<span id="cb50-43"><a href="#cb50-43" aria-hidden="true" tabindex="-1"></a>    .set_caption(<span class="st">"Model Comparison Results"</span>) <span class="op">\</span></span>
-<span id="cb50-44"><a href="#cb50-44" aria-hidden="true" tabindex="-1"></a>    .set_properties(<span class="op">**</span>{<span class="st">'text-align'</span>: <span class="st">'center'</span>, <span class="st">'vertical-align'</span>: <span class="st">'middle'</span>})</span>
-<span id="cb50-45"><a href="#cb50-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-46"><a href="#cb50-46" aria-hidden="true" tabindex="-1"></a>html <span class="op">=</span> styled_df.to_html()</span>
-<span id="cb50-47"><a href="#cb50-47" aria-hidden="true" tabindex="-1"></a>display(HTML(html))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>system_prompt <span class="op">=</span> (</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"You are a calculator. </span><span class="ch">\n</span><span class="st">"</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Do not do even the simplest computations on your own, </span><span class="ch">\n</span><span class="st">"</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"but use the tools provided. </span><span class="ch">\n</span><span class="st">"</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Answer with an accuracy of 3 decimals. </span><span class="ch">\n</span><span class="st">"</span></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Strictly only respond only with the result of the calculation, just one number, no additional text."</span></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Store results in a dictionary</span></span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> {calc: {} <span class="cf">for</span> calc <span class="kw">in</span> calculations}</span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Run calculations for each model</span></span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> model <span class="kw">in</span> models:</span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a>    model_name <span class="op">=</span> model</span>
+<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> calculation <span class="kw">in</span> calculations:</span>
+<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a>        chat_client <span class="op">=</span> ChatClient(system_message<span class="op">=</span>system_prompt, tools<span class="op">=</span>get_calc_tools())</span>
+<span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> chat_client.ask_gpt(calculation)</span>
+<span id="cb49-20"><a href="#cb49-20" aria-hidden="true" tabindex="-1"></a>        result_number <span class="op">=</span> <span class="bu">float</span>(result.data)</span>
+<span id="cb49-21"><a href="#cb49-21" aria-hidden="true" tabindex="-1"></a>        actual_result <span class="op">=</span> <span class="bu">eval</span>(calculation)</span>
+<span id="cb49-22"><a href="#cb49-22" aria-hidden="true" tabindex="-1"></a>        results[calculation][model] <span class="op">=</span> <span class="bu">abs</span>(result_number <span class="op">-</span> actual_result) <span class="op">&lt;</span> <span class="fl">0.001</span></span>
+<span id="cb49-23"><a href="#cb49-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-24"><a href="#cb49-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dataframe for the results</span></span>
+<span id="cb49-25"><a href="#cb49-25" aria-hidden="true" tabindex="-1"></a>df_results <span class="op">=</span> pd.DataFrame(results).T</span>
+<span id="cb49-26"><a href="#cb49-26" aria-hidden="true" tabindex="-1"></a>df_results.columns <span class="op">=</span> models</span>
+<span id="cb49-27"><a href="#cb49-27" aria-hidden="true" tabindex="-1"></a>df_results.index.name <span class="op">=</span> <span class="st">'Calculation'</span></span>
+<span id="cb49-28"><a href="#cb49-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-29"><a href="#cb49-29" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> HTML</span>
+<span id="cb49-30"><a href="#cb49-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-31"><a href="#cb49-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Style the DataFrame for better visualization</span></span>
+<span id="cb49-32"><a href="#cb49-32" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> color_true_false(val):</span>
+<span id="cb49-33"><a href="#cb49-33" aria-hidden="true" tabindex="-1"></a>    color <span class="op">=</span> <span class="st">'green'</span> <span class="cf">if</span> val <span class="cf">else</span> <span class="st">'red'</span></span>
+<span id="cb49-34"><a href="#cb49-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f'color: </span><span class="sc">{</span>color<span class="sc">}</span><span class="ss">; background-color: white'</span></span>
+<span id="cb49-35"><a href="#cb49-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-36"><a href="#cb49-36" aria-hidden="true" tabindex="-1"></a>styled_df <span class="op">=</span> df_results.style <span class="op">\</span></span>
+<span id="cb49-37"><a href="#cb49-37" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">map</span>(<span class="kw">lambda</span> x: <span class="st">'color: green; background-color: white'</span> <span class="cf">if</span> x <span class="cf">else</span> <span class="st">'color: red; background-color: white'</span>) <span class="op">\</span></span>
+<span id="cb49-38"><a href="#cb49-38" aria-hidden="true" tabindex="-1"></a>    .set_table_styles([</span>
+<span id="cb49-39"><a href="#cb49-39" aria-hidden="true" tabindex="-1"></a>        {<span class="st">'selector'</span>: <span class="st">'th'</span>, <span class="st">'props'</span>: [(<span class="st">'background-color'</span>, <span class="st">'white'</span>), (<span class="st">'color'</span>, <span class="st">'black'</span>), (<span class="st">'border'</span>, <span class="st">'1px solid black'</span>), (<span class="st">'text-align'</span>, <span class="st">'center'</span>), (<span class="st">'vertical-align'</span>, <span class="st">'middle'</span>)]},</span>
+<span id="cb49-40"><a href="#cb49-40" aria-hidden="true" tabindex="-1"></a>        {<span class="st">'selector'</span>: <span class="st">'td'</span>, <span class="st">'props'</span>: [(<span class="st">'border'</span>, <span class="st">'1px solid black'</span>)]},</span>
+<span id="cb49-41"><a href="#cb49-41" aria-hidden="true" tabindex="-1"></a>        {<span class="st">'selector'</span>: <span class="st">'caption'</span>, <span class="st">'props'</span>: [(<span class="st">'caption-side'</span>, <span class="st">'top'</span>), (<span class="st">'font-size'</span>, <span class="st">'1.25em'</span>), (<span class="st">'font-weight'</span>, <span class="st">'bold'</span>)]}</span>
+<span id="cb49-42"><a href="#cb49-42" aria-hidden="true" tabindex="-1"></a>    ]) <span class="op">\</span></span>
+<span id="cb49-43"><a href="#cb49-43" aria-hidden="true" tabindex="-1"></a>    .set_caption(<span class="st">"Model Comparison Results"</span>) <span class="op">\</span></span>
+<span id="cb49-44"><a href="#cb49-44" aria-hidden="true" tabindex="-1"></a>    .set_properties(<span class="op">**</span>{<span class="st">'text-align'</span>: <span class="st">'center'</span>, <span class="st">'vertical-align'</span>: <span class="st">'middle'</span>})</span>
+<span id="cb49-45"><a href="#cb49-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-46"><a href="#cb49-46" aria-hidden="true" tabindex="-1"></a>html <span class="op">=</span> styled_df.to_html()</span>
+<span id="cb49-47"><a href="#cb49-47" aria-hidden="true" tabindex="-1"></a>display(HTML(html))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <style type="text/css">
