@@ -81,7 +81,8 @@ ul.task-list li input[type="checkbox"] {
 
     const options = {
       valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
+      page: 25,
+    pagination: { item: "<li class='page-item'><a class='page page-link' href='#'></a></li>" },
       searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
     };
 
@@ -230,7 +231,7 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(25)</span></div><div class="category" data-category="LLM">LLM <span class="quarto-category-count">(1)</span></div><div class="category" data-category="api">api <span class="quarto-category-count">(1)</span></div><div class="category" data-category="apple silicon">apple silicon <span class="quarto-category-count">(3)</span></div><div class="category" data-category="binding">binding <span class="quarto-category-count">(1)</span></div><div class="category" data-category="blogging">blogging <span class="quarto-category-count">(5)</span></div><div class="category" data-category="c">c <span class="quarto-category-count">(1)</span></div><div class="category" data-category="calculator">calculator <span class="quarto-category-count">(1)</span></div><div class="category" data-category="chat">chat <span class="quarto-category-count">(1)</span></div><div class="category" data-category="chatgpt">chatgpt <span class="quarto-category-count">(1)</span></div><div class="category" data-category="data">data <span class="quarto-category-count">(1)</span></div><div class="category" data-category="dataset">dataset <span class="quarto-category-count">(1)</span></div><div class="category" data-category="eda">eda <span class="quarto-category-count">(1)</span></div><div class="category" data-category="embeddings">embeddings <span class="quarto-category-count">(1)</span></div><div class="category" data-category="fast.ai">fast.ai <span class="quarto-category-count">(7)</span></div><div class="category" data-category="function_calling">function_calling <span class="quarto-category-count">(1)</span></div><div class="category" data-category="hugging face">hugging face <span class="quarto-category-count">(4)</span></div><div class="category" data-category="install">install <span class="quarto-category-count">(1)</span></div><div class="category" data-category="jupyter">jupyter <span class="quarto-category-count">(5)</span></div><div class="category" data-category="kaggle">kaggle <span class="quarto-category-count">(6)</span></div><div class="category" data-category="llama.cpp">llama.cpp <span class="quarto-category-count">(2)</span></div><div class="category" data-category="llama2">llama2 <span class="quarto-category-count">(2)</span></div><div class="category" data-category="llm">llm <span class="quarto-category-count">(7)</span></div><div class="category" data-category="markdown">markdown <span class="quarto-category-count">(1)</span></div><div class="category" data-category="math">math <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ml">ml <span class="quarto-category-count">(9)</span></div><div class="category" data-category="mnist">mnist <span class="quarto-category-count">(2)</span></div><div class="category" data-category="nlp">nlp <span class="quarto-category-count">(6)</span></div><div class="category" data-category="numpy">numpy <span class="quarto-category-count">(1)</span></div><div class="category" data-category="openai">openai <span class="quarto-category-count">(1)</span></div><div class="category" data-category="python">python <span class="quarto-category-count">(1)</span></div><div class="category" data-category="pytorch">pytorch <span class="quarto-category-count">(1)</span></div><div class="category" data-category="quarto">quarto <span class="quarto-category-count">(4)</span></div><div class="category" data-category="rag">rag <span class="quarto-category-count">(1)</span></div><div class="category" data-category="tabular">tabular <span class="quarto-category-count">(1)</span></div><div class="category" data-category="titanic">titanic <span class="quarto-category-count">(2)</span></div><div class="category" data-category="tools">tools <span class="quarto-category-count">(1)</span></div><div class="category" data-category="training">training <span class="quarto-category-count">(1)</span></div><div class="category" data-category="update">update <span class="quarto-category-count">(1)</span></div><div class="category" data-category="vision">vision <span class="quarto-category-count">(1)</span></div><div class="category" data-category="wordpress">wordpress <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(26)</span></div><div class="category" data-category="LLM">LLM <span class="quarto-category-count">(2)</span></div><div class="category" data-category="ReAct">ReAct <span class="quarto-category-count">(2)</span></div><div class="category" data-category="api">api <span class="quarto-category-count">(1)</span></div><div class="category" data-category="apple silicon">apple silicon <span class="quarto-category-count">(3)</span></div><div class="category" data-category="binding">binding <span class="quarto-category-count">(1)</span></div><div class="category" data-category="blogging">blogging <span class="quarto-category-count">(5)</span></div><div class="category" data-category="c">c <span class="quarto-category-count">(1)</span></div><div class="category" data-category="calculator">calculator <span class="quarto-category-count">(2)</span></div><div class="category" data-category="chat">chat <span class="quarto-category-count">(1)</span></div><div class="category" data-category="chatgpt">chatgpt <span class="quarto-category-count">(1)</span></div><div class="category" data-category="data">data <span class="quarto-category-count">(1)</span></div><div class="category" data-category="dataset">dataset <span class="quarto-category-count">(1)</span></div><div class="category" data-category="eda">eda <span class="quarto-category-count">(1)</span></div><div class="category" data-category="embeddings">embeddings <span class="quarto-category-count">(1)</span></div><div class="category" data-category="fast.ai">fast.ai <span class="quarto-category-count">(7)</span></div><div class="category" data-category="function_calling">function_calling <span class="quarto-category-count">(2)</span></div><div class="category" data-category="hugging face">hugging face <span class="quarto-category-count">(4)</span></div><div class="category" data-category="install">install <span class="quarto-category-count">(1)</span></div><div class="category" data-category="jupyter">jupyter <span class="quarto-category-count">(5)</span></div><div class="category" data-category="kaggle">kaggle <span class="quarto-category-count">(6)</span></div><div class="category" data-category="llama.cpp">llama.cpp <span class="quarto-category-count">(2)</span></div><div class="category" data-category="llama2">llama2 <span class="quarto-category-count">(2)</span></div><div class="category" data-category="llm">llm <span class="quarto-category-count">(7)</span></div><div class="category" data-category="markdown">markdown <span class="quarto-category-count">(1)</span></div><div class="category" data-category="math">math <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ml">ml <span class="quarto-category-count">(9)</span></div><div class="category" data-category="mnist">mnist <span class="quarto-category-count">(2)</span></div><div class="category" data-category="nlp">nlp <span class="quarto-category-count">(6)</span></div><div class="category" data-category="numpy">numpy <span class="quarto-category-count">(1)</span></div><div class="category" data-category="openai">openai <span class="quarto-category-count">(1)</span></div><div class="category" data-category="python">python <span class="quarto-category-count">(1)</span></div><div class="category" data-category="pytorch">pytorch <span class="quarto-category-count">(1)</span></div><div class="category" data-category="quarto">quarto <span class="quarto-category-count">(4)</span></div><div class="category" data-category="rag">rag <span class="quarto-category-count">(1)</span></div><div class="category" data-category="tabular">tabular <span class="quarto-category-count">(1)</span></div><div class="category" data-category="titanic">titanic <span class="quarto-category-count">(2)</span></div><div class="category" data-category="tools">tools <span class="quarto-category-count">(1)</span></div><div class="category" data-category="training">training <span class="quarto-category-count">(1)</span></div><div class="category" data-category="update">update <span class="quarto-category-count">(1)</span></div><div class="category" data-category="vision">vision <span class="quarto-category-count">(1)</span></div><div class="category" data-category="wordpress">wordpress <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
@@ -244,7 +245,49 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="LLM,function_calling,tools,calculator" data-listing-date-sort="1722290400000" data-listing-file-modified-sort="1722322730048" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2482">
+<div class="quarto-post image-right" data-index="0" data-categories="LLM,function_calling,ReAct,calculator" data-listing-date-sort="1722549600000" data-listing-file-modified-sort="1722583734513" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="428">
+<div class="thumbnail">
+<p><a href="./posts/2024-08-02-llm-calculator2-vision/index.html" class="no-external"></a></p><a href="./posts/2024-08-02-llm-calculator2-vision/index.html" class="no-external">
+<p><img loading="lazy" src="./posts/2024-08-02-llm-calculator2-vision/apple-calculations-solved.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/2024-08-02-llm-calculator2-vision/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/2024-08-02-llm-calculator2-vision/index.html" class="no-external">Building the Apple Calculator in a Jupyter Notebook</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/2024-08-02-llm-calculator2-vision/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('LLM'); return false;">
+LLM
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('function_calling'); return false;">
+function_calling
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('ReAct'); return false;">
+ReAct
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('calculator'); return false;">
+calculator
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/2024-08-02-llm-calculator2-vision/index.html" class="no-external">Did you see Apple’s iPad calculator demo on WWDC 2024? Apple calls this feature “Math Notes”. It looks pretty cool how you can hand-write calculations, and it solves them on…</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/2024-08-02-llm-calculator2-vision/index.html" class="no-external">
+<div class="listing-date">
+Aug 2, 2024
+</div>
+<div class="listing-author">
+Christian Wittmann
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="LLM,function_calling,tools,calculator,ReAct" data-listing-date-sort="1722290400000" data-listing-file-modified-sort="1722583781333" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2482">
 <div class="thumbnail">
 <p><a href="./posts/2024-07-30-llm-calculator1/index.html" class="no-external"></a></p><a href="./posts/2024-07-30-llm-calculator1/index.html" class="no-external">
 <p><img loading="lazy" src="./posts/2024-07-30-llm-calculator1/llm-with-calculator.png" class="thumbnail-image"></p>
@@ -270,6 +313,9 @@ tools
 <div class="listing-category" onclick="window.quartoListingCategory('calculator'); return false;">
 calculator
 </div>
+<div class="listing-category" onclick="window.quartoListingCategory('ReAct'); return false;">
+ReAct
+</div>
 </div>
 <div class="listing-description">
 <a href="./posts/2024-07-30-llm-calculator1/index.html" class="no-external">Large Language Models (LLMs) are great writers, but they struggle with numbers: Counting, adding, and basic arithmetic. I guess this is why they are called Large Language…</a>
@@ -286,7 +332,7 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="blogging,quarto,update" data-listing-date-sort="1719007200000" data-listing-file-modified-sort="1719034976768" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="644">
+<div class="quarto-post image-right" data-index="2" data-categories="blogging,quarto,update" data-listing-date-sort="1719007200000" data-listing-file-modified-sort="1719034976768" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="644">
 <div class="thumbnail">
 <p><a href="./posts/2024-06-22-quarto-update-and-helpful-features/index.html" class="no-external"></a></p><a href="./posts/2024-06-22-quarto-update-and-helpful-features/index.html" class="no-external">
 <p><img loading="lazy" src="./posts/2024-06-22-quarto-update-and-helpful-features/quarto.png" class="thumbnail-image"></p>
@@ -325,7 +371,7 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-categories="llm,nlp,training" data-listing-date-sort="1718920800000" data-listing-file-modified-sort="1718947188586" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="35" data-listing-word-count-sort="6974">
+<div class="quarto-post image-right" data-index="3" data-categories="llm,nlp,training" data-listing-date-sort="1718920800000" data-listing-file-modified-sort="1718947188586" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="35" data-listing-word-count-sort="6974">
 <div class="thumbnail">
 <p><a href="./posts/2024-06-21-how-llms-are-trained/index.html" class="no-external"></a></p><a href="./posts/2024-06-21-how-llms-are-trained/index.html" class="no-external">
 <p><img loading="lazy" src="./posts/2024-06-21-how-llms-are-trained/llm-training.png" class="thumbnail-image"></p>
@@ -364,7 +410,7 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="3" data-categories="rag,llm,nlp" data-listing-date-sort="1711062000000" data-listing-file-modified-sort="1711097366576" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1826">
+<div class="quarto-post image-right" data-index="4" data-categories="rag,llm,nlp" data-listing-date-sort="1711062000000" data-listing-file-modified-sort="1711097366576" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1826">
 <div class="thumbnail">
 <p><a href="./posts/2024-03-22-rag1-remembering-world-trip/index.html" class="no-external"></a></p><a href="./posts/2024-03-22-rag1-remembering-world-trip/index.html" class="no-external">
 <p><img loading="lazy" src="./posts/2024-03-22-rag1-remembering-world-trip/remembering-world-trip.png" class="thumbnail-image"></p>
@@ -403,7 +449,7 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="4" data-categories="embeddings,llm,nlp" data-listing-date-sort="1710457200000" data-listing-file-modified-sort="1710513339275" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2389">
+<div class="quarto-post image-right" data-index="5" data-categories="embeddings,llm,nlp" data-listing-date-sort="1710457200000" data-listing-file-modified-sort="1710513339275" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2389">
 <div class="thumbnail">
 <p><a href="./posts/2024-03-15-embeddings/index.html" class="no-external"></a></p><a href="./posts/2024-03-15-embeddings/index.html" class="no-external">
 <p><img loading="lazy" src="./posts/2024-03-15-embeddings/animal-embeddings-euclidean.png" class="thumbnail-image"></p>
@@ -442,7 +488,7 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="5" data-categories="wordpress,markdown,dataset" data-listing-date-sort="1709852400000" data-listing-file-modified-sort="1711097923061" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1427">
+<div class="quarto-post image-right" data-index="6" data-categories="wordpress,markdown,dataset" data-listing-date-sort="1709852400000" data-listing-file-modified-sort="1711097923061" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1427">
 <div class="thumbnail">
 <p><a href="./posts/2024-03-08-how-to-convert-wordpress-into-markdown/index.html" class="no-external"></a></p><a href="./posts/2024-03-08-how-to-convert-wordpress-into-markdown/index.html" class="no-external">
 <p><img loading="lazy" src="./posts/2024-03-08-how-to-convert-wordpress-into-markdown/wordpress2markdown.png" class="thumbnail-image"></p>
@@ -481,7 +527,7 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="6" data-categories="chat,jupyter,llama2,llm" data-listing-date-sort="1708642800000" data-listing-file-modified-sort="1708698355329" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="828">
+<div class="quarto-post image-right" data-index="7" data-categories="chat,jupyter,llama2,llm" data-listing-date-sort="1708642800000" data-listing-file-modified-sort="1708698355329" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="828">
 <div class="thumbnail">
 <p><a href="./posts/2024-02-23-chat-from-scratch/index.html" class="no-external"></a></p><a href="./posts/2024-02-23-chat-from-scratch/index.html" class="no-external">
 <p><img loading="lazy" src="./posts/2024-02-23-chat-from-scratch/llama-lets-chat.png" class="thumbnail-image"></p>
@@ -523,7 +569,7 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="7" data-categories="c,binding,llama.cpp,llm" data-listing-date-sort="1708038000000" data-listing-file-modified-sort="1708071431158" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="655">
+<div class="quarto-post image-right" data-index="8" data-categories="c,binding,llama.cpp,llm" data-listing-date-sort="1708038000000" data-listing-file-modified-sort="1708071431158" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="655">
 <div class="thumbnail">
 <p><a href="./posts/2024-02-16-c-binding-example/index.html" class="no-external"></a></p><a href="./posts/2024-02-16-c-binding-example/index.html" class="no-external">
 <p><img loading="lazy" src="./posts/2024-02-16-c-binding-example/c-binding-python.png" class="thumbnail-image"></p>
@@ -565,7 +611,7 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="8" data-categories="llama2,apple silicon,llama.cpp,hugging face,llm" data-listing-date-sort="1707951600000" data-listing-file-modified-sort="1708069803687" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1369">
+<div class="quarto-post image-right" data-index="9" data-categories="llama2,apple silicon,llama.cpp,hugging face,llm" data-listing-date-sort="1707951600000" data-listing-file-modified-sort="1708069803687" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1369">
 <div class="thumbnail">
 <p><a href="./posts/2024-02-15-running-llama2-on-mac/index.html" class="no-external"></a></p><a href="./posts/2024-02-15-running-llama2-on-mac/index.html" class="no-external">
 <p><img loading="lazy" src="./posts/2024-02-15-running-llama2-on-mac/llama-on-mac.png" class="thumbnail-image"></p>
@@ -610,7 +656,7 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="9" data-categories="openai,jupyter,api,llm" data-listing-date-sort="1706310000000" data-listing-file-modified-sort="1708069771728" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="839">
+<div class="quarto-post image-right" data-index="10" data-categories="openai,jupyter,api,llm" data-listing-date-sort="1706310000000" data-listing-file-modified-sort="1708069771728" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="839">
 <div class="thumbnail">
 <p><a href="./posts/2024-01-27-how-to-call-openai-api/index.html" class="no-external"></a></p><a href="./posts/2024-01-27-how-to-call-openai-api/index.html" class="no-external">
 <p><img loading="lazy" src="./posts/2024-01-27-how-to-call-openai-api/openai-api-512px.png" class="thumbnail-image"></p>
@@ -652,7 +698,7 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="10" data-categories="ml,fast.ai,apple silicon,hugging face,mnist,nlp" data-listing-date-sort="1704409200000" data-listing-file-modified-sort="1708069439153" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1473">
+<div class="quarto-post image-right" data-index="11" data-categories="ml,fast.ai,apple silicon,hugging face,mnist,nlp" data-listing-date-sort="1704409200000" data-listing-file-modified-sort="1708069439153" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1473">
 <div class="thumbnail">
 <p><a href="./posts/2024-01-05-running-ml-on-apple-silicon/index.html" class="no-external"></a></p><a href="./posts/2024-01-05-running-ml-on-apple-silicon/index.html" class="no-external">
 <p><img loading="lazy" src="./posts/2024-01-05-running-ml-on-apple-silicon/running-ml-on-apple-silicon.png" class="thumbnail-image"></p>
@@ -700,7 +746,7 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="11" data-categories="ml,fast.ai,apple silicon,install" data-listing-date-sort="1702422000000" data-listing-file-modified-sort="1708069460464" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="578">
+<div class="quarto-post image-right" data-index="12" data-categories="ml,fast.ai,apple silicon,install" data-listing-date-sort="1702422000000" data-listing-file-modified-sort="1708069460464" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="578">
 <div class="thumbnail">
 <p><a href="./posts/2023-12-13-installing-fast-ai-on-apple-silicon/index.html" class="no-external"></a></p><a href="./posts/2023-12-13-installing-fast-ai-on-apple-silicon/index.html" class="no-external">
 <p><img loading="lazy" src="./posts/2023-12-13-installing-fast-ai-on-apple-silicon/fast-ai-on-apple-silicon-512px.png" class="thumbnail-image"></p>
@@ -742,7 +788,7 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="12" data-categories="ml,kaggle,titanic,chatgpt,eda" data-listing-date-sort="1677970800000" data-listing-file-modified-sort="1706677797199" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1133">
+<div class="quarto-post image-right" data-index="13" data-categories="ml,kaggle,titanic,chatgpt,eda" data-listing-date-sort="1677970800000" data-listing-file-modified-sort="1706677797199" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1133">
 <div class="thumbnail">
 <p><a href="./posts/2023-03-05-titanic-with-chatgpt/index.html" class="no-external"></a></p><a href="./posts/2023-03-05-titanic-with-chatgpt/index.html" class="no-external">
 <p><img loading="lazy" src="./posts/2023-03-05-titanic-with-chatgpt/the_captain_of_the_titanic_talking_to_a_chatbot.png" class="thumbnail-image"></p>
@@ -787,7 +833,7 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="13" data-categories="ml,data,hugging face,nlp,kaggle" data-listing-date-sort="1674774000000" data-listing-file-modified-sort="1675012544000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1541">
+<div class="quarto-post image-right" data-index="14" data-categories="ml,data,hugging face,nlp,kaggle" data-listing-date-sort="1674774000000" data-listing-file-modified-sort="1675012544000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1541">
 <div class="thumbnail">
 <p><a href="./posts/2023-01-27-disaster-tweet-dataset-limitations/index.html" class="no-external"></a></p><a href="./posts/2023-01-27-disaster-tweet-dataset-limitations/index.html" class="no-external">
 <p><img loading="lazy" src="./posts/2023-01-27-disaster-tweet-dataset-limitations/twitter-on-fire-dalle2-2.png" class="thumbnail-image"></p>
@@ -833,7 +879,7 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="14" data-categories="kaggle,nlp,hugging face,ml" data-listing-date-sort="1673910000000" data-listing-file-modified-sort="1675012574000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="20" data-listing-word-count-sort="3976">
+<div class="quarto-post image-right" data-index="15" data-categories="kaggle,nlp,hugging face,ml" data-listing-date-sort="1673910000000" data-listing-file-modified-sort="1675012574000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="20" data-listing-word-count-sort="3976">
 <div class="thumbnail">
 <p><a href="./posts/2023-01-17-nlp-with-disaster-tweets/index.html" class="no-external"></a></p><a href="./posts/2023-01-17-nlp-with-disaster-tweets/index.html" class="no-external">
 <p><img loading="lazy" src="./posts/2023-01-17-nlp-with-disaster-tweets/twitter-on-fire-dalle2-crop-400px.png" class="thumbnail-image"></p>
@@ -876,7 +922,7 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="15" data-categories="fast.ai,kaggle,ml" data-listing-date-sort="1669762800000" data-listing-file-modified-sort="1669970114000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="932">
+<div class="quarto-post image-right" data-index="16" data-categories="fast.ai,kaggle,ml" data-listing-date-sort="1669762800000" data-listing-file-modified-sort="1669970114000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="932">
 <div class="thumbnail">
 <p><a href="./posts/2022-11-30-wrapping-up-lesson3/index.html" class="no-external"></a></p><a href="./posts/2022-11-30-wrapping-up-lesson3/index.html" class="no-external">
 <p><img loading="lazy" src="./posts/2022-11-30-wrapping-up-lesson3/fastai-logo.png" class="thumbnail-image"></p>
@@ -915,7 +961,7 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="16" data-categories="blogging,quarto,jupyter" data-listing-date-sort="1669503600000" data-listing-file-modified-sort="1669552384000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="483">
+<div class="quarto-post image-right" data-index="17" data-categories="blogging,quarto,jupyter" data-listing-date-sort="1669503600000" data-listing-file-modified-sort="1669552384000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="483">
 <div class="thumbnail">
 <p><a href="./posts/2022-11-27-rebuilding-quarto-blog/index.html" class="no-external"></a></p><a href="./posts/2022-11-27-rebuilding-quarto-blog/index.html" class="no-external">
 <p><img loading="lazy" src="./posts/2022-11-27-rebuilding-quarto-blog/quarto.png" class="thumbnail-image"></p>
@@ -954,7 +1000,7 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="17" data-categories="kaggle,mnist,fast.ai,vision" data-listing-date-sort="1669417200000" data-listing-file-modified-sort="1669618548000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="826">
+<div class="quarto-post image-right" data-index="18" data-categories="kaggle,mnist,fast.ai,vision" data-listing-date-sort="1669417200000" data-listing-file-modified-sort="1669618548000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="826">
 <div class="thumbnail">
 <p><a href="./posts/2022-11-26-mnist/index.html" class="no-external"></a></p><a href="./posts/2022-11-26-mnist/index.html" class="no-external">
 <p><img loading="lazy" src="./posts/2022-11-26-mnist/mnist-digits.png" class="thumbnail-image"></p>
@@ -996,7 +1042,7 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="18" data-categories="kaggle,titanic,fast.ai,ml,tabular" data-listing-date-sort="1667602800000" data-listing-file-modified-sort="1669703488000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="986">
+<div class="quarto-post image-right" data-index="19" data-categories="kaggle,titanic,fast.ai,ml,tabular" data-listing-date-sort="1667602800000" data-listing-file-modified-sort="1669703488000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="986">
 <div class="thumbnail">
 <p><a href="./posts/2022-11-05-kaggle-titanic/index.html" class="no-external"></a></p><a href="./posts/2022-11-05-kaggle-titanic/index.html" class="no-external">
 <p><img loading="lazy" src="./posts/2022-11-05-kaggle-titanic/Kaggle_logo.png" class="thumbnail-image"></p>
@@ -1041,7 +1087,7 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="19" data-categories="math,python,numpy,pytorch" data-listing-date-sort="1666908000000" data-listing-file-modified-sort="1669539952000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="756">
+<div class="quarto-post image-right" data-index="20" data-categories="math,python,numpy,pytorch" data-listing-date-sort="1666908000000" data-listing-file-modified-sort="1669539952000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="756">
 <div class="thumbnail">
 <p><a href="./posts/2022-10-28-matrix-multiplication/index.html" class="no-external"></a></p><a href="./posts/2022-10-28-matrix-multiplication/index.html" class="no-external">
 <p><img loading="lazy" src="./posts/2022-10-28-matrix-multiplication/khan-matrix-dimensions.png" class="thumbnail-image"></p>
@@ -1083,7 +1129,7 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="20" data-categories="blogging,quarto,jupyter" data-listing-date-sort="1666303200000" data-listing-file-modified-sort="1669539952000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1038">
+<div class="quarto-post image-right" data-index="21" data-categories="blogging,quarto,jupyter" data-listing-date-sort="1666303200000" data-listing-file-modified-sort="1669539952000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1038">
 <div class="thumbnail">
 <p><a href="./posts/2022-10-21-how-i-created-this-blog/index.html" class="no-external"></a></p><a href="./posts/2022-10-21-how-i-created-this-blog/index.html" class="no-external">
 <p><img loading="lazy" src="./posts/2022-10-21-how-i-created-this-blog/quarto.png" class="thumbnail-image"></p>
@@ -1122,7 +1168,7 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="21" data-categories="blogging,quarto,jupyter" data-listing-date-sort="1666044000000" data-listing-file-modified-sort="1669539952000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="221">
+<div class="quarto-post image-right" data-index="22" data-categories="blogging,quarto,jupyter" data-listing-date-sort="1666044000000" data-listing-file-modified-sort="1669539952000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="221">
 <div class="thumbnail">
 <p><a href="./posts/2022-10-18-blogging-with-jupyter-notebook/index.html" class="no-external"></a></p><a href="./posts/2022-10-18-blogging-with-jupyter-notebook/index.html" class="no-external">
 <p><img loading="lazy" src="./posts/2022-10-18-blogging-with-jupyter-notebook/jupyter_logo.png" class="thumbnail-image"></p>
@@ -1161,7 +1207,7 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="22" data-categories="fast.ai,ml" data-listing-date-sort="1665612000000" data-listing-file-modified-sort="1669539952000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="246">
+<div class="quarto-post image-right" data-index="23" data-categories="fast.ai,ml" data-listing-date-sort="1665612000000" data-listing-file-modified-sort="1669539952000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="246">
 <div class="thumbnail">
 <p><a href="./posts/2022-10-13-visualizing-gradient-descent-in-3d/index.html" class="no-external"></a></p><a href="./posts/2022-10-13-visualizing-gradient-descent-in-3d/index.html" class="no-external">
 <p class="card-img-top"><img src="posts/2022-10-13-visualizing-gradient-descent-in-3d/visualizing-gradient-descent-in-3d.png"  class="thumbnail-image card-img"/></p>
@@ -1197,7 +1243,7 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="23" data-categories="fast.ai,ml" data-listing-date-sort="1664748000000" data-listing-file-modified-sort="1669539952000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="59">
+<div class="quarto-post image-right" data-index="24" data-categories="fast.ai,ml" data-listing-date-sort="1664748000000" data-listing-file-modified-sort="1669539952000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="59">
 <div class="thumbnail">
 <p><a href="./posts/2022-10-03-bear-detector-2022/index.html" class="no-external"></a></p><a href="./posts/2022-10-03-bear-detector-2022/index.html" class="no-external">
 <p class="card-img-top"><img src="posts/2022-10-03-bear-detector-2022/bear-detector-2022.jpeg"  class="thumbnail-image card-img"/></p>
@@ -1233,10 +1279,10 @@ Christian Wittmann
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="24" data-categories="blogging" data-listing-date-sort="1664575200000" data-listing-file-modified-sort="1669539952000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="2">
+<div class="quarto-post image-right" data-index="25" data-categories="blogging" data-listing-date-sort="1664575200000" data-listing-file-modified-sort="1669539952000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="2">
 <div class="thumbnail">
 <p><a href="./posts/2022-10-01-hello-world/index.html" class="no-external"></a></p><a href="./posts/2022-10-01-hello-world/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/2022-10-01-hello-world/hello-world.png" class="thumbnail-image"></p>
+<p><img loading="lazy" data-src="./posts/2022-10-01-hello-world/hello-world.png" class="thumbnail-image"></p>
 </a><p><a href="./posts/2022-10-01-hello-world/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
@@ -1270,6 +1316,9 @@ Christian Wittmann
 <div class="listing-no-matching d-none">
 No matching items
 </div>
+<nav id="listing-pagination" class="listing-pagination" aria-label="Page Navigation">
+  <ul class="pagination"></ul>
+</nav>
 </div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
