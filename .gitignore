@@ -5,3 +5,6 @@ _site
 
 # Ignore the entire .vscode directory
 .vscode/
+
+# Ignore PowerPoint
+*.pptx
