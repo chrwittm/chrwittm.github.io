@@ -274,6 +274,7 @@ cookieconsent.run({
 
     subgraph Injection["Dependency Injection"]
         direction BT
+        style Injection fill:#FFFFE0
     
         BaseLLMProvider --&gt;|Implements| LLMProviderInterface
 
@@ -790,6 +791,7 @@ cookieconsent.run({
 
     subgraph Inheritance["Inheritance Hierarchy"]
         direction BT
+        style Inheritance fill:#FFFFE0
         OpenAIProvider --&gt;|Extends| BaseLLMProvider
         AnthropicProvider --&gt;|Extends| BaseLLMProvider
         GroqProviderLlama3 --&gt;|Extends| BaseLLMProvider
