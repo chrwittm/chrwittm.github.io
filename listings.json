@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/2025-03-14-gender-inference/index.html",
       "/posts/2024-11-30-omnichat/index.html",
       "/posts/2024-10-22-how-to-run-javascript-in-a-jupyter-notebook/index.html",
       "/posts/2024-08-02-llm-calculator2-vision/index.html",

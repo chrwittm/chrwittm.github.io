@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.55">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Christian Wittmann">
+<meta name="dcterms.date" content="2025-03-14">
+
+<title>Why Relative Risk Matters in AI Ethics: A Personal Journey into Gender Inference – chrwittm.github.io</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-GF3YYKQQNH"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-GF3YYKQQNH', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">chrwittm.github.io</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/chrwittm"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/chrwittm"> <i class="bi bi-twitter-x" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://de.linkedin.com/in/chrwittm"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.kaggle.com/christianwittmann"> <i class="bi bi-file-earmark-code" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Why Relative Risk Matters in AI Ethics: A Personal Journey into Gender Inference</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">ai-ethics</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Christian Wittmann </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">March 14, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<p>A few days ago, I had a fascinating, and unexpected, journey into the heart of <a href="https://en.wikipedia.org/wiki/Ethics_of_artificial_intelligence">AI ethics</a>. It all started with a conversation about whether it was ethical for AI to infer a person’s gender from their name alone. This was deemed as potentially ethically risky — a view I found intuitively confusing, even counterintuitive. Let’s explore the arguments on both sides and how, from my point of view, it is possible to reach a more nuanced and realistic assessment by not only making an absolute assessment, but a relative one.</p>
+<style>
+  figure {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+</style>
+<figure class="figure">
+<img src="gender-inference.png" alt="DALL-E: AI Thinking about Gender Inference" style="width:50%;" class="figure-img">
+<figcaption>
+DALL-E: AI Thinking about Gender Inference
+</figcaption>
+</figure>
+<section id="additional-background---testing-microsoft-co-pilot" class="level2">
+<h2 class="anchored" data-anchor-id="additional-background---testing-microsoft-co-pilot">Additional Background - Testing Microsoft Co-Pilot</h2>
+<p>After the discussion, I ran a few experiments. Out of curiosity, I asked Copilot to guess my gender based on my name “Christian”. Very much to my surprise, it politely rejected the query:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./what-is-my-gender-co-pilot.png" class="img-fluid figure-img"></p>
+<figcaption>Asking Co-Pilot for my gender</figcaption>
+</figure>
+</div>
+<p>I did not expect this result. To gather more data, I asked ChatGPT. It did not reject the query, but answered hesitantly:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./what-is-my-gender-chat-gpt.png" class="img-fluid figure-img"></p>
+<figcaption>Asking ChatGPT for my gender</figcaption>
+</figure>
+</div>
+</section>
+<section id="the-scenario-gender-inference-from-ambiguous-names" class="level2">
+<h2 class="anchored" data-anchor-id="the-scenario-gender-inference-from-ambiguous-names">The Scenario: Gender Inference from Ambiguous Names</h2>
+<p>To explore this topic further, I decided to construct a more realistic but hypothetical business scenario. Here is the proposed prompt:</p>
+<blockquote class="blockquote">
+<p>“I received an email from a customer named Andrea Rossi. Since I’m unsure whether to address them formally as Herr (Mr.) or Frau (Mrs.) in a German business setting, could an AI assistant help me infer the customer’s gender based on their name?”</p>
+</blockquote>
+<p>I specifically chose the name “Andrea” because it varies significantly by culture—it’s typically female in Germany, male in Italy, and can be ambiguous elsewhere. The intention behind using AI here was to reduce uncertainty and ensure respectful communication, not to enforce gender binaries or stereotypes.</p>
+</section>
+<section id="asking-the-linkedin-community" class="level2">
+<h2 class="anchored" data-anchor-id="asking-the-linkedin-community">Asking the LinkedIn Community</h2>
+<p>I know the topic of gender can be a hot potato. Instead of solely relying on my intuition, I also turned to the community and created a <a href="https://www.linkedin.com/posts/chrwittm_aiethics-responsibleai-ethics-activity-7303702294729019392-cIWI/">poll in LinkedIn</a>. Here are the results:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./linkedin-poll.png" class="img-fluid figure-img"></p>
+<figcaption>LinkedIn Poll</figcaption>
+</figure>
+</div>
+<p>As you can see, the non-representative answers are split into two camps: About one third of respondents did not have any concern at all, and a two-thirds majority had concerns. Half of the concerned respondents felt the use case is problematic, and the other half deemed it not acceptable and ethically risky. Sadly, we do not have deeper insight into the thought process behind these risk classifications, but objections might concern the potential for reinforcing stereotypes, or data misuse.</p>
+</section>
+<section id="discussing-the-use-case-with-chatgpt" class="level2">
+<h2 class="anchored" data-anchor-id="discussing-the-use-case-with-chatgpt">Discussing the Use Case with ChatGPT</h2>
+<p>Trying to take the discussion from the subjective field of human opinions which can easily become emotional, I wanted a highly objective and highly safety-aligned discussion partner. Therefore, I turned to ChatGPT - After all, modern large language models are trained to be accurate, balanced and objective. They run through <a href="https://chrwittm.github.io/posts/2024-06-21-how-llms-are-trained/">various training stages</a>, including Reinforcement Learning from Human Feedback (RLHF), whose goal is to align these models with human values, ethical considerations, and factual accuracy while reducing harmful or biased outputs.</p>
+<p>While AI model alignment is far away from a solved problem, my personal perception is that modern LLMs usually produce very well-balanced outputs, presenting multiple points of view. To give this a go, just ask ChatGPT about a controversial topic (<em>“<a href="https://chatgpt.com/share/67d3d62b-2854-8013-8bd6-c273e6596911">Where did the Covid-19 virus come from?</a>”</em>). But are there more scientific measurements for model alignment than just the vibe test?</p>
+<p>Researching the subject was difficult, older papers tend to raise concerns while more recent works show more evidence for my proposed vibe check. So there seems to be progress in the field, and even the most recent papers only use fairly old models - considering the rapid pace of innovation, even GPT-4 could be considered outdated. Here are 3 examples (I hope, I am not cherry-picking):</p>
+<ul>
+<li>In a <a href="https://jme.bmj.com/content/early/2025/01/24/jme-2024-110240">paper on medical ethics</a>, GPT-4 scored better than the average student in one benchmark</li>
+<li>The <a href="https://mlcommons.org/benchmarks/ailuminate/">AILuminate Benchmark</a> tests models across various domains of AI related risks on a non-linear scale. Recent models are rated be be good to very good.</li>
+<li>I found this <a href="https://arxiv.org/abs/2309.17012">interesting paper</a> which found that participants rates AI’s moral reasoning as superior in quality to humans’ along almost all dimensions.</li>
+</ul>
+<p>The point I am trying to make is that modern LLMs can be very helpful in my perspective to analyze difficult questions. While they are for sure not perfect, they offer interesting perspectives. Coming back to our case study, I had a long and enlightening conversation with ChatGPT. The following is the gist of our discussion.</p>
+</section>
+<section id="initial-ethical-assessment-an-absolute-approach" class="level2">
+<h2 class="anchored" data-anchor-id="initial-ethical-assessment-an-absolute-approach">Initial Ethical Assessment: An Absolute Approach</h2>
+<p>Initially, we evaluated the scenario in absolute terms—a common practice in AI ethics. We looked at dimensions like harmfulness (the severity and reversibility of misgendering someone) and ethical risk (the likelihood of reinforcing harmful stereotypes or biases).</p>
+<p>The outcome was, again, not aligned with my gut feeling:</p>
+<ul>
+<li><strong>Harmfulness:</strong> Moderate, due to potential misgendering causing discomfort.</li>
+<li><strong>Ethical Risk:</strong> Also Moderate, since even well-intentioned AI can reinforce binary gender assumptions or biases.</li>
+</ul>
+<p>In the realm of AI ethics, these controversial subjects by default trigger some concern, I can understand that. Nonetheless, intuitively, I found it troubling. The intent was clearly positive, instead of making a subjective judgement myself, I asked the AI for additional support to make a better decision, a decision which I would own in the end by either starting the mail with “Dear Mr.&nbsp;Rossi” or “Dear Mrs.&nbsp;Rossi”, so why label it as ethically risky simply because AI isn’t perfect and the final human decision could be wrong? Something felt off.</p>
+</section>
+<section id="reframing-but-still-a-risk" class="level2">
+<h2 class="anchored" data-anchor-id="reframing-but-still-a-risk">Reframing, but still a Risk</h2>
+<p>After some discussion, we came to the conclusion that the way the question was asked was part of the problem, because the question itself could be interpreted as biased or leading into a binary classification. The re-worded prompt was:</p>
+<blockquote class="blockquote">
+<p><em>“I received an email from a customer named Andrea Rossi. Since I am unsure how to address them formally (e.g., Herr/Frau in German business settings), can you provide insights on how the name Andrea is commonly used in different cultures? If the gender is unclear or uncertain, what are some respectful and professional ways to address the customer without making assumptions?”</em></p>
+</blockquote>
+<p>This rephrased prompt was more open-ended and less biased, allowing for a more nuanced response. Co-Pilot happily answered the question (and also the <a href="prompt-v1.png">initial version</a>) in a genuinely helpful way. The AI was nuanced, thoughtful, and provided broader cultural context than a human typically would.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="prompt-v2.png" class="img-fluid figure-img"></p>
+<figcaption>Answer from Co-Pilot</figcaption>
+</figure>
+</div>
+<p>Yet, according to a traditional absolute ethics assessment, even this thoughtful AI response would still carry a moderate ethical risk. That felt strange. Clearly, something fundamental was missing from how we evaluate AI ethics.</p>
+</section>
+<section id="discovering-the-missing-dimension-relative-ethical-assessment" class="level2">
+<h2 class="anchored" data-anchor-id="discovering-the-missing-dimension-relative-ethical-assessment">Discovering the Missing Dimension: Relative Ethical Assessment</h2>
+<p>Believe it or not, this dialogue continued for about an hour, and I was trying to spin it into a direction which would take into account the following aspects: My assumption in this use case is that we are talking to a state of the art AI, which has gone through a lot of alignment training. As also discussed upon follow-up research above, OpenAI, Anthropic, Google, etc. spend significant amounts of time to align their models to be as safe as possible. Today’s LLMs are likely super-human in guessing gender based on names, and if they are not certain, or there is potential ambiguity, they will more likely tell the user, just like the examples above clearly show.</p>
+<p>This led me to propose a relative assessment, which would not only make an absolute assessment, but a relative one: How does AI-supported decision-making impact ethical risk and harmfulness compared to human-only decision-making. We usually do not assess ethical risk and harmfulness of human-only decision-making, probably because we might not like the result?</p>
+<p>When objectively thinking about human performance, we discover that humans are often biased, inconsistent, we make errors, and we know a lot less than we think. The example of the name “Andrea” is probably known to many of you, but is it common knowledge? What if we picked a random name from another culture? Could we guess the gender of a name correctly? Would we unintentionally offend someone or put them in an awkward situation?</p>
+<p>Personally, I have to admit that I am guilty of having misgendered an Andrea once (slightly embarrassing). Briefly switching to a related subject. I think we mispronounce names more frequently than we misgender, sometimes with terrible results, especially when crossing into other languages. Here is another use case where I think AI is ready to help.</p>
+<p>Of course, AI is not perfect, but can it improve our performance? And remember, in the end, in our hypothetical example, the human still sends the mail, we are not asking the AI to act on our behalf without oversight.</p>
+</section>
+<section id="absolute-vs.-relative-ethics-in-action" class="level2">
+<h2 class="anchored" data-anchor-id="absolute-vs.-relative-ethics-in-action">Absolute vs.&nbsp;Relative Ethics in Action</h2>
+<p>Let’s clearly contrast the absolute and relative ethics evaluations:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 34%">
+<col style="width: 32%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Dimension</th>
+<th>Absolute AI Risk Assessment</th>
+<th>Relative AI Risk Assessment</th>
+<th>Risk Change (with AI)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Accuracy</strong></td>
+<td>Moderate (AI might sometimes misgender)</td>
+<td>High accuracy improvement compared to human guessing</td>
+<td>⬇️ Risk reduced</td>
+</tr>
+<tr class="even">
+<td><strong>Misgendering Risk</strong></td>
+<td>Moderate (AI might reinforce binary assumptions)</td>
+<td>Low (AI systematically reduces misgendering compared to humans)</td>
+<td>⬇️ Risk reduced</td>
+</tr>
+<tr class="odd">
+<td><strong>Bias &amp; Inclusivity</strong></td>
+<td>Moderate (AI can reflect dataset biases)</td>
+<td>Low (AI reduces individual human biases and stereotypes)</td>
+<td>⬇️ Risk reduced</td>
+</tr>
+<tr class="even">
+<td><strong>Social Friction</strong></td>
+<td>Moderate (misgendering might cause discomfort)</td>
+<td>Very Low (AI provides neutral alternatives to avoid friction)</td>
+<td>⬇️ Risk reduced</td>
+</tr>
+<tr class="odd">
+<td><strong>Decision Quality</strong></td>
+<td>Moderate (AI inference not always perfect)</td>
+<td>High (AI provides richer cultural insight and nuance)</td>
+<td>⬇️ Risk reduced</td>
+</tr>
+</tbody>
+</table>
+<p>The relative evaluation clearly shows the AI dramatically reduces risk compared to human-only decisions, especially when using best-in-class AI models (like ChatGPT or Copilot), which are carefully aligned, continuously improved, and trained to provide nuanced and context-aware answers.</p>
+<p>While seeing a clear indication for improved decision making with AI support, we need to acknowledge that there is the danger of over-relying on AI. When the AI is close to perfect, a human might blindly trust the AI, removing the human from the loop. In my opinion, this is more a human fallacy than an AI risk, specifically when the human still own the decision. In a fully autonomous system, that would be a different discussion.</p>
+</section>
+<section id="the-directional-approach-why-relative-risk-matters" class="level2">
+<h2 class="anchored" data-anchor-id="the-directional-approach-why-relative-risk-matters">The Directional Approach: Why Relative Risk Matters</h2>
+<p>The key insight from our conversation was that AI ethics should emphasize directional risk assessment:</p>
+<ul>
+<li>AI should be judged by whether it improves or worsens the ethical landscape, not whether it achieves perfection.</li>
+<li>Ethical evaluation should consider whether the use of AI systematically leads to better outcomes and fewer mistakes compared to human decisions alone.</li>
+<li>A use case should be considered ethically beneficial if AI consistently reduces harm, even if it’s not always 100% perfect.</li>
+</ul>
+<p>This approach acknowledges reality: humans make frequent mistakes, especially across cultural boundaries. Well-aligned AI, by comparison, can provide deeper cultural insights, probabilistic reasoning, and inclusive alternatives, systematically reducing overall harm and bias.</p>
+</section>
+<section id="my-personal-takeaway-embracing-a-relative-framework" class="level2">
+<h2 class="anchored" data-anchor-id="my-personal-takeaway-embracing-a-relative-framework">My Personal Takeaway: Embracing a Relative Framework</h2>
+<p>What began as a scenario I created just to challenge my intuitive discomfort turned into an essential ethical insight: AI ethics evaluations should move away from absolute standards towards a relative risk reduction framework. This could be as simple as assessing three variations of each evaluation metric: Human-only, AI-only, Human+AI-performance. This way you can also assess a risk vector, and measure if AI improves human performance or not. I believe, this is a valuable insight.</p>
+<p>If we think about the transition of human driven cars to autonomous vehicles, there is a similar theme. Which driver is better, the human-only driver or the driver who is assisted by street sign recognition, lane keeping and adaptive cruise control. These systems clearly make the human a better driver without releasing the human of the responsibility to drive safely.</p>
+<p>As demonstrated above, by focusing on how AI improves upon human decision-making—rather than demanding absolute perfection—we can unlock AI’s potential to genuinely reduce harm, bias, and mistakes in society.</p>
+</section>
+<section id="conclusion-a-personal-shift-in-perspective" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion-a-personal-shift-in-perspective">Conclusion: A Personal Shift in Perspective</h2>
+<p>Before this conversation, my intuitive understanding was that AI in this scenario is clearly beneficial, and labeling it as “ethically risky” felt disconnected from reality. Through this journey, I realized why this bothered me: we need a relative, comparative approach to AI ethics, not just absolute evaluations.</p>
+<p>If I had accepted the initial absolute ethics assessment at face value, I might have missed the significant ethical benefits AI offers. The relative assessment validated my intuitive feeling: When using state-of-the-art language models, AI not only reduces harm, but it fundamentally enhances human decision-making.</p>
+<p>This is why my personal final classification for this scenario is low-risk.</p>
+<p>PS.: If you have read this to the end, maybe you had mentally classified the use case as risky. What do you think about this relative approach? Does it change your assessment of the discussed use case? Would you consider applying the relative approach in your next AI ethics assessment?</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/chrwittm\.github\.io\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://utteranc.es/client.js" repo="chrwittm/chrwittm.github.io.comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
