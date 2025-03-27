@@ -509,7 +509,7 @@ classDef highlight fill:#d1e8ff,stroke:#1f78b4,stroke-width:2px,color:#0b3e68;
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-16" class="cell">
+<div id="cell-16" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -609,6 +609,8 @@ Intercept: 0.20216576369094635</code></pre>
 </details>
 </div>
 <div id="cell-20" class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> clear_output</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mse(preds, acts): <span class="cf">return</span> ((preds <span class="op">-</span> acts) <span class="op">**</span> <span class="dv">2</span>).mean()</span>
@@ -634,6 +636,7 @@ Intercept: 0.20216576369094635</code></pre>
 <span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> run_optimizer_step(ab, lr<span class="op">=</span><span class="fl">0.01</span>)</span>
 <span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    clear_output(wait<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    plot_current_state(x, y, ab, loss, i<span class="op">+</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -772,32 +775,33 @@ Intercept: 0.20216576369094635</code></pre>
 <h2 class="anchored" data-anchor-id="implementation-5-generative-ai-genai">Implementation 5: Generative AI (GenAI)</h2>
 <p>How can we implement a generative AI (GenAI) to solve the problem of approximating a set of data points? We could give the LLM the data point and ask it to find the best approximation. Try to increase the difficulty a bit, to come back to the beginning. We will pass the png-file of the data point we previously created to the LLM and ask it to find the best approximation - very similar to the implementation via human intelligence.</p>
 <p>How can we leverage Generative AI (GenAI) to approximate our set of data points? One straightforward approach is to provide the data points directly to a large language model (LLM) and ask it to determine the best-fitting solution. To increase the challenge and connect back to our initial biological intelligence implementation, we’ll provide an image (PNG) of the plotted data points to the LLM. The task for the model (same as to the human in implementation 1) is to interpret the visual input and approximate the best-fitting relationship purely from the image.</p>
-<div id="cell-27" class="cell" data-execution_count="147">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>prompt <span class="op">=</span> <span class="st">"Here is a screenshot of a scatter plot containing some data points. Please analyze the image and provide the best approximation for these points. I need the actual solution, not only the way/code to solve it. For any formulas that you return, it is crucial that you enclose LaTeX in `$`or `$$` so that the markdown is rendered correctly"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-28" class="cell">
+<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>prompt <span class="op">=</span> <span class="st">"Here is a screenshot of a scatter plot containing some data points. Please analyze the image and provide the best approximation for these points. I need the actual solution, not only the way/code to solve it. For any formulas that you return, it is crucial that you enclose LaTeX in `$`or `$$` so that the markdown is rendered correctly"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-27" class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> openai <span class="im">import</span> OpenAI</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> OpenAI()</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> client.chat.completions.create(</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"o1"</span>,</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    messages<span class="op">=</span>[</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">"role"</span>: <span class="st">"user"</span>,</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>            <span class="st">"content"</span>: [</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>                {<span class="st">"type"</span>: <span class="st">"text"</span>, <span class="st">"text"</span>: <span class="ss">f"</span><span class="sc">{</span>prompt<span class="sc">}</span><span class="ss">"</span>},</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>                {</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"type"</span>: <span class="st">"image_url"</span>,</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"image_url"</span>: {<span class="st">"url"</span>: <span class="ss">f"data:image/jpeg;base64,</span><span class="sc">{</span>image_base64<span class="sc">}</span><span class="ss">"</span>},</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>                },</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>            ],</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>prompt <span class="op">=</span> <span class="st">"Here is a screenshot of a scatter plot containing some data points. Please analyze the image and provide the best approximation for these points. I need the actual solution, not only the way/code to solve it. For any formulas that you return, it is crucial that you enclose LaTeX in `$`or `$$` so that the markdown is rendered correctly"</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> openai <span class="im">import</span> OpenAI</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> OpenAI()</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> client.chat.completions.create(</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"o1"</span>,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    messages<span class="op">=</span>[</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>            <span class="st">"role"</span>: <span class="st">"user"</span>,</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>            <span class="st">"content"</span>: [</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>                {<span class="st">"type"</span>: <span class="st">"text"</span>, <span class="st">"text"</span>: <span class="ss">f"</span><span class="sc">{</span>prompt<span class="sc">}</span><span class="ss">"</span>},</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>                {</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"type"</span>: <span class="st">"image_url"</span>,</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"image_url"</span>: {<span class="st">"url"</span>: <span class="ss">f"data:image/jpeg;base64,</span><span class="sc">{</span>image_base64<span class="sc">}</span><span class="ss">"</span>},</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>                },</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>            ],</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
+<p>The following output of the model does not render correctly in the blog. Please refer to the <a href="https://github.com/chrwittm/chrwittm.github.io/blob/main/posts/2025-03-27-intelligence-to-genai/index.ipynb">Jupyter notebook version</a> for a better visualization.</p>
 <div id="cell-29" class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -941,7 +945,7 @@ Intercept: 0.20216576369094635</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-14-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1026,7 +1030,7 @@ Intercept: 0.20216576369094635</code></pre>
 </table>
 <p>This comparison highlights important trade-offs: While simpler methods (like linear regression) excel at interpretability and computational efficiency, they lack flexibility and scalability. In contrast, sophisticated techniques (deep learning and generative AI) achieve greater flexibility, generalization, and adaptability at the expense of interpretability, determinism, and increased computational requirements.</p>
 <p>Our exploration also illustrated the “<a href="http://www.incompleteideas.net/IncIdeas/BitterLesson.html">bitter lesson</a>” by Rich Sutton: General-purpose, scalable methods trained directly from data consistently outperform highly specialized, manually engineered solutions in the long term. Yet, the most advanced model isn’t always the best solution for every task. Selecting the appropriate AI method depends on clearly understanding your specific requirements, resources, and desired outcomes.</p>
-<p>In summary, as you approach AI implementation decisions, remember that although generative AI and deep learning dominate today’s discussions, simpler or intermediate methods can often be more effective, explainable, and resource-efficient—depending on your particular problem and context.</p>
+<p>In summary, as you approach AI implementation decisions, remember that although generative AI and deep learning dominate today’s discussions, simpler or intermediate methods can often be more effective, explainable, and resource-efficient, depending on your particular problem and context.</p>
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
