@@ -831,13 +831,12 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <section id="step-7-chat-with-mock-web-search" class="level2">
 <h2 class="anchored" data-anchor-id="step-7-chat-with-mock-web-search">Step 7: Chat with Mock Web Search</h2>
 <p>Now that we have established communication with the LLM, let’s try out our mock search</p>
-<div id="cell-32" class="cell" data-execution_count="36">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>system_prompt <span class="op">=</span> <span class="st">"You are a helpful assistant. When you search the web, make sure to cite your sources."</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>chat_client <span class="op">=</span> ChatClient(system_message<span class="op">=</span>system_prompt, tools<span class="op">=</span>get_tools())</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>chat_client.ask_gpt(<span class="st">"Search the web on a random topic and tell me what you find - do not be surprised if the result does not match the query"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div id="cell-32" class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>system_prompt <span class="op">=</span> <span class="st">"""You are a helpful assistant. </span><span class="ch">\</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="st">                   When you search the web, make sure to cite your sources."""</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>chat_client <span class="op">=</span> ChatClient(system_message<span class="op">=</span>system_prompt, tools<span class="op">=</span>get_tools())</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>chat_client.ask_gpt(<span class="st">"Search the web on a random topic and tell me what you find. </span><span class="ch">\</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="st">                     - do not be surprised if the result does not match the query"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="36">
 <p>I searched for “bioluminescent algae” but received results about Lionel Messi, a famed Argentine-born football player. Messi is widely regarded as one of the greatest footballers of all time, having won numerous accolades including multiple Ballon d’Or and FIFA Men’s Player awards. Despite his achievements in football, my search did not yield any information relevant to bioluminescent algae. This kind of unexpected result can sometimes happen during searches. If you’d like to try another topic, feel free to ask!</p>
 </div>
@@ -848,12 +847,9 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <h2 class="anchored" data-anchor-id="step-8-chat-with-real-web-search">Step 8: Chat with real Web Search</h2>
 <p>Let’s put everything to the test with a different search query: <em>“Who won the German elections in 2025?”</em></p>
 <p>Before enabling the real-time web search, we’ll first run this prompt with no tools attached. This allows us to confirm the baseline: The LLM cannot answer the question, because of its earlier cut-off date.</p>
-<div id="cell-35" class="cell" data-execution_count="37">
-<details class="code-fold">
-<summary>Code</summary>
+<div id="cell-35" class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>chat_client <span class="op">=</span> ChatClient(system_message<span class="op">=</span>system_prompt)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>chat_client.ask_gpt(<span class="st">"Who won the German elections in 2025?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="37">
 <p>I’m unable to provide information on events beyond October 2023, as my training data only goes up until that point. You may want to check the latest news or the official German election website for up-to-date information on the 2025 German elections.</p>
 </div>
