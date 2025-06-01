@@ -561,6 +561,8 @@ Saved file: ko_korean.txt</code></pre>
 <h2 class="anchored" data-anchor-id="analyzing-bible-texts">Analyzing Bible Texts</h2>
 <p>We’ve completed all the preparation steps and can now start analyzing the texts. Let’s count both the tokens and the words to determine the tokens per word. Additionally, let’s normalize the tokens per word and the total number of tokens to English to not only see the tokens per word, but also the relative number of tokens per bible version.</p>
 <div id="cell-14" class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> analyze_all_text_files(extension: <span class="bu">str</span> <span class="op">=</span> <span class="st">'.txt'</span>) <span class="op">-&gt;</span> <span class="bu">list</span>[<span class="bu">dict</span>]:</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Analyzes all text files with the given extension in the current directory.</span></span>
@@ -597,9 +599,12 @@ Saved file: ko_korean.txt</code></pre>
 <span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> results</span>
 <span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> analyze_all_text_files()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>Let’s visualize the results:</p>
-<div id="cell-16" class="cell" data-execution_count="9">
+<div id="cell-16" class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_tokenization_dataframe(results: <span class="bu">list</span>[<span class="bu">dict</span>]) <span class="op">-&gt;</span> pd.DataFrame:</span>
@@ -665,6 +670,7 @@ Saved file: ko_korean.txt</code></pre>
 <span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> get_tokenization_dataframe(results)</span>
 <span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a>display_tokenization_table(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <style type="text/css">
 </style>
@@ -792,7 +798,7 @@ Saved file: ko_korean.txt</code></pre>
 <h2 class="anchored" data-anchor-id="conclusion-what-the-bible-teaches-us-about-tokenization">Conclusion: What the Bible Teaches Us About Tokenization</h2>
 <p>The results turned out to be even more interesting than I expected. We can observe that across the board, the token-per-word ratio for the bible is less than in my <a href="https://chrwittm.github.io/posts/2025-05-23-estimating-tokens-per-word/">previous experiment with Wikipedia articles</a>. I expected this result because the bible contains a lot less markup compared to wikipedia articles. While interesting, other findings stand out more significantly from my point of view.</p>
 <p>First, we can now confidently say that the Bible answers the million-token question. For English, Spanish, Portuguese, and German, the total token count falls within just 5% of one million tokens. French and Russian also land close, within a 10% margin. Extending this range to about 25%, we can also include Korean, Polish, and Italian. Chinese is an outlier, but you might still think of it as a rough estimate. So next time you read the pricing of LLM tokens in dollars per million tokens, for example, $2.00 per 1M input tokens and $8.00 per 1M output tokens, you can imagine it costs $2.00 to read the bible and $8.00 to write the bible.</p>
-<p>Here’s what actually surprised me: Although the tokens-per-word ratios vary substantially across languages (with Polish and Korean being particularly token-hungry), the total token counts across most languages are a lot closer. Once we normalize token counts relative to English, the variation shrinks, and a pattern emerges: Most languages convey the same biblical content using roughly the same number of tokens. This insight challenges the assumption that a higher token-per-word ratio necessarily means higher cost or verbosity. In fact, while languages differ in how many words they need to express an idea, those differences appear to balance out when viewed through the lens of token usage — except, again, in the case of Chinese.</p>
+<p>Here’s what actually surprised me: Although the tokens-per-word ratios vary substantially across languages (with Polish and Korean being particularly token-hungry), the total token counts across most languages are a lot closer. Once we normalize token counts relative to English, the variation shrinks, and a pattern emerges: Most languages convey the same biblical content using roughly the same number of tokens. This insight challenges the assumption that a higher token-per-word ratio necessarily means higher cost or verbosity. In fact, while languages differ in how many words they need to express an idea, those differences appear to balance out when viewed through the lens of token usage, except, again, in the case of Chinese.</p>
 
 
 </section>
