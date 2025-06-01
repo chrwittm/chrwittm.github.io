@@ -1,5 +1,7 @@
 project:
   type: website
+  resources:
+    - "posts/**/data/**"      # copy any file inside any .../data/ folder
 
 website:
   title: "chrwittm.github.io"
@@ -23,6 +25,5 @@ format:
   html:
     theme: cosmo
     css: styles.css
-
 
 
