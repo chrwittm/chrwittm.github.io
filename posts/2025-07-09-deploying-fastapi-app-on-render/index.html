@@ -228,8 +228,7 @@ cookieconsent.run({
 
 
 
-<p>In <a href="fast-api-greeting-server.ipynb">my previous blog post</a>, we created a simple FastAPI-based greeting service with both <code>GET</code> and <code>POST</code> endpoints, an HTML frontend, and interactive documentation.</p>
-<p>This follow-up post shows how to deploy that API to the cloud so it can be accessed publicly using <a href="https://render.com">Render</a>. I have no affiliation with them, but chose their platform because they offer a generous free tier.</p>
+<p>In <a href="https://chrwittm.github.io/posts/2025-07-08-implementing-fastapi-greeting/">my previous blog post</a>, we created a simple FastAPI-based greeting service with both <code>GET</code> and <code>POST</code> endpoints, an HTML frontend, and interactive documentation. In this follow-up blog post we’ll deploy it to the cloud so it can be accessed publicly using <a href="https://render.com">Render</a>. I have no affiliation with them, but chose their platform because they offer a generous free tier.</p>
 <p>You’ll learn how to:</p>
 <ul>
 <li>Turn the Jupyter Notebook (my go-to tool for rapid prototyping) into a standalone Python file</li>
@@ -332,12 +331,12 @@ cookieconsent.run({
 <li>Instance Type: <code>Free</code></li>
 </ul>
 <p>After deployment, this is the URL of the API: https://fastapi-greeting-api.onrender.com</p>
-<p>You can now call the API using the client notebooks for the <a href="./fast-api-greeting-client-post-render.ipynb">POST method</a> and the <a href="./fast-api-greeting-client-get-render.ipynb">GET method</a></p>
+<p>You can now call the API using the client notebooks for the <a href="https://github.com/chrwittm/fastapi-greeting-api/blob/main/notebooks/fast-api-greeting-client-post-render.ipynb">POST method</a> and the <a href="https://github.com/chrwittm/fastapi-greeting-api/blob/main/notebooks/fast-api-greeting-client-get-render.ipynb">GET method</a></p>
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
 <p>Taking the API from a Jupyter Notebook (my preferred environment for rapid prototyping) to a working cloud deployment took a few steps. First, we refactored the code into a standalone Python file (<code>app.py</code>). Then we created a <code>requirements.txt</code> file and tested everything locally in a clean virtual environment. Finally, we deployed the API to the cloud using Render. While the deployment step will vary across cloud providers, the general process is similar.</p>
-<p>After building the greeting API in <a href="fast-api-greeting-server.ipynb">my previous blog post</a>, we’ve now taken it all the way to the cloud. The goal here wasn’t to explore every FastAPI feature or every cloud deployment nuance, but to provide a reusable, step-by-step template for future projects and hackathons.</p>
+<p>After building the greeting API in <a href="https://chrwittm.github.io/posts/2025-07-08-implementing-fastapi-greeting/">my previous blog post</a>, we’ve now taken it all the way to the cloud. The goal here wasn’t to explore every FastAPI feature or every cloud deployment nuance, but to provide a reusable, step-by-step template for future projects and hackathons.</p>
 <p>There’s lots more you could do, e.g.&nbsp;adding authentication, rate limiting, or monitoring, but we’ll leave that for another time. I Hope this was helpful, and happy coding!</p>
 
 

@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Christian Wittmann">
+<meta name="dcterms.date" content="2025-07-10">
 
-<title>index – chrwittm.github.io</title>
+<title>Deploying a FastAPI App to SAP BTP – chrwittm.github.io</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -183,7 +185,40 @@ cookieconsent.run({
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Deploying a FastAPI App to SAP BTP</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">fastapi</div>
+                <div class="quarto-category">sap</div>
+                <div class="quarto-category">btp</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Christian Wittmann </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">July 10, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     
@@ -193,16 +228,8 @@ cookieconsent.run({
 
 
 
-<div id="de76353f" class="cell" data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>title: <span class="st">"Deploying a FastAPI App to SAP BTP"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>author: <span class="st">"Christian Wittmann"</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>date: <span class="st">"2025-07-10"</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>categories: [fastapi, sap, btp]</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>image: <span class="st">"fastapi-btp.png"</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>In a <a href="fast-api-greeting-server.ipynb">previous blog post</a>, we created a simple greeting API using FastAPI, entirely within a Jupyter Notebook. This follow-up post shows how to take that API and deploy it on SAP Business Technology Platform (SAP BTP), making it accessible from your SAP or non-SAP projects.</p>
+
+<p>In a <a href="https://chrwittm.github.io/posts/2025-07-08-implementing-fastapi-greeting/">previous blog post</a>, we created a simple greeting API using FastAPI, entirely within a Jupyter Notebook. This follow-up post shows how to deploy it on SAP Business Technology Platform (SAP BTP), making it accessible from your SAP or non-SAP projects.</p>
 <p>(I assume you already have access to an SAP BTP account with Cloud Foundry enabled.)</p>
 <p>You’ll learn how to:</p>
 <ul>
@@ -229,22 +256,22 @@ cookieconsent.run({
 <h3 class="anchored" data-anchor-id="creating-requirements.txt">Creating <code>requirements.txt</code></h3>
 <p>For out simple project, you could easily create the <code>requirements.txt</code> file manually, but I am too lazy for that, so I am using the <code>pipreqs</code> package to generate it for me</p>
 <p>If you don’t have the <code>pipreqs</code> package installed, you can simply install it using pip:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install pipreqs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install pipreqs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Now you can generate the <code>requirements.txt</code>. Either <code>cd</code> into the directory where your <code>app.py</code> file is located and run</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pipreqs</span> .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pipreqs</span> .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Alternatively, you can specify the path to the <code>app.py</code> file</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pipreqs</span> path/to/app.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pipreqs</span> path/to/app.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="installing-dependencies" class="level3">
 <h3 class="anchored" data-anchor-id="installing-dependencies">Installing Dependencies</h3>
 <p>Once you have the <code>requirements.txt</code> file, you can install the dependencies using pip</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>When you are developing your own app, and you started in a Jupyter notebook, the installation of the dependencies is a self-fulfilling prophecy, but once we move to a virtual environment, you need to install the dependencies.</p>
 </section>
 <section id="running-the-app" class="level3">
 <h3 class="anchored" data-anchor-id="running-the-app">Running the App</h3>
 <p>Now you can run your app with Uvicorn from the terminal. From the directory where <code>app.py</code> is located, start the API server with:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uvicorn</span> app:app <span class="at">--reload</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uvicorn</span> app:app <span class="at">--reload</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Let’s break down the command:</p>
 <ul>
 <li><code>uvicorn</code>: The Uvicorn server.</li>
@@ -262,7 +289,7 @@ cookieconsent.run({
 <section id="creating-a-virtual-environment" class="level3">
 <h3 class="anchored" data-anchor-id="creating-a-virtual-environment">Creating a Virtual Environment</h3>
 <p>To create a virtual environment, you can use the <code>venv</code> module that comes with Python. Open your terminal and navigate to the directory where your <code>app.py</code> file is located. Then, run the following command to create a virtual environment named <code>venv</code>:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> venv venv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> venv venv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Let’s break down the command:</p>
 <ul>
 <li><code>python</code>: The Python interpreter.</li>
@@ -282,18 +309,18 @@ cookieconsent.run({
 <section id="installing-dependencies-1" class="level3">
 <h3 class="anchored" data-anchor-id="installing-dependencies-1">Installing Dependencies</h3>
 <p>Now that you have activated the virtual environment, you can install the dependencies using pip. From the directory where <code>app.py</code> is located, run:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Now the virtual environment has all the dependencies from <code>requirements.txt</code> installed, simulating the environment in which the app will be deployed on BTP.</p>
 </section>
 <section id="running-the-app-1" class="level3">
 <h3 class="anchored" data-anchor-id="running-the-app-1">Running the App</h3>
 <p>Now you can run your app with Uvicorn from the terminal. From the directory where <code>app.py</code> is located, start the API server with:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uvicorn</span> app:app <span class="at">--reload</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uvicorn</span> app:app <span class="at">--reload</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="deactivating-the-virtual-environment" class="level3">
 <h3 class="anchored" data-anchor-id="deactivating-the-virtual-environment">Deactivating the Virtual Environment</h3>
 <p>When you are done testing, you can deactivate the virtual environment by running:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">deactivate</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">deactivate</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 <section id="preparing-for-deployment-to-sap-btp" class="level2">
@@ -303,25 +330,25 @@ cookieconsent.run({
 <h3 class="anchored" data-anchor-id="installing-the-cloud-foundry-cli">Installing the Cloud Foundry CLI</h3>
 <p>To interact with Cloud Foundry, the preferred way is to use the <code>cf</code> command-line interface. If you have not installed it yet, you can download and install it from the <a href="https://docs.cloudfoundry.org/cf-cli/install-go-cli.html">official Cloud Foundry CLI page</a>.</p>
 <p>On macOS, you can conveniently install the current version 8 using <code>brew</code>:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install cloudfoundry/tap/cf-cli@8</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install cloudfoundry/tap/cf-cli@8</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Once installed, you should be able to run:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cf</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cf</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>You should see the version number of the CLI which confirms the CLI is available and ready to use.</p>
 </section>
 <section id="creating-the-manifest.yaml" class="level3">
 <h3 class="anchored" data-anchor-id="creating-the-manifest.yaml">Creating the <code>manifest.yaml</code></h3>
 <p>The <code>manifest.yaml</code> file defines how Cloud Foundry should deploy your app. It includes metadata such as the app name, memory allocation, number of instances, and route configuration. For a complete reference, please check out the <a href="https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html">Cloud Foundry Manifest Reference</a></p>
 <p>Create a new file named <code>manifest.yaml</code> in the same folder as your <code>app.py</code> and add the following content:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">applications</span><span class="kw">:</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> greeting-api</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">memory</span><span class="kw">:</span><span class="at"> 256M</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">instances</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">buildpacks</span><span class="kw">:</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> python_buildpack</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">path</span><span class="kw">:</span><span class="at"> .</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">routes</span><span class="kw">:</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">route</span><span class="kw">:</span><span class="at"> greeting-api-test.cfapps.eu10-004.hana.ondemand.com</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">applications</span><span class="kw">:</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> greeting-api</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">memory</span><span class="kw">:</span><span class="at"> 256M</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">instances</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">buildpacks</span><span class="kw">:</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> python_buildpack</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">path</span><span class="kw">:</span><span class="at"> .</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">routes</span><span class="kw">:</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">route</span><span class="kw">:</span><span class="at"> greeting-api-test.cfapps.eu10-004.hana.ondemand.com</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Let’s break down the content of the <code>manifest.yaml</code>:</p>
 <ul>
 <li><code>name</code>: The name of the app as it will appear in your BTP subaccount.</li>
@@ -357,14 +384,14 @@ cookieconsent.run({
 <li><code>manifest.yaml</code> – the deployment descriptor</li>
 </ul>
 <p>To start the deployment, open a terminal, <code>cd</code> into the <code>app-btp</code> directory, and log in to Cloud Foundry using the SAP BTP CLI:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cf</span> login</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cf</span> login</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>You’ll be prompted to enter your API endpoint, email, password, org, and space. You can find the API endpoint in your BTP cockpit by navigating to your subaccount and checking the “Cloud Foundry Environment” section.</p>
 <p>Once logged in, push your app to BTP:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cf</span> push</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cf</span> push</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Think of <code>cf push</code> like pushing code to GitHub: It copies your application to the BTP environment, sets up the app using the <code>manifest.yaml</code>, installs the dependencies from <code>requirements.txt</code>, and starts the app using the <code>Procfile</code>.</p>
 <p>After deployment, your app will be assigned a public URL, as specified in your <code>manifest.yaml</code>. For example:</p>
 <pre><code>https://greeting-api-test.cfapps.eu10-004.hana.ondemand.com</code></pre>
-<p>You can now test the API using the <a href="fast-api-greeting-client-get-btp.ipynb">GET client notebook</a> or the <a href="fast-api-greeting-client-post-btp.ipynb">POST client notebook</a>.</p>
+<p>You can now test the API using the <a href="https://github.com/chrwittm/fastapi-greeting-api/blob/main/notebooks/fast-api-greeting-client-get-btp.ipynb">GET client notebook</a> or the <a href="https://github.com/chrwittm/fastapi-greeting-api/blob/main/notebooks/fast-api-greeting-client-post-btp.ipynb">POST client notebook</a>.</p>
 </section>
 <section id="alternative-deploying-via-zip-upload-in-the-sap-btp-cockpit" class="level2">
 <h2 class="anchored" data-anchor-id="alternative-deploying-via-zip-upload-in-the-sap-btp-cockpit">Alternative: Deploying via ZIP Upload in the SAP BTP Cockpit</h2>
@@ -385,12 +412,12 @@ cookieconsent.run({
 <li>Click on “Deploy”</li>
 </ul>
 <p>After the deployment is complete, your app will be live under the route you defined in <code>manifest.yaml</code>.</p>
-<p>You can now test the API using the <a href="fast-api-greeting-client-get-btp.ipynb">GET client notebook</a> or the <a href="fast-api-greeting-client-post-btp.ipynb">POST client notebook</a>.</p>
+<p>You can now test the API using the <a href="https://github.com/chrwittm/fastapi-greeting-api/blob/main/notebooks/fast-api-greeting-client-get-btp.ipynb">GET client notebook</a> or the <a href="https://github.com/chrwittm/fastapi-greeting-api/blob/main/notebooks/fast-api-greeting-client-post-btp.ipynb">POST client notebook</a>.</p>
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
 <p>Taking the API from a Jupyter Notebook (my preferred environment for rapid prototyping) to a working cloud deployment took a few steps. First, we refactored the code into a standalone Python file (<code>app.py</code>). Then we created a <code>requirements.txt</code> file and tested everything locally in a clean virtual environment. After creating <code>manifest.yaml</code> and <code>Procfile</code> files, we deployed the API to the cloud using the SAP BTP CLI or the SAP BTP Cockpit.</p>
-<p>After building the greeting API in <a href="fast-api-greeting-server.ipynb">my previous blog post</a>, we’ve now taken it all the way to the cloud. The goal here wasn’t to explore every FastAPI feature or every cloud deployment nuance, but to provide a reusable, step-by-step template for future projects.</p>
+<p>After building the greeting API in <a href="https://chrwittm.github.io/posts/2025-07-08-implementing-fastapi-greeting/">my previous blog post</a>, we’ve now taken it all the way to the cloud. The goal here wasn’t to explore every FastAPI feature or every cloud deployment nuance, but to provide a reusable, step-by-step template for future projects.</p>
 <p>There’s lots more you could do, e.g.&nbsp;adding authentication, rate limiting, or monitoring, but we’ll leave that for another time. I Hope this was helpful, and happy coding!</p>
 
 
