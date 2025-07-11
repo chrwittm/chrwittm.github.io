@@ -254,7 +254,7 @@ cookieconsent.run({
 </section>
 <section id="creating-requirements.txt" class="level3">
 <h3 class="anchored" data-anchor-id="creating-requirements.txt">Creating <code>requirements.txt</code></h3>
-<p>For out simple project, you could easily create the <code>requirements.txt</code> file manually, but I am too lazy for that, so I am using the <code>pipreqs</code> package to generate it for me</p>
+<p>For our simple project, you could easily create the <code>requirements.txt</code> file manually, but I am too lazy for that, so I am using the <code>pipreqs</code> package to generate it for me.</p>
 <p>If you don’t have the <code>pipreqs</code> package installed, you can simply install it using pip:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install pipreqs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Now you can generate the <code>requirements.txt</code>. Either <code>cd</code> into the directory where your <code>app.py</code> file is located and run</p>
@@ -325,7 +325,7 @@ cookieconsent.run({
 </section>
 <section id="preparing-for-deployment-to-sap-btp" class="level2">
 <h2 class="anchored" data-anchor-id="preparing-for-deployment-to-sap-btp">Preparing for Deployment to SAP BTP</h2>
-<p>Before deploying our API to SAP BTP using Cloud Foundry, we need to complete a few preparation steps. First, we need to install the Cloud Foundry CLI (unless you want to dep,oy via the BTP UI which is also possible). Additionally, we need to create two configuration files: <code>manifest.yaml</code> and <code>Procfile</code>. These will define how the application is deployed and run on BTP.</p>
+<p>Before deploying our API to SAP BTP using Cloud Foundry, we need to complete a few preparation steps. First, we need to install the Cloud Foundry CLI (unless you want to deploy via the BTP UI which is also possible). Additionally, we need to create two configuration files: <code>manifest.yaml</code> and <code>Procfile</code>. These will define how the application is deployed and run on BTP.</p>
 <section id="installing-the-cloud-foundry-cli" class="level3">
 <h3 class="anchored" data-anchor-id="installing-the-cloud-foundry-cli">Installing the Cloud Foundry CLI</h3>
 <p>To interact with Cloud Foundry, the preferred way is to use the <code>cf</code> command-line interface. If you have not installed it yet, you can download and install it from the <a href="https://docs.cloudfoundry.org/cf-cli/install-go-cli.html">official Cloud Foundry CLI page</a>.</p>
@@ -361,7 +361,7 @@ cookieconsent.run({
 </section>
 <section id="creating-the-procfile" class="level3">
 <h3 class="anchored" data-anchor-id="creating-the-procfile">Creating the <code>Procfile</code></h3>
-<p>The purpose of a <code>Procfile</code> is to define how your app should be started. While you can specify the start command manually during <code>cf push</code> (this is the command which finally deploy the API on BPT), it’s good practice to include a <code>Procfile</code> for clarity, consistency, and maintainability.</p>
+<p>The purpose of a <code>Procfile</code> is to define how your app should be started. While you can specify the start command manually during <code>cf push</code> (this is the command which finally deploy the API on BTP), it’s good practice to include a <code>Procfile</code> for clarity, consistency, and maintainability.</p>
 <p>Create a plain text file named <code>Procfile</code> (no extension) in your app’s root directory with the following content:</p>
 <pre><code>web: uvicorn app:app --host=0.0.0.0 --port=${PORT:-8080}</code></pre>
 <p>Let’s break it down:</p>
