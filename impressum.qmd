@@ -17,7 +17,7 @@ Essentalstraße 4
 89584 Ehingen (Donau)  
 Deutschland
 
-E-Mail: <chrwittm@gmail.com> <!-- Tipp: später durch Alias ersetzen, z. B. impressum@deine-domain -->
+E-Mail: impressum [dot] vibes099 [at] aleeas [dot] com
 
 **Zweck der Website**  
 Diese Website ist ein **nicht-kommerzielles, persönliches Lern- und Notizblog**. Ich dokumentiere meine Lernreise im Bereich **Machine Learning und KI**, um mir Konzepte durch Schreiben selbst zu erklären (Feynman-Technik).  
@@ -48,7 +48,7 @@ Essentalstraße 4
 89584 Ehingen (Donau)  
 Germany
 
-Email: <chrwittm@gmail.com> <!-- Replace with an alias later if desired -->
+Email: impressum [dot] vibes099 [at] aleeas [dot] com
 
 **Purpose of the website**  
 This is a **personal, non-commercial learning blog**. I document my **Machine Learning journey** and explain concepts to myself using the Feynman technique.  

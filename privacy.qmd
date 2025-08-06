@@ -13,7 +13,7 @@ description: "Datenschutzhinweise für chrwittm.github.io / Privacy notice"
 ### Verantwortlicher
 Christian Wittmann  
 Essentalstraße 4, 89584 Ehingen (Donau), Deutschland  
-E-Mail: <chrwittm@gmail.com> <!-- später ggf. Alias verwenden -->
+E-Mail: impressum [dot] vibes099 [at] aleeas [dot] com
 
 ### Zweck der Website
 Persönliches, **nicht-kommerzielles** Lern- und Notizblog („Machine Learning Journey“).
@@ -70,7 +70,7 @@ Sie haben das Recht auf **Auskunft**, **Berichtigung**, **Löschung**, **Einschr
 ### Controller
 Christian Wittmann  
 Essentalstraße 4, 89584 Ehingen (Donau), Germany  
-Email: <chrwittm@gmail.com> <!-- you can replace with an alias later -->
+Email: impressum [dot] vibes099 [at] aleeas [dot] com
 
 ### Purpose of the site
 Personal, **non-commercial** learning blog (“Machine Learning Journey”).
