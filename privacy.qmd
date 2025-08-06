@@ -1,0 +1,121 @@
+---
+title: "Datenschutz · Privacy Policy"
+page-layout: article
+toc: true
+lang: de
+description: "Datenschutzhinweise für chrwittm.github.io / Privacy notice"
+---
+
+> **Hinweis / Note:** Deutsch ist die rechtlich maßgebliche Fassung. English version below is for convenience.
+
+## Deutsch
+
+### Verantwortlicher
+Christian Wittmann  
+Essentalstraße 4, 89584 Ehingen (Donau), Deutschland  
+E-Mail: <chrwittm@gmail.com> <!-- später ggf. Alias verwenden -->
+
+### Zweck der Website
+Persönliches, **nicht-kommerzielles** Lern- und Notizblog („Machine Learning Journey“).
+
+### Hosting (GitHub Pages)
+Diese Website wird von **GitHub Pages** ausgeliefert. Dabei verarbeitet GitHub u. a. technische Protokolldaten (z. B. IP-Adresse, Zeitstempel), um die Website bereitzustellen und abzusichern. Weitere Informationen entnehmen Sie bitte den Datenschutzhinweisen von GitHub.
+
+**Rechtsgrundlage:** Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an sicherer, effizienter Bereitstellung).
+
+### Cookies, Einwilligung & Consent-Management
+Standardmäßig werden nur technisch notwendige Elemente geladen. **Analyse**-Dienste werden **erst nach Ihrer Einwilligung** über das Banner aktiviert. Sie können Ihre Entscheidung jederzeit über die Banner-Einstellungen ändern.
+
+**Rechtsgrundlage für Analyse:** Art. 6 Abs. 1 lit. a DSGVO (Einwilligung).  
+**Rechtsgrundlage für notwendige Verarbeitung (z. B. Auslieferung/Logs):** Art. 6 Abs. 1 lit. f DSGVO.
+
+### Webanalyse (Google Analytics 4)
+Ich setze **Google Analytics 4 (GA4)** ein, um Seitenaufrufe und Interaktionen zu messen. GA4 speichert nach Google-Angaben **keine IP-Adressen** und bietet Datenschutz-Einstellungen für die EU. GA4 wird **nur** geladen, wenn Sie im Cookie-Banner zustimmen. Sie können die Einwilligung jederzeit widerrufen.
+
+**Verarbeitete Daten (Beispiele):** Seitenaufrufe, ungefähre Geräte-/Browser-Informationen, Interaktionsdaten.  
+**Empfänger:** Google Ireland Limited (und ggf. verbundene Unternehmen).  
+**Drittlandübermittlung:** Eine Übermittlung in Drittländer kann erfolgen; Google stellt hierfür Sicherungsmechanismen bereit.  
+**Speicherdauer:** gemäß GA4-Konfiguration (aktuell i. d. R. 2–14 Monate, je nach Einstellung).
+
+### Kommentare (Utterances / GitHub Issues)
+Für Kommentare nutze ich **Utterances**. Kommentare werden als **GitHub-Issues** in einem öffentlichen Repository gespeichert. Zum Kommentieren ist eine Anmeldung mit einem **GitHub-Konto** erforderlich; GitHub verarbeitet dabei Ihre personenbezogenen Daten gemäß deren Richtlinien. Ihr Kommentar und Ihr GitHub-Nutzername sind öffentlich einsehbar.
+
+**Rechtsgrundlage:** Art. 6 Abs. 1 lit. a DSGVO (Ihre freiwillige Nutzung/Einwilligung).
+
+### Einbindung externer Inhalte
+Derzeit werden keine externen Inhalte eingebettet, die personenbezogene Daten ohne Interaktion übertragen. Links zu Drittseiten führen erst beim Anklicken zu einer Datenübertragung an diese Anbieter.
+
+### Empfänger / Kategorien von Empfängern
+- **Hosting:** GitHub (Bereitstellung/Logs)  
+- **Analyse (nach Einwilligung):** Google (GA4)  
+- **Kommentare (freiwillig):** GitHub (Utterances/Issues)
+
+### Speicherdauer
+- **Server-Logs:** gemäß Vorgaben des Hosters.  
+- **Analytics:** gemäß GA4-Retention-Einstellung.  
+- **Kommentare:** dauerhaft im öffentlichen Repository, bis Sie sie löschen oder ich sie moderiere.
+
+### Pflicht zur Bereitstellung
+Es besteht keine gesetzliche Pflicht, personenbezogene Daten bereitzustellen. Ohne die Verarbeitung technischer Daten ist die Bereitstellung der Website jedoch nicht möglich; ohne Einwilligung erfolgt keine Webanalyse; ohne GitHub-Account ist kein Kommentieren möglich.
+
+### Ihre Rechte (DSGVO)
+Sie haben das Recht auf **Auskunft**, **Berichtigung**, **Löschung**, **Einschränkung**, **Datenübertragbarkeit** sowie **Widerruf** erteilter Einwilligungen und **Beschwerde** bei einer Aufsichtsbehörde. Bitte kontaktieren Sie mich dazu unter der oben genannten Adresse.
+
+**Stand:** 06.08.2025
+
+---
+
+## English
+
+### Controller
+Christian Wittmann  
+Essentalstraße 4, 89584 Ehingen (Donau), Germany  
+Email: <chrwittm@gmail.com> <!-- you can replace with an alias later -->
+
+### Purpose of the site
+Personal, **non-commercial** learning blog (“Machine Learning Journey”).
+
+### Hosting (GitHub Pages)
+The site is delivered by **GitHub Pages**. GitHub processes technical logs (e.g., IP address, timestamps) to provide and secure the service. Please refer to GitHub’s privacy information for details.
+
+**Legal basis:** Art. 6(1)(f) GDPR (legitimate interest in secure and efficient delivery).
+
+### Cookies, Consent & Preference Management
+By default, only essential elements are loaded. **Analytics** is activated **only after your consent** via the cookie banner. You can change your choice at any time via the banner settings.
+
+**Legal basis for analytics:** Art. 6(1)(a) GDPR (consent).  
+**Legal basis for necessary processing (delivery/logs):** Art. 6(1)(f) GDPR.
+
+### Web Analytics (Google Analytics 4)
+I use **Google Analytics 4 (GA4)** to measure visits and interactions. According to Google, GA4 **does not store IP addresses** and provides EU-oriented privacy controls. GA4 loads **only** after you opt in via the banner. You can withdraw consent anytime.
+
+**Data processed (examples):** page views, approximate device/browser info, interaction data.  
+**Recipient:** Google Ireland Limited (and affiliates as applicable).  
+**International transfers:** Data may be transferred to third countries under Google’s safeguards.  
+**Retention:** according to GA4 retention settings (typically 2–14 months, depending on configuration).
+
+### Comments (Utterances / GitHub Issues)
+Comments are powered by **Utterances** and stored as **GitHub Issues** in a public repository. To comment, you sign in with your **GitHub** account; GitHub processes your data under its policies. Your comment and GitHub username will be publicly visible.
+
+**Legal basis:** Art. 6(1)(a) GDPR (your voluntary use/consent).
+
+### Third-party embeds
+No third-party embeds are currently used that transfer personal data without interaction. Links to external sites transfer data only when you click them.
+
+### Recipients / Categories of recipients
+- **Hosting:** GitHub (delivery/logs)  
+- **Analytics (upon consent):** Google (GA4)  
+- **Comments (voluntary):** GitHub (Utterances/Issues)
+
+### Storage periods
+- **Server logs:** according to the host’s policies.  
+- **Analytics:** according to GA4 retention settings.  
+- **Comments:** persist in the public repository until you delete or I moderate them.
+
+### Necessity to provide data
+You are not legally required to provide personal data. Without technical processing the site cannot be delivered; without consent no analytics will run; without a GitHub account you cannot comment.
+
+### Your rights (GDPR)
+You have the rights of **access**, **rectification**, **erasure**, **restriction**, **portability**, **withdrawal of consent**, and **complaint** to a supervisory authority. Please contact me using the details above.
+
+**Last updated:** 2025-08-06

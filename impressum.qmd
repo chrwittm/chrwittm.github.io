@@ -1,0 +1,69 @@
+---
+title: "Impressum · Legal Notice"
+page-layout: article
+toc: false
+lang: de
+description: "Anbieterkennzeichnung gem. § 18 MStV / Legal notice for chrwittm.github.io"
+---
+
+> **Hinweis / Note:** Deutsch ist die rechtlich maßgebliche Fassung. English version below is for convenience.
+
+## Deutsch
+
+**Angaben gemäß § 18 MStV**
+
+Christian Wittmann  
+Essentalstraße 4  
+89584 Ehingen (Donau)  
+Deutschland
+
+E-Mail: <chrwittm@gmail.com> <!-- Tipp: später durch Alias ersetzen, z. B. impressum@deine-domain -->
+
+**Zweck der Website**  
+Diese Website ist ein **nicht-kommerzielles, persönliches Lern- und Notizblog**. Ich dokumentiere meine Lernreise im Bereich **Machine Learning und KI**, um mir Konzepte durch Schreiben selbst zu erklären (Feynman-Technik).  
+Es handelt sich **nicht** um ein journalistisch-redaktionelles Angebot im Sinne des MStV.
+
+**Verantwortlich für den Inhalt**  
+Christian Wittmann (Anschrift wie oben)
+
+**Hosting**  
+Diese Website wird über **GitHub Pages** bereitgestellt.
+
+**Haftung für Inhalte / Links**  
+Trotz sorgfältiger inhaltlicher Kontrolle kann ich keine Haftung für externe Inhalte übernehmen. Für den Inhalt verlinkter Seiten sind ausschließlich deren Betreiber verantwortlich.
+
+**Urheberrecht**  
+Sofern nicht anders angegeben, stehen Texte und Abbildungen unter der von mir gewählten Lizenz der jeweiligen Beiträge. Zitate und Code-Beispiele sind als solche gekennzeichnet.
+
+**Stand:** 06.08.2025
+
+---
+
+## English
+
+**Provider Identification (Legal Notice)**
+
+Christian Wittmann  
+Essentalstraße 4  
+89584 Ehingen (Donau)  
+Germany
+
+Email: <chrwittm@gmail.com> <!-- Replace with an alias later if desired -->
+
+**Purpose of the website**  
+This is a **personal, non-commercial learning blog**. I document my **Machine Learning journey** and explain concepts to myself using the Feynman technique.  
+This site is **not** a journalistic-editorial publication.
+
+**Content responsibility**  
+Christian Wittmann (address as above)
+
+**Hosting**  
+This website is hosted via **GitHub Pages**.
+
+**Liability / Links**  
+Although I check external links carefully, I cannot accept liability for external content. Responsibility for linked pages lies with their respective operators.
+
+**Copyright**  
+Unless stated otherwise, texts and images are provided under the license indicated in each post. Quotes and code samples are marked accordingly.
+
+**Last updated:** 2025-08-06

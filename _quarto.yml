@@ -7,10 +7,18 @@ website:
   title: "chrwittm.github.io"
   site-url: https://chrwittm.github.io/
   google-analytics: "G-GF3YYKQQNH"
-  cookie-consent: true
+  cookie-consent:
+    type: express
+    policy-url: /privacy.html
   navbar:
     right:
       - about.qmd
+      - text: License
+        href: /license.html
+      - text: Impressum
+        href: /impressum.html
+      - text: Privacy
+        href: /privacy.html
       - icon: github
         href: https://github.com/chrwittm
       - icon: twitter-x
@@ -19,11 +27,20 @@ website:
         href: https://de.linkedin.com/in/chrwittm
       - icon: file-earmark-code
         href: https://www.kaggle.com/christianwittmann
-#      - icon: rss
-#        href: blog.xml
+  page-footer:
+    left: |
+      © <span id="y"></span> Christian Wittmann
+      <script>
+        document.getElementById('y').textContent = new Date().getFullYear();
+      </script>
+    right: |
+      <a href="/impressum.html">Impressum</a> · <a href="/privacy.html">Privacy</a>
+
 format:
   html:
     theme: cosmo
     css: styles.css
 
+metadata:
+  license: "CC BY 4.0"
 

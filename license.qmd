@@ -1,0 +1,57 @@
+---
+title: "Lizenz · License"
+page-layout: article
+toc: true
+lang: de
+description: "Lizenzangaben für Texte, Bilder (inkl. KI) und Code · Licensing for text, images (incl. AI) and code"
+---
+
+> **Hinweis / Note:** Deutsch ist die rechtlich maßgebliche Fassung. English version below is for convenience.
+
+## Deutsch
+
+### Grundsatz
+Sofern nicht anders angegeben, stehen **Texte und Bilder (einschließlich KI-generierter Bilder)** auf dieser Website unter **Creative Commons – Namensnennung 4.0 International (CC BY 4.0)**.  
+**Code-Beispiele und Snippets** stehen unter der **Apache License 2.0**.
+
+- **Ausnahmen** werden am jeweiligen Beitrag/Bild **ausdrücklich** gekennzeichnet.
+- **Inhalte Dritter** (z. B. Logos, Screenshots, Zitate) sind **nicht** von meiner Lizenz umfasst und unterliegen den Rechten der jeweiligen Inhaber.
+
+### Attribution – so bitte zitieren
+Wenn du Inhalte nutzt, nenne **Autor**, **Titel/URL** und **Lizenz**:
+> „Christian Wittmann – *[Titel des Beitrags]*, verfügbar unter <https://chrwittm.github.io/>, **CC BY 4.0**.“  
+> Für Code: „… **Apache-2.0**.“
+
+### Hinweis zu KI-Unterstützung
+Ich nutze regelmäßig **KI-Tools** (z. B. ChatGPT, lokale LLMs, Code-Completion) für Ideen, Entwürfe und Bilderzeugung. **Ich prüfe, bearbeite und verantworte** alle veröffentlichten Inhalte.  
+KI-generierte Bilder sind – sofern nicht anders vermerkt – in die **CC BY 4.0**-Lizenz einbezogen; abweichende Lizenzen werden direkt am Bild genannt.
+
+### Marken & Rechte Dritter
+Marken- und Produktnamen sind Eigentum der jeweiligen Inhaber. Screenshots und Zitate werden als solche gekennzeichnet und ggf. nur im Rahmen des zulässigen Nutzungsrechts verwendet.
+
+**Stand:** 06.08.2025
+
+---
+
+## English
+
+### Default licensing
+Unless noted otherwise, **text and images (including AI-generated images)** on this site are licensed under **Creative Commons Attribution 4.0 International (CC BY 4.0)**.  
+**Code samples and snippets** are licensed under the **Apache License 2.0**.
+
+- **Exceptions** will be clearly stated on the specific post/image.
+- **Third-party content** (e.g., logos, screenshots, quotations) is **not** covered by my license and remains under the rights of its owners.
+
+### Attribution – how to credit
+When reusing, please credit **author**, **title/URL**, and **license**:
+> “Christian Wittmann – *[Post title]*, available at <https://chrwittm.github.io/>, **CC BY 4.0**.”  
+> For code: “… **Apache-2.0**.”
+
+### Note on AI assistance
+I routinely use **AI tools** (e.g., ChatGPT, local LLMs, code completion) for ideation, drafting, and image generation. **I review, edit, and take responsibility** for all published content.  
+AI-generated images are included under **CC BY 4.0** unless stated otherwise; deviations are labeled per image.
+
+### Trademarks & third-party rights
+Trademarks and product names are the property of their respective owners. Screenshots and quotations are marked as such and may be used only within permissible limits.
+
+**Last updated:** 2025-08-06
