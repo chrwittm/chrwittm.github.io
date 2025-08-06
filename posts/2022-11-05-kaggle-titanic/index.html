@@ -118,13 +118,14 @@ gtag('config', 'G-GF3YYKQQNH', { 'anonymize_ip': true});
 document.addEventListener('DOMContentLoaded', function () {
 cookieconsent.run({
   "notice_banner_type":"simple",
-  "consent_type":"implied",
+  "consent_type":"express",
   "palette":"light",
   "language":"en",
-  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "page_load_consent_levels":["strictly-necessary"],
   "notice_banner_reject_button_hide":false,
   "preferences_center_close_button_hide":false,
-  "website_name":""
+  "website_name":"",
+"website_privacy_policy_url":"/privacy.html"
   ,
 "language":"en"
   });
@@ -159,6 +160,18 @@ cookieconsent.run({
   <li class="nav-item">
     <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../license.html"> 
+<span class="menu-text">License</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../impressum.html"> 
+<span class="menu-text">Impressum</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../privacy.html"> 
+<span class="menu-text">Privacy</span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/chrwittm"> <i class="bi bi-github" role="img">
@@ -708,7 +721,7 @@ cookieconsent.run({
 
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1135,14 +1148,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-      &nbsp;
-    </div>   
+© <span id="y"></span> Christian Wittmann
+<script>
+  document.getElementById('y').textContent = new Date().getFullYear();
+</script>
+</div>   
     <div class="nav-footer-center">
 
 <div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
     <div class="nav-footer-right">
-      &nbsp;
-    </div>
+<p><a href="../../impressum.html">Impressum</a> · <a href="../../privacy.html">Privacy</a></p>
+</div>
   </div>
 </footer>
 
