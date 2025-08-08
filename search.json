@@ -161,6 +161,13 @@
     "text": "Installing Open WebUI\nTo make the whole experience more user-friendly, let’s add a web UI. I use Open WebUI, which provides a clean interface similar to OpenAI, Anthropic, or Google, including chat history and multiple chat sessions.\nIf you read through the documentation, they mention a Docker setup first. However, the method below (listed as “recommended” later in their docs) is easier.\nFirst, install uv, a modern Python runner:\nbrew install uv\nThen start Open WebUI with:\nDATA_DIR=~/.open-webui uvx --python 3.11 open-webui@latest serve\nLet’s break it down:\n\nDATA_DIR=~/.open-webui: This sets an environment variable for the command that follows. It tells Open WebUI where to store its chat history and configuration. This path will persist your data between runs.\nuvx: Use UVX (a modern Python environment manager) to run Open WebUI in an isolated environment.\n--python 3.11: Specifies the Python version to use. The Open WebUI team recommends Python 3.11.\nopen-webui@latest serve: Installs (if necessary) and starts the latest version of Open WebUI."
   },
   {
+    "objectID": "posts/2025-08-08-running-gpt-oss-locally/index.html#going-offline",
+    "href": "posts/2025-08-08-running-gpt-oss-locally/index.html#going-offline",
+    "title": "Running GPT-OSS Locally on macOS with Ollama + Open WebUI",
+    "section": "Going Offline",
+    "text": "Going Offline\nFor full offline capability, you need to pre-install a specific (pinned) version of Open WebUI once while online. This ensures you can run it later without any network connection. (Get the latest version number from Pypi.)\nuv tool install --python 3.11 open-webui==0.6.18   \nAfterwards, you can launch this version offline with:\nDATA_DIR=~/.open-webui ~/.local/bin/open-webui serve"
+  },
+  {
     "objectID": "posts/2025-08-08-running-gpt-oss-locally/index.html#running-open-webui",
     "href": "posts/2025-08-08-running-gpt-oss-locally/index.html#running-open-webui",
     "title": "Running GPT-OSS Locally on macOS with Ollama + Open WebUI",

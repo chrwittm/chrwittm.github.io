@@ -308,6 +308,13 @@ cookieconsent.run({
 <li><code>open-webui@latest serve</code>: Installs (if necessary) and starts the latest version of Open WebUI.</li>
 </ul>
 </section>
+<section id="going-offline" class="level2">
+<h2 class="anchored" data-anchor-id="going-offline">Going Offline</h2>
+<p>For full offline capability, you need to pre-install a specific (pinned) version of Open WebUI once while online. This ensures you can run it later without any network connection. (Get the latest version number from <a href="https://pypi.org/project/open-webui/">Pypi</a>.)</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> tool install <span class="at">--python</span> 3.11 open-webui==0.6.18   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Afterwards, you can launch this version offline with:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="va">DATA_DIR</span><span class="op">=</span>~/.open-webui <span class="ex">~/.local/bin/open-webui</span> serve</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
 <section id="running-open-webui" class="level2">
 <h2 class="anchored" data-anchor-id="running-open-webui">Running Open WebUI</h2>
 <p>Loading and setting up the virtual environment takes around 30 seconds (longer the very first time you run it). Once it’s ready, open:</p>
