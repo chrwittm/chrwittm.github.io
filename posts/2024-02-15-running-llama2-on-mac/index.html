@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.7.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -71,15 +71,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-1c33c0780a01951c1c2d77b4a45239a1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-08e1269e8557b430e2197ccc38ae6770.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -147,8 +146,6 @@ cookieconsent.run({
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">chrwittm.github.io</span>
     </a>
@@ -335,14 +332,14 @@ Dalle: A llama driving a car and another llama flying a plane on the road from H
 <p>For all my experiments, I used the following model: <a href="https://huggingface.co/TheBloke/Llama-2-7b-Chat-GGUF">TheBloke/Llama-2-7b-Chat-GGUF</a></p>
 <p>To download the model, please please run the code below, assuming that you have stored your Hugging Face access token in the <code>.env</code>-file. For additional insights/troubleshooting, please also check out <a href="https://chrwittm.github.io/posts/2024-01-27-how-to-call-openai-api/">my previous blog post</a> / <a href="https://github.com/chrwittm/lm-hackers/blob/main/20-local-llama-on-mac/10-running-llama2-on-mac1-hf.ipynb">my previous notebook</a>:</p>
 <div id="cell-10" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>load_dotenv()</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>token <span class="op">=</span> os.getenv(<span class="st">'HF_TOKEN'</span>)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">'HF_TOKEN'</span>] <span class="op">=</span> token</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>huggingface<span class="op">-</span>cli login <span class="op">--</span>token $HF_TOKEN</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>wget <span class="op">-</span>P ..<span class="op">/</span>models https:<span class="op">//</span>huggingface.co<span class="op">/</span>TheBloke<span class="op">/</span>Llama<span class="op">-</span><span class="dv">2</span><span class="op">-</span><span class="dv">7</span><span class="er">B</span><span class="op">-</span>Chat<span class="op">-</span>GGUF<span class="op">/</span>resolve<span class="op">/</span>main<span class="op">/</span>llama<span class="op">-</span><span class="dv">2</span><span class="op">-</span><span class="dv">7</span><span class="er">b</span><span class="op">-</span>chat.Q4_K_M.gguf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>wget <span class="op">-</span>P ..<span class="op">/</span>models https:<span class="op">//</span>huggingface.co<span class="op">/</span>TheBloke<span class="op">/</span>Llama<span class="op">-</span><span class="dv">2</span><span class="op">-</span><span class="dv">7</span><span class="er">B</span><span class="op">-</span>Chat<span class="op">-</span>GGUF<span class="op">/</span>resolve<span class="op">/</span>main<span class="op">/</span>llama<span class="op">-</span><span class="dv">2</span><span class="op">-</span><span class="dv">7</span><span class="er">b</span><span class="op">-</span>chat.Q4_K_M.gguf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="loading-the-model" class="level2">
@@ -353,9 +350,9 @@ Dalle: A llama driving a car and another llama flying a plane on the road from H
 <li><code>verbose=False</code>: This makes the model less talkative. It only prints the actual results when prompted. Please feel free try turning it to <code>True</code> to get additional information from the model, not just the generated response.</li>
 </ul>
 <div id="cell-12" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> llama_cpp <span class="im">import</span> Llama</span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> llama_cpp <span class="im">import</span> Llama</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>llm <span class="op">=</span> Llama(model_path<span class="op">=</span><span class="st">"../models/Llama-2-7b-chat/llama-2-7b-chat.Q4_K_M.gguf"</span>, n_ctx<span class="op">=</span><span class="dv">2048</span>, verbose<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#llm = Llama(model_path="../../../lm-hackers/models/llama-2-7b-chat.Q4_K_M.gguf", n_ctx=2048, verbose=False)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#llm = Llama(model_path="../../../lm-hackers/models/llama-2-7b-chat.Q4_K_M.gguf", n_ctx=2048, verbose=False)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="completion-vs.-chat-completion-example" class="level2">
@@ -364,22 +361,22 @@ Dalle: A llama driving a car and another llama flying a plane on the road from H
 <p>As per the <a href="https://llama-cpp-python.readthedocs.io/en/latest/#high-level-api">Getting Started guide</a>, let’s look at one example each on how to use the API:</p>
 <p>Let’s do text completion first.</p>
 <div id="cell-14" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>output <span class="op">=</span> llm(<span class="st">"Q: Name the planets in the solar system? A: "</span>, max_tokens<span class="op">=</span><span class="dv">128</span>, stop<span class="op">=</span>[<span class="st">"Q:"</span>, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>], echo<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(output[<span class="st">'choices'</span>][<span class="dv">0</span>][<span class="st">'text'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>output <span class="op">=</span> llm(<span class="st">"Q: Name the planets in the solar system? A: "</span>, max_tokens<span class="op">=</span><span class="dv">128</span>, stop<span class="op">=</span>[<span class="st">"Q:"</span>, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>], echo<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(output[<span class="st">'choices'</span>][<span class="dv">0</span>][<span class="st">'text'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Q: Name the planets in the solar system? A: 1. Mercury 2. Venus 3. Earth 4. Mars 5. Jupiter 6. Saturn 7. Uranus 8. Neptune</code></pre>
 </div>
 </div>
 <p>For the chat completion, let’s re-write the code to reproduce the <a href="https://github.com/chrwittm/lm-hackers/blob/main/10-open-ai-api/accessing-openai-api.ipynb">example from the hackers guide</a> to make the LLM talk about money in aussie slang.</p>
 <div id="cell-16" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>aussie_sys <span class="op">=</span> <span class="st">"You are an Aussie LLM that uses Aussie slang and analogies whenever possible."</span></span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>aussie_sys <span class="op">=</span> <span class="st">"You are an Aussie LLM that uses Aussie slang and analogies whenever possible."</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>messages<span class="op">=</span>[</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: aussie_sys},</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: <span class="st">"What is money?"</span>}]</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>model_response <span class="op">=</span> llm.create_chat_completion(messages <span class="op">=</span> messages, stream<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model_response[<span class="st">'choices'</span>][<span class="dv">0</span>][<span class="st">'message'</span>][<span class="st">'content'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model_response[<span class="st">'choices'</span>][<span class="dv">0</span>][<span class="st">'message'</span>][<span class="st">'content'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Fair dinkum, mate! Money, eh? It's like the oxygen we breathe, ya know? (laughs) Just kiddin', but seriously, money is like the lifeblood of society. It's what keeps the economy tickin' over and allows us to buy the things we need and want.
 Think of it like this: money is like a big ol' pile of dough (get it? Dough? Like bread dough? Ah, never mind). We all gotta work hard to earn that dough, whether it's through our day job or by startin' our own business. And then we can use that dough to buy things like food, shelter, and a cold one at the pub after work.
@@ -462,14 +459,13 @@ Dalle: Aussie LLM depicted as kangaroo talking about money with Aussie slang and
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

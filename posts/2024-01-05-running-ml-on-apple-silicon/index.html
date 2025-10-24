@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.7.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -71,15 +71,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-1c33c0780a01951c1c2d77b4a45239a1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-08e1269e8557b430e2197ccc38ae6770.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -147,8 +146,6 @@ cookieconsent.run({
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">chrwittm.github.io</span>
     </a>
@@ -277,14 +274,14 @@ Dalle: Running Fast.AI / Huggingface Transformers on Apple Silicon
 <p>Stating what probably is obvious but for completeness: NVIDIA acceleration, the other way of GPU acceleration, is abbreviated with CUDA (<a href="https://en.wikipedia.org/wiki/CUDA">Compute Unified Device Architecture</a>), and we can see it being mentioned in the code side-by-side frequently.</p>
 <p>So let’s check the requirements:</p>
 <div id="cell-4" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Pytorch is running on version </span><span class="sc">{</span>torch<span class="sc">.</span>__version__<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> torch.backends.mps.is_available():</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span> (<span class="st">"MPS device found."</span>)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    mps_device <span class="op">=</span> torch.device(<span class="st">"mps"</span>)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span> (<span class="st">"MPS device not found."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span> (<span class="st">"MPS device not found."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Pytorch is running on version 2.1.1
 MPS device found.</code></pre>
@@ -292,10 +289,10 @@ MPS device found.</code></pre>
 </div>
 <p>Fast.AI also provides a function for checking the available devices called <a href="https://docs.fast.ai/torch_core.html#default_device"><code>default_device()</code></a> which returns a <code>torch.device</code> object. Calling it without a parameter, i.e.&nbsp;<code>-1</code> detects the device. Calling it with <code>True</code> forces it to return a cuda/mps-object, and calling it with <code>False</code> forces it to return a cpu-object.</p>
 <div id="cell-6" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastai.vision.<span class="bu">all</span> <span class="im">import</span> <span class="op">*</span></span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastai.vision.<span class="bu">all</span> <span class="im">import</span> <span class="op">*</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>device <span class="op">=</span> default_device()</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(device)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(device)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>mps</code></pre>
 </div>
@@ -306,7 +303,7 @@ MPS device found.</code></pre>
 <p>I was looking for a fairly (but not too) compute intensive initial project to try out the performance of my MacBook, and I ended up at the “hello world” of machine learning 😉.</p>
 <p>Working on MNIST, I had built a <a href="https://github.com/chrwittm/FastAI2022/blob/main/lesson03/mnist/mnist1-fastai/mnist01-fastai.ipynb">baseline-notebook</a> which takes the Fast.AI-version of the MNIST dataset (i.e.&nbsp;using images), creates a model and runs predictions, pretty much with lots of boilerplate.</p>
 <p>The <a href="https://github.com/chrwittm/FastAI2022/blob/main/lesson03/mnist/mnist1-fastai/mnist01-fastai-apple-silicon.ipynb">Apple Silicon version</a> looks very similar: By default, however, Fast.AI ignores the GPU (cuda/mps) everything runs on the cpu. This can easily be fixed by passing the device as the default device (see above) <a href="https://medium.com/@johnniet19/fastai-2022-on-macbook-m1-pro-max-gpu-faa51d379a8c">as pointed out by this blog post</a> / <a href="https://forums.fast.ai/t/how-do-i-set-a-fastai-learner-to-use-the-gpu-on-an-m-series-mac/102307/3">this post in the Fast.AI forums</a> when creating the <code>dataloaders</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dls <span class="op">=</span> mnist1.dataloaders(path, bs<span class="op">=</span><span class="dv">32</span>, device<span class="op">=</span>default_device())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dls <span class="op">=</span> mnist1.dataloaders(path, bs<span class="op">=</span><span class="dv">32</span>, device<span class="op">=</span>default_device())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Afterwards, the training leverages the GPU, and it performed quite well, similar to a free Paperspace instance I had used before. Here are some training times I collected:</p>
 <table class="caption-top table">
 <thead>
@@ -395,19 +392,19 @@ MPS device found.</code></pre>
 <h2 class="anchored" data-anchor-id="natural-language-processing-with-disaster-tweets-on-huggingface-transformers">Natural Language Processing with Disaster Tweets on Huggingface transformers</h2>
 <p>The second use case was more compute intensive, running the model <a href="https://huggingface.co/microsoft/deberta-v3-large"><code>microsoft/deberta-v3-large</code></a>. As it turned out, I needed install/upgrade some packages and make 2 adjustments to <a href="https://github.com/chrwittm/FastAI2022/blob/main/lesson04/nlp-with-disaster-tweets-january-2023-apple-silicon.ipynb">my notebook to be able to run it on Apple Silicon</a>.</p>
 <p>The first step was easy: stepping through the notebook, some packages were missing/needed upgrades:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install protobuf   </span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install protobuf   </span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install evaluate</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install accelerate <span class="at">-U</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install accelerate <span class="at">-U</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Regarding code, Apple Silicon (i.e.&nbsp;MPS - Metal Performance Shaders) apparently does not support FP16 (16-bit floating-point), therefore, the parameter <code>fp16</code> needs to be passed as <code>False</code> to the <code>TrainingArguments</code>. For generic detection of the parameter:</p>
 <div id="cell-9" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>fp16_available <span class="op">=</span> <span class="va">True</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> torch.backends.mps.is_available():</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    fp16_available <span class="op">=</span> <span class="va">False</span></span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"FP16 is available: </span><span class="sc">{</span>fp16_available<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"FP16 is available: </span><span class="sc">{</span>fp16_available<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>FP16 is available: False</code></pre>
 </div>
@@ -416,22 +413,22 @@ MPS device found.</code></pre>
 <p><code>PYTORCH_MPS_HIGH_WATERMARK_RATIO</code> is an environment variable related to PyTorch’s memory management when using the MPS. It sets the ratio of the total GPU memory that PyTorch is allowed to allocate when using MPS. The ratio is expressed as a decimal fraction of the total available GPU memory. For example, <code>0.8</code> means that PyTorch is allowed to use 80% of the GPU memory. By setting <code>PYTORCH_MPS_HIGH_WATERMARK_RATIO=0.0</code> PyTorch does not have an upper limit on memory allocations for MPS operations. This means PyTorch can potentially use all available GPU memory for its computations.</p>
 <p>Setting this parameter needs to be done before running any PyTorch code, so I put it into the very first cells of my notebook. Let’s check the parameter first:</p>
 <div id="cell-11" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>high_watermark_ratio <span class="op">=</span> os.getenv(<span class="st">'PYTORCH_MPS_HIGH_WATERMARK_RATIO'</span>)</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> high_watermark_ratio <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"PYTORCH_MPS_HIGH_WATERMARK_RATIO is set to: </span><span class="sc">{</span>high_watermark_ratio<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"PYTORCH_MPS_HIGH_WATERMARK_RATIO is not set (using default behavior)."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"PYTORCH_MPS_HIGH_WATERMARK_RATIO is not set (using default behavior)."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>PYTORCH_MPS_HIGH_WATERMARK_RATIO is not set (using default behavior).</code></pre>
 </div>
 </div>
 <p>So let’s go ahead and set the parameter:</p>
 <div id="cell-13" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">'PYTORCH_MPS_HIGH_WATERMARK_RATIO'</span>] <span class="op">=</span> <span class="st">'0.0'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">'PYTORCH_MPS_HIGH_WATERMARK_RATIO'</span>] <span class="op">=</span> <span class="st">'0.0'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>As a result, <a href="https://github.com/chrwittm/FastAI2022/blob/main/lesson04/nlp-with-disaster-tweets-january-2023-apple-silicon.ipynb">the notebook</a> ran to the end! It took about 1 hour (compared to about 20 minutes on Huggingface), and it resulted in heavy memory usage of up to 60GB (even though I have only 32GB of physical memory):</p>
 <div class="quarto-figure quarto-figure-center">
@@ -504,14 +501,13 @@ MPS device found.</code></pre>
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

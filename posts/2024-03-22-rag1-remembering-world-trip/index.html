@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.7.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -71,15 +71,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-1c33c0780a01951c1c2d77b4a45239a1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-08e1269e8557b430e2197ccc38ae6770.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -147,8 +146,6 @@ cookieconsent.run({
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">chrwittm.github.io</span>
     </a>
@@ -289,32 +286,32 @@ Dalle: Remembering the Wittmann Tours World Trip with RAG
 <li>Let’s assume there is a mechanism to select the appropriate source (more on that later), the LLM can tell you the source of the information it used for the answer.</li>
 </ul>
 <p>Going back to its origin, RAG was first introduced in a <a href="https://arxiv.org/abs/2005.11401v4">paper by Facebook AI Research</a> (today’s research group of Meta) in 2020 as a mechanism to enhance the capabilities of language models by adding relevant contextual information to the user prompt. As we have seen in the <a href="https://youtu.be/jkrNMKz9pWU?si=DiTeD1SMswqG1uTw&amp;t=4379">hacker’s guide</a>, here is a simple way how we can formulate a RAG-prompt:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>prompt_with_context <span class="op">=</span> (</span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>prompt_with_context <span class="op">=</span> (</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"Answer the question with the help of the provided context."</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"## Question"</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>question<span class="sc">}</span><span class="ss">"</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"## Context"</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>context<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Let’s try that out and build mini-framework which enables a Llama2-LLM to answer questions related to the <a href="https://wittmann-tours.de">Wittmann-Tours.de</a> blog. If you prefer to run all the code yourself, please check out <a href="https://github.com/chrwittm/lm-hackers/blob/main/30-rag/20-rag-reworking-hackers-guide.ipynb">this notebook on GitHub</a>.</p>
 </section>
 <section id="llm-setup" class="level2">
 <h2 class="anchored" data-anchor-id="llm-setup">LLM Setup</h2>
 <p>Let me reuse the pattern I developed in the <a href="https://github.com/chrwittm/lm-hackers/blob/main/20-local-llama-on-mac/35-notebook-chat-consumer.ipynb">chat consumer notebook</a> based on my blog post <a href="https://chrwittm.github.io/posts/2024-02-23-chat-from-scratch/">Building Chat for Jupyter Notebooks from Scratch</a>. This time, let’s use the maximum context window size possible for this model (<code>n_ctx=4096</code>) to fit as much context as possible into the prompt.</p>
 <div id="cell-5" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>sys.path.append(<span class="st">'../../../lm-hackers/notebook_chat'</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> notebook_chat <span class="im">import</span> ChatMessages, Llama2ChatVersion2</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> llama_cpp <span class="im">import</span> Llama</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>llm <span class="op">=</span> Llama(model_path<span class="op">=</span><span class="st">"../../../lm-hackers/models/llama-2-7b-chat.Q4_K_M.gguf"</span>, n_ctx<span class="op">=</span><span class="dv">4096</span>, verbose<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>llm <span class="op">=</span> Llama(model_path<span class="op">=</span><span class="st">"../../../lm-hackers/models/llama-2-7b-chat.Q4_K_M.gguf"</span>, n_ctx<span class="op">=</span><span class="dv">4096</span>, verbose<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="loading-the-wittmann-tours.de-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="loading-the-wittmann-tours.de-dataset">Loading The Wittmann-Tours.de dataset</h2>
 <p>The <a href="https://wittmann-tours.de">Wittmann-Tours.de</a> blog is available for download as a dataset in <a href="https://github.com/chrwittm/wittmann-tours">the Wittmann-Tours repo</a>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-P</span> ./wt-blogposts https://github.com/chrwittm/wittmann-tours/raw/main/zip/blogposts-md.zip</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unzip</span> <span class="at">-o</span> ./wt-blogposts/blogposts-md.zip <span class="at">-d</span> ./wt-blogposts/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-P</span> ./wt-blogposts https://github.com/chrwittm/wittmann-tours/raw/main/zip/blogposts-md.zip</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unzip</span> <span class="at">-o</span> ./wt-blogposts/blogposts-md.zip <span class="at">-d</span> ./wt-blogposts/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>As a result we have all the blog posts in a folder called <code>wt-blogposts</code>.</p>
 <blockquote class="blockquote">
 <p>Note: This is just an example, I write this blog <a href="https://chrwittm.github.io/posts/2022-10-21-how-i-created-this-blog/">in Jupyter notebooks</a>, the the references will look a bit different below reflecting the file system on my local machine.</p>
@@ -324,22 +321,22 @@ Dalle: Remembering the Wittmann Tours World Trip with RAG
 <h2 class="anchored" data-anchor-id="building-the-wittmann-tours-llm-with-rag">Building the Wittmann-Tours LLM with RAG</h2>
 <p>Before we start, let’s quickly verify that the LLM does not know about the blog by asking an example question:</p>
 <div id="cell-8" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>question <span class="op">=</span> <span class="st">"What was the name of the guide who led us on our tour in the Masoala rain forest on Madagascar?"</span></span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>question <span class="op">=</span> <span class="st">"What was the name of the guide who led us on our tour in the Masoala rain forest on Madagascar?"</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>chat <span class="op">=</span> Llama2ChatVersion2(llm, <span class="st">"Answer in a very concise and accurate way"</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>chat.prompt_llama2_stream(<span class="ss">f"</span><span class="sc">{</span>question<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>chat.prompt_llama2_stream(<span class="ss">f"</span><span class="sc">{</span>question<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="font-size: 16px;"> The name of the guide who led your tour in the Masoala rainforest on Madagascar is… (drumroll) …Rahel!</span></p>
 </div>
 </div>
 <p>Well, it tried to guess, but the answer is not correct. Let’s provide more context, here is the <a href="https://wittmann-tours.de/drei-tage-im-masoala-regenwald">blog post about Masoala</a>:</p>
 <div id="cell-10" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>path_to_blogpost <span class="op">=</span> <span class="st">"../../../lm-hackers/wt-blogposts/drei-tage-im-masoalaregenwald/index.md"</span></span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>path_to_blogpost <span class="op">=</span> <span class="st">"../../../lm-hackers/wt-blogposts/drei-tage-im-masoalaregenwald/index.md"</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(path_to_blogpost, <span class="st">'r'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    content <span class="op">=</span> <span class="bu">file</span>.read()</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"The blogpost has </span><span class="sc">{</span><span class="bu">len</span>(content)<span class="sc">}</span><span class="ss"> characters"</span>)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(content[:<span class="dv">905</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(content[:<span class="dv">905</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>The blogpost has 18435 characters
 ---
@@ -358,18 +355,18 @@ Nach einer knapp 2-stündigen Bootsfahrt von [Nosy Mangabe](http://wittmann-tour
 </div>
 <p>Before we can ask the question in context it is important to realize that <a href="https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF">the model we use</a> has a maximum context window of 4096 tokens. Since the blog post is longer, I only pass the first section. Realizing this limitation, I will not solve this here, because the main goal it to understand how we can provide context at all.</p>
 <div id="cell-12" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_question_with_context(question, context):</span>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_question_with_context(question, context):</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ( <span class="ss">f"Answer the question with the help of the provided context."</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>             <span class="ss">f"## Question"</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>             <span class="ss">f"</span><span class="sc">{</span>question<span class="sc">}</span><span class="ss">"</span></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>             <span class="ss">f"## Context"</span></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>             <span class="ss">f"</span><span class="sc">{</span>context<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-13" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>question <span class="op">=</span> <span class="st">"What was the name of the guide who led us on our tour in the Masoala rain forest on Madagascar?"</span></span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>question <span class="op">=</span> <span class="st">"What was the name of the guide who led us on our tour in the Masoala rain forest on Madagascar?"</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>chat <span class="op">=</span> Llama2ChatVersion2(llm, <span class="st">"Answer in a very concise and accurate way"</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>chat.prompt_llama2_stream(<span class="ss">f"</span><span class="sc">{</span>get_question_with_context(question, content[:<span class="dv">6000</span>])<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>chat.prompt_llama2_stream(<span class="ss">f"</span><span class="sc">{</span>get_question_with_context(question, content[:<span class="dv">6000</span>])<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="font-size: 16px;"> The guide who led us on our tour in the Masoala rainforest was named Armand.</span></p>
 </div>
@@ -403,7 +400,7 @@ Nach einer knapp 2-stündigen Bootsfahrt von [Nosy Mangabe](http://wittmann-tour
 <h3 class="anchored" data-anchor-id="computational-context-determination">Computational Context Determination</h3>
 <p>The visualization above hopefully provided a way to intuitively understand in 2D what we will now compute in higher dimensionality dimensions. Let’s start with defining some functions. If you want to follow along interactively, here is the related <a href="https://github.com/chrwittm/lm-hackers/blob/main/30-rag/20-rag-reworking-hackers-guide.ipynb">jupyter notebook</a>.</p>
 <div id="cell-16" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> glob</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sentence_transformers <span class="im">import</span> SentenceTransformer</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -425,13 +422,13 @@ Nach einer knapp 2-stündigen Bootsfahrt von [Nosy Mangabe](http://wittmann-tour
 <span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_blog_post_embedding(path):</span>
 <span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    blog_post_text <span class="op">=</span> get_blog_post(path)</span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> get_text_embedding(blog_post_text)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> get_text_embedding(blog_post_text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To see an example of an high-dimensional embedding, here is the question embedding and the first 5-dimensions:</p>
 <div id="cell-18" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>question_embedding <span class="op">=</span> get_text_embedding(question)</span>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>question_embedding <span class="op">=</span> get_text_embedding(question)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(question_embedding[:<span class="dv">5</span>])</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(question_embedding.shape)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(question_embedding.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tensor([-0.0244, -0.0237, -0.0702, -0.0352, -0.0163], device='mps:0')
 torch.Size([1024])</code></pre>
@@ -439,18 +436,18 @@ torch.Size([1024])</code></pre>
 </div>
 <p>Now let’s compute the cosine similarity in 1024-dimensional space for 3 examples:</p>
 <div id="cell-20" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn.functional <span class="im">as</span> F</span>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn.functional <span class="im">as</span> F</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_similarity(embedding1, embedding2):</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> F.cosine_similarity(embedding1, embedding2, dim<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> F.cosine_similarity(embedding1, embedding2, dim<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-21" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>blog_posts <span class="op">=</span> [<span class="st">"../../../lm-hackers/wt-blogposts/drei-tage-im-masoalaregenwald/index.md"</span>,</span>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>blog_posts <span class="op">=</span> [<span class="st">"../../../lm-hackers/wt-blogposts/drei-tage-im-masoalaregenwald/index.md"</span>,</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>              <span class="st">"../../../lm-hackers/wt-blogposts/der-bolivianische-dschungel-im-madidi-nationalpark/index.md"</span>,</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>              <span class="st">"../../../lm-hackers/wt-blogposts/essen-mit-stern-hongkong-kulinarisch/index.md"</span>]</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>similarities <span class="op">=</span> [get_similarity(question_embedding, get_blog_post_embedding(blog_post)) <span class="cf">for</span> blog_post <span class="kw">in</span> blog_posts]</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>similarities</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>similarities</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>[tensor(0.6135, device='mps:0'),
  tensor(0.5241, device='mps:0'),
@@ -460,7 +457,7 @@ torch.Size([1024])</code></pre>
 <p>Not surprisingly, the blog post about the Masoala Rain Forst has the highest cosine similarity.</p>
 <p>Let’s put it all together and do a lookup over all blog posts related to a question.</p>
 <div id="cell-23" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_blog_post_as_context(question):</span>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_blog_post_as_context(question):</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    files <span class="op">=</span> get_blog_post_files(<span class="st">"../../../lm-hackers/wt-blogposts"</span>)</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -476,17 +473,17 @@ torch.Size([1024])</code></pre>
 <span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>            best_similarity <span class="op">=</span> blog_post_similarity</span>
 <span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>            best_match <span class="op">=</span> <span class="bu">file</span></span>
 <span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> best_match</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> best_match</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The mechanism in the cell above is quite inefficient, but the goal is to show the basic concept how to find the blog post best related to a question, or to put is in more general words, how to determine the best context for a question.</p>
 <p>Let’s combine the context determination with prompting the LLM and displaying the source of the answer:</p>
 <div id="cell-25" class="cell" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>question <span class="op">=</span> <span class="st">"What was the name of the guide who led us on our tour in the Masoala rain forest on Madagascar?"</span></span>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>question <span class="op">=</span> <span class="st">"What was the name of the guide who led us on our tour in the Masoala rain forest on Madagascar?"</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>blog_post_path <span class="op">=</span> get_blog_post_as_context(question)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>blog_post_context <span class="op">=</span> get_blog_post(blog_post_path)</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>chat <span class="op">=</span> Llama2ChatVersion2(llm, <span class="st">"Answer in a very concise and accurate way"</span>)</span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>chat.prompt_llama2_stream(<span class="ss">f"</span><span class="sc">{</span>get_question_with_context(question, blog_post_context[:<span class="dv">6000</span>])<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Context used: </span><span class="sc">{</span>blog_post_path<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Context used: </span><span class="sc">{</span>blog_post_path<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown">
 <p><span style="font-size: 16px;"> The guide who led us on our tour in the Masoala rainforest on Madagascar was named Armand.</span></p>
 </div>
@@ -578,14 +575,13 @@ torch.Size([1024])</code></pre>
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

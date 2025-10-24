@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.7.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -60,7 +60,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -71,15 +71,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-1c33c0780a01951c1c2d77b4a45239a1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-08e1269e8557b430e2197ccc38ae6770.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -138,7 +137,7 @@ cookieconsent.run({
 <script src="../../site_libs/quarto-diagram/mermaid.min.js"></script>
 <script src="../../site_libs/quarto-diagram/mermaid-init.js"></script>
 <link href="../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
@@ -156,7 +155,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+      if (mathElements[i].tagName == "SPAN") {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -182,8 +181,6 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">chrwittm.github.io</span>
     </a>
@@ -340,7 +337,7 @@ The calculator as part of LLM OS
 <div id="cell-8" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ChatMessages:</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ChatMessages:</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""Initializes the Chat."""</span></span>
@@ -364,14 +361,14 @@ The calculator as part of LLM OS
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_messages(<span class="va">self</span>):</span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""Returns a shallow copy of the messages list."""</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>._messages[:]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>._messages[:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Here is the chat client which talks to the OpenAI API. For more details, please refer to my blog post <a href="https://chrwittm.github.io/posts/2024-01-27-how-to-call-openai-api/">How to call the OpenAI API from a Jupyter Notebook</a>:</p>
 <div id="cell-10" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#model_name = "gpt-3.5-turbo"</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#model_name = "gpt-3.5-turbo"</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#model_name = "gpt-4o-mini"</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>model_name <span class="op">=</span> <span class="st">"gpt-4o"</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -400,34 +397,34 @@ The calculator as part of LLM OS
 <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>._chat_messages.append_assistant_message(c.choices[<span class="dv">0</span>].message.content)</span>
 <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> c.choices[<span class="dv">0</span>].message.content</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Let’s do a quick test of our chat client:</p>
 <div id="cell-12" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>chat_client <span class="op">=</span> ChatClient(<span class="st">"Answer in a very concise and accurate way"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>chat_client.ask_gpt(<span class="st">"Name the planets in the solar system"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>chat_client <span class="op">=</span> ChatClient(<span class="st">"Answer in a very concise and accurate way"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>chat_client.ask_gpt(<span class="st">"Name the planets in the solar system"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>'Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune.'</code></pre>
 </div>
 </div>
 <div id="cell-13" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>chat_client.ask_gpt(<span class="st">"Reverse the list"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>chat_client.ask_gpt(<span class="st">"Reverse the list"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>'Neptune, Uranus, Saturn, Jupiter, Mars, Earth, Venus, Mercury.'</code></pre>
 </div>
 </div>
 <p>So far so good, let’s transition to calculations:</p>
 <div id="cell-15" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>chat_client <span class="op">=</span> ChatClient(<span class="st">"You are a calculator."</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>chat_client.ask_gpt(<span class="st">"What is 6574 * 9132?"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>chat_client <span class="op">=</span> ChatClient(<span class="st">"You are a calculator."</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>chat_client.ask_gpt(<span class="st">"What is 6574 * 9132?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>'6574 * 9132 = 60075168.'</code></pre>
 </div>
 </div>
 <p>Almost correct 😉</p>
 <div id="cell-17" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dv">6574</span> <span class="op">*</span> <span class="dv">9132</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dv">6574</span> <span class="op">*</span> <span class="dv">9132</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>60033768</code></pre>
 </div>
@@ -438,11 +435,11 @@ The calculator as part of LLM OS
 <p>How can we teach the LLM some math? The secret is “<a href="https://platform.openai.com/docs/guides/function-calling">function calling</a>”. In the OpenAI API (and the APIs of other LLMs) we are can specify “tools” we can give to the LLM. Currently, only “<a href="https://platform.openai.com/docs/api-reference/chat/create#chat-create-tools">functions</a>” are supported. What sounds like a restriction is actually quite sufficient and convenient.</p>
 <p>For now, Let’s teach ChatGPT how to properly multiply two numbers:</p>
 <div id="cell-20" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> multiply(a:<span class="bu">int</span>, b:<span class="bu">int</span><span class="op">=</span><span class="dv">1</span>):</span>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> multiply(a:<span class="bu">int</span>, b:<span class="bu">int</span><span class="op">=</span><span class="dv">1</span>):</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"Multiplies a * b"</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">*</span> b</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>multiply(a<span class="op">=</span><span class="dv">6574</span>, b<span class="op">=</span><span class="dv">9132</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>multiply(a<span class="op">=</span><span class="dv">6574</span>, b<span class="op">=</span><span class="dv">9132</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>60033768</code></pre>
 </div>
@@ -451,7 +448,7 @@ The calculator as part of LLM OS
 <div id="cell-22" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pydantic <span class="im">import</span> create_model</span>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pydantic <span class="im">import</span> create_model</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> inspect, json</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> inspect <span class="im">import</span> Parameter</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -464,7 +461,7 @@ The calculator as part of LLM OS
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    function_params <span class="op">=</span> <span class="bu">dict</span>(name<span class="op">=</span>f.<span class="va">__name__</span>, description<span class="op">=</span>f.__doc__, parameters<span class="op">=</span>s)</span>
 <span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">dict</span>(<span class="bu">type</span><span class="op">=</span><span class="st">"function"</span>, function<span class="op">=</span>function_params)</span>
 <span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>[get_schema(multiply)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>[get_schema(multiply)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>[{'type': 'function',
@@ -481,7 +478,7 @@ The calculator as part of LLM OS
 <div id="cell-24" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> openai <span class="im">import</span> chat</span>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> openai <span class="im">import</span> chat</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>chat_messages <span class="op">=</span> ChatMessages()</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>chat_messages.append_system_message(<span class="st">"You are a calculator."</span>)</span>
@@ -493,7 +490,7 @@ The calculator as part of LLM OS
 <span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    tools<span class="op">=</span>[get_schema(multiply)])</span>
 <span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Text response: </span><span class="sc">{</span>c<span class="sc">.</span>choices[<span class="dv">0</span>]<span class="sc">.</span>message<span class="sc">.</span>content<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Tool call: </span><span class="sc">{</span>c<span class="sc">.</span>choices[<span class="dv">0</span>]<span class="sc">.</span>message<span class="sc">.</span>tool_calls<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Tool call: </span><span class="sc">{</span>c<span class="sc">.</span>choices[<span class="dv">0</span>]<span class="sc">.</span>message<span class="sc">.</span>tool_calls<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Text response: None
@@ -505,18 +502,18 @@ Tool call: [ChatCompletionMessageToolCall(id='call_qP9MhfCgWyjNZHWGyWNEjP2e', fu
 <div id="cell-26" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>funcs_ok <span class="op">=</span> {<span class="st">'multiply'</span>}</span>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>funcs_ok <span class="op">=</span> {<span class="st">'multiply'</span>}</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> call_func(c):</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Calls a function based on LLM tool calls"""</span></span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    fc <span class="op">=</span> c.choices[<span class="dv">0</span>].message.tool_calls[<span class="dv">0</span>].function <span class="co">#Updated</span></span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> fc.name <span class="kw">not</span> <span class="kw">in</span> funcs_ok: <span class="cf">return</span> <span class="bu">print</span>(<span class="ss">f'Not allowed: </span><span class="sc">{</span>fc<span class="sc">.</span>name<span class="sc">}</span><span class="ss">'</span>)</span>
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    f <span class="op">=</span> <span class="bu">globals</span>()[fc.name]</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> f(<span class="op">**</span>json.loads(fc.arguments))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> f(<span class="op">**</span>json.loads(fc.arguments))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div id="cell-27" class="cell" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>call_func(c)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>call_func(c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>60033768</code></pre>
 </div>
@@ -528,37 +525,37 @@ Tool call: [ChatCompletionMessageToolCall(id='call_qP9MhfCgWyjNZHWGyWNEjP2e', fu
 <p>This section will be fast, adding in quite a bit of code, but do not worry, we will recap later to understand the underlying details.</p>
 <p>First, we need to be able to pass the tools to the chat client.</p>
 <div id="cell-30" class="cell" data-execution_count="12">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastcore.utils <span class="im">import</span> <span class="op">*</span> <span class="co">#for importing patch</span></span>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastcore.utils <span class="im">import</span> <span class="op">*</span> <span class="co">#for importing patch</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="at">@patch</span>    </span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>:ChatClient, system_message, tools<span class="op">=</span><span class="va">None</span>):</span>
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Initializes the Chat with the system message."""</span></span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>._chat_messages <span class="op">=</span> ChatMessages()</span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>._chat_messages.append_system_message(system_message)</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>._tools <span class="op">=</span> tools</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>._tools <span class="op">=</span> tools</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>After prompting ChatGPT with tools, it might return a tool call as we have seen. This tool call needs to be stored in the chat history. Therefore, we need to update method <code>append_assistant_message</code>:</p>
 <div id="cell-32" class="cell" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="at">@patch</span> </span>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="at">@patch</span> </span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> append_assistant_message(<span class="va">self</span>:ChatMessages, content<span class="op">=</span><span class="va">None</span>, tool_calls<span class="op">=</span><span class="va">None</span>):</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Appends an assistant message with specified content to messages list."""</span></span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> content:</span>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>._append_message(<span class="st">"assistant"</span>, content)</span>
 <span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>._messages.append({<span class="st">"role"</span>: <span class="st">"assistant"</span>, <span class="st">"tool_calls"</span>: tool_calls})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>._messages.append({<span class="st">"role"</span>: <span class="st">"assistant"</span>, <span class="st">"tool_calls"</span>: tool_calls})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Finally, we need to update the <code>ask_gpt</code> method so that we can store the new format of the assistant message:</p>
 <div id="cell-34" class="cell" data-execution_count="14">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="at">@patch</span></span>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="at">@patch</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_model_response(<span class="va">self</span>:ChatClient):</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Calls the LLM chat completion API"""</span></span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> chat.completions.create(</span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>        model<span class="op">=</span>model_name,</span>
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>        messages<span class="op">=</span><span class="va">self</span>._chat_messages.get_messages(),</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        tools<span class="op">=</span><span class="va">self</span>._tools)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        tools<span class="op">=</span><span class="va">self</span>._tools)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-35" class="cell" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="at">@patch</span></span>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="at">@patch</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ask_gpt(<span class="va">self</span>:ChatClient, prompt):</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Calls the LLM chat completion API and returns the response message"""</span></span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>._chat_messages.append_user_message(prompt)</span>
@@ -569,37 +566,37 @@ Tool call: [ChatCompletionMessageToolCall(id='call_qP9MhfCgWyjNZHWGyWNEjP2e', fu
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>        content<span class="op">=</span>c.choices[<span class="dv">0</span>].message.content,</span>
 <span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>        tool_calls<span class="op">=</span>c.choices[<span class="dv">0</span>].message.tool_calls)</span>
 <span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> c.choices[<span class="dv">0</span>].message</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> c.choices[<span class="dv">0</span>].message</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>So far, so good. When we run the calculation again, we can observe that ChatGPT does not return a normal chat message, but it returns a tool call:</p>
 <div id="cell-37" class="cell" data-execution_count="16">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>chat_client <span class="op">=</span> ChatClient(<span class="st">"You are a calculator."</span>, tools<span class="op">=</span>[get_schema(multiply)])</span>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>chat_client <span class="op">=</span> ChatClient(<span class="st">"You are a calculator."</span>, tools<span class="op">=</span>[get_schema(multiply)])</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>model_response <span class="op">=</span> chat_client.ask_gpt(<span class="st">"What is 6574 * 9132?"</span>)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model_response)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model_response)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>ChatCompletionMessage(content=None, role='assistant', function_call=None, tool_calls=[ChatCompletionMessageToolCall(id='call_S1NinsciYzZtnHGDUKDuZ9UK', function=Function(arguments='{"a":6574,"b":9132}', name='multiply'), type='function')])</code></pre>
 </div>
 </div>
 <p>Let’s add in functionality to call the tool.</p>
 <div id="cell-39" class="cell" data-execution_count="17">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="at">@patch</span></span>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="at">@patch</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> call_tool(<span class="va">self</span>:ChatClient, tool_call):</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""returns the result of an LLM tool call"""</span></span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    fc <span class="op">=</span> tool_call.function <span class="co">#Updated</span></span>
 <span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> fc.name <span class="kw">not</span> <span class="kw">in</span> funcs_ok: <span class="cf">return</span> <span class="bu">print</span>(<span class="ss">f'Not allowed: </span><span class="sc">{</span>fc<span class="sc">.</span>name<span class="sc">}</span><span class="ss">'</span>)</span>
 <span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    f <span class="op">=</span> <span class="bu">globals</span>()[fc.name]</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> f(<span class="op">**</span>json.loads(fc.arguments))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> f(<span class="op">**</span>json.loads(fc.arguments))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The result of the tool call <a href="https://platform.openai.com/docs/guides/function-calling">needs to be stored</a> in a <a href="https://platform.openai.com/docs/api-reference/chat/create#chat-create-messages"><code>tool</code>-message</a>, so let’s add the <code>append_tool_message</code>-method to the chat message class.</p>
 <div id="cell-41" class="cell" data-execution_count="18">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="at">@patch</span> </span>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="at">@patch</span> </span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> append_tool_message(<span class="va">self</span>:ChatMessages, content, tool_call_id):</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Appends a tool message with specified content to messages list."""</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>._messages.append({<span class="st">"role"</span>: <span class="st">"tool"</span>, <span class="st">"content"</span>: content, <span class="st">"tool_call_id"</span>: tool_call_id})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>._messages.append({<span class="st">"role"</span>: <span class="st">"tool"</span>, <span class="st">"content"</span>: content, <span class="st">"tool_call_id"</span>: tool_call_id})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Actually, ChatGPT might return more than one tool - note that the tools are not an object, but an array. The <code>call_tools</code> method processes tools by appending the tool message to the chat. Each of these tool messages contains the tool result as <code>content</code> and the <code>tool_call_id</code>. Once all tools are processed, we call ChatGPT again.</p>
 <div id="cell-43" class="cell" data-execution_count="19">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="at">@patch</span></span>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="at">@patch</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> call_tools(<span class="va">self</span>:ChatClient, tool_calls):</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Processes the tool calls of the LLM response and calls the LLM API again"""</span></span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> tool_call <span class="kw">in</span> tool_calls:</span>
@@ -607,17 +604,17 @@ Tool call: [ChatCompletionMessageToolCall(id='call_qP9MhfCgWyjNZHWGyWNEjP2e', fu
 <span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>            content<span class="op">=</span><span class="bu">str</span>(<span class="va">self</span>.call_tool(tool_call)),</span>
 <span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>            tool_call_id<span class="op">=</span>tool_call.<span class="bu">id</span>)</span>
 <span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.ask_gpt()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.ask_gpt()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Calling ChatGPT directly after the tool calls might look strange. The reason for doing this is code simplicity. This way we can re-write the <code>ask_gpt</code>-method to recursively process tools until all tools are processed. Why this is a good idea will become obvious a little later.</p>
 <div id="cell-45" class="cell" data-execution_count="20">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="at">@patch</span> </span>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="at">@patch</span> </span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_last_assistant_message(<span class="va">self</span>:ChatMessages):</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Returns the content of the last assistant message"""</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">self</span>._messages[<span class="op">-</span><span class="dv">1</span>][<span class="st">'content'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">self</span>._messages[<span class="op">-</span><span class="dv">1</span>][<span class="st">'content'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-46" class="cell" data-execution_count="21">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, Markdown</span>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, Markdown</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="at">@patch</span></span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ask_gpt(<span class="va">self</span>:ChatClient, prompt<span class="op">=</span><span class="va">None</span>):</span>
@@ -637,13 +634,13 @@ Tool call: [ChatCompletionMessageToolCall(id='call_qP9MhfCgWyjNZHWGyWNEjP2e', fu
 <span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> tool_calls:</span>
 <span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.call_tools(tool_calls)</span>
 <span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Markdown(<span class="va">self</span>._chat_messages.get_last_assistant_message())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Markdown(<span class="va">self</span>._chat_messages.get_last_assistant_message())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This was a lot of code. The reward is that we can now run multiplication in the chat.</p>
 <div id="cell-48" class="cell" data-execution_count="22">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>system_prompt <span class="op">=</span> <span class="st">"You are a calculator. Respond in Markdown, no LaTeX"</span></span>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>system_prompt <span class="op">=</span> <span class="st">"You are a calculator. Respond in Markdown, no LaTeX"</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>chat_client <span class="op">=</span> ChatClient(system_message<span class="op">=</span>system_prompt, tools<span class="op">=</span>[get_schema(multiply)])</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>chat_client.ask_gpt(<span class="st">"What is 6574 * 9132?"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>chat_client.ask_gpt(<span class="st">"What is 6574 * 9132?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="22">
 <p>6574 * 9132 = 60,033,768</p>
 </div>
@@ -655,7 +652,7 @@ Tool call: [ChatCompletionMessageToolCall(id='call_qP9MhfCgWyjNZHWGyWNEjP2e', fu
 <div id="cell-50" class="cell" data-execution_count="23">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="at">@patch</span> </span>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="at">@patch</span> </span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_debug_view(<span class="va">self</span>: ChatMessages):</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Returns the debug view of the chat messages formatted as Markdown."""</span></span>
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    debug_view <span class="op">=</span> []</span>
@@ -681,11 +678,11 @@ Tool call: [ChatCompletionMessageToolCall(id='call_qP9MhfCgWyjNZHWGyWNEjP2e', fu
 <span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a>            tool_call_id <span class="op">=</span> message.get(<span class="st">'tool_call_id'</span>, <span class="st">''</span>)</span>
 <span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a>            debug_view.append(<span class="ss">f"**tool result**: </span><span class="sc">{</span>content<span class="sc">}</span><span class="ss"> (tool call id: </span><span class="sc">{</span>tool_call_id<span class="sc">}</span><span class="ss">)</span><span class="ch">\n</span><span class="ss">"</span>)</span>
 <span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Markdown(<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>.join(debug_view))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Markdown(<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>.join(debug_view))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div id="cell-51" class="cell" data-execution_count="24">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>chat_client._chat_messages.get_debug_view()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>chat_client._chat_messages.get_debug_view()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="24">
 <p><strong>system</strong>: You are a calculator. Respond in Markdown, no LaTeX</p>
 <p><strong>user</strong>: What is 6574 * 9132?</p>
@@ -700,14 +697,14 @@ Tool call: [ChatCompletionMessageToolCall(id='call_qP9MhfCgWyjNZHWGyWNEjP2e', fu
 <p>Based on the system prompt <em>(“You are a calculator. Respond in Markdown, no LaTeX”)</em> and the user prompt <em>(“What is 6574 * 9132?”)</em>, ChatGPT realized that it should not attempt the calculation on its own, but it should call a tool. Hence, it returned a tool call to <code>multiply</code> with <code>arguments='{"a":6574,"b":9132}</code>. We called the function and returned the result <em>(“60033768”)</em> as a <code>tool</code>-message. As a result, ChatGPT returned the final assistant message <em>(“The result of 6574 * 9132 is 60,033,768.”)</em>. In the chat client, we “suppressed” the tool call messages and only displayed the final <code>assistant</code>-message.</p>
 <p>Do you remember that we implemented a recursive tool call? The reason for this is to handle more complex calculations which require more steps, for example this one:</p>
 <div id="cell-53" class="cell" data-execution_count="25">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="dv">6573</span> <span class="op">*</span> <span class="dv">9132</span> <span class="op">*</span> <span class="dv">5423</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="dv">6573</span> <span class="op">*</span> <span class="dv">9132</span> <span class="op">*</span> <span class="dv">5423</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="25">
 <pre><code>325513601028</code></pre>
 </div>
 </div>
 <div id="cell-54" class="cell" data-execution_count="26">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>chat_client <span class="op">=</span> ChatClient(system_message<span class="op">=</span>system_prompt, tools<span class="op">=</span>[get_schema(multiply)])</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>chat_client.ask_gpt(<span class="st">"What is ( 6573 * 9132 ) * 5423?"</span>) <span class="co">#The additional brackets reduce the number is tool calls</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>chat_client <span class="op">=</span> ChatClient(system_message<span class="op">=</span>system_prompt, tools<span class="op">=</span>[get_schema(multiply)])</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>chat_client.ask_gpt(<span class="st">"What is ( 6573 * 9132 ) * 5423?"</span>) <span class="co">#The additional brackets reduce the number is tool calls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="26">
 <p>The values are:</p>
 <p>6573 * 9132 = 60024636</p>
@@ -716,7 +713,7 @@ Tool call: [ChatCompletionMessageToolCall(id='call_qP9MhfCgWyjNZHWGyWNEjP2e', fu
 </div>
 </div>
 <div id="cell-55" class="cell" data-execution_count="27">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>chat_client._chat_messages.get_debug_view()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>chat_client._chat_messages.get_debug_view()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="27">
 <p><strong>system</strong>: You are a calculator. Respond in Markdown, no LaTeX</p>
 <p><strong>user</strong>: What is ( 6573 * 9132 ) * 5423?</p>
@@ -785,7 +782,7 @@ Tool call: [ChatCompletionMessageToolCall(id='call_qP9MhfCgWyjNZHWGyWNEjP2e', fu
 <p>Now that we know how function calling works, and we understand how the LLM uses tools by reasoning and acting, it is time to create the full calculator.</p>
 <p>The only thing we need to do is to define more functions the LLM can use as tools.</p>
 <div id="cell-61" class="cell" data-execution_count="28">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add(a: <span class="bu">float</span>, b: <span class="bu">float</span> <span class="op">=</span> <span class="fl">1.0</span>):</span>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add(a: <span class="bu">float</span>, b: <span class="bu">float</span> <span class="op">=</span> <span class="fl">1.0</span>):</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"Adds a + b"</span></span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">+</span> b</span>
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -806,36 +803,36 @@ Tool call: [ChatCompletionMessageToolCall(id='call_qP9MhfCgWyjNZHWGyWNEjP2e', fu
 <span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>funcs_ok <span class="op">=</span> {<span class="st">'add'</span>, <span class="st">'subtract'</span>, <span class="st">'multiply'</span>, <span class="st">'divide'</span>}</span>
 <span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_calc_tools():</span>
-<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [get_schema(add), get_schema(subtract), get_schema(multiply), get_schema(divide)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [get_schema(add), get_schema(subtract), get_schema(multiply), get_schema(divide)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note the intersting definition of the <code>divide</code>-function. Traditionally, you would expect a definition like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> divide(a: <span class="bu">float</span>, b: <span class="bu">float</span> <span class="op">=</span> <span class="fl">1.0</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> divide(a: <span class="bu">float</span>, b: <span class="bu">float</span> <span class="op">=</span> <span class="fl">1.0</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"Divides a / b"</span></span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> b <span class="op">==</span> <span class="dv">0</span>:</span>
 <span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Division by zero is not allowed."</span>)</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">/</span> b</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">/</span> b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>In the context of LLM function calling, however, raising a <code>ValueError</code> is not very useful, because the LLM needs to receive the result in the <code>tool</code>-message. Therefore, returning a string <code>"Division by zero is not allowed."</code> is more useful.</p>
 <p>Let’s run a first test: <span class="math inline">\((6573 + 1) \times 9132\)</span></p>
 <div id="cell-63" class="cell" data-execution_count="29">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>system_prompt <span class="op">=</span> (</span>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>system_prompt <span class="op">=</span> (</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"You are a calculator. </span><span class="ch">\n</span><span class="st">"</span></span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Do not do even the simplest computations on your own, </span><span class="ch">\n</span><span class="st">"</span></span>
 <span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"but use the tools provided. </span><span class="ch">\n</span><span class="st">"</span></span>
 <span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"After the tool calls, explain the steps you took when answering. </span><span class="ch">\n</span><span class="st">"</span></span>
 <span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Answer with an accuracy of 3 decimals. </span><span class="ch">\n</span><span class="st">"</span></span>
 <span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Respond in markdown, no LaTeX."</span></span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div id="cell-64" class="cell" data-execution_count="30">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Expected result: </span><span class="sc">{</span>(<span class="dv">6573</span> <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> <span class="dv">9132</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Expected result: </span><span class="sc">{</span>(<span class="dv">6573</span> <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> <span class="dv">9132</span><span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"LLM response:"</span>)</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>chat_client <span class="op">=</span> ChatClient(system_message<span class="op">=</span>system_prompt, tools<span class="op">=</span>get_calc_tools())</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>chat_client.ask_gpt(<span class="st">"What is (6573 + 1) * 9132?"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>chat_client.ask_gpt(<span class="st">"What is (6573 + 1) * 9132?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Expected result: 60033768
@@ -848,7 +845,7 @@ LLM response:</code></pre>
 </div>
 <p>For a more detailed we, we can inspect the chat messages:</p>
 <div id="cell-66" class="cell" data-execution_count="31">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>chat_client._chat_messages.get_debug_view()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>chat_client._chat_messages.get_debug_view()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="31">
 <p><strong>system</strong>: You are a calculator. Do not do even the simplest computations on your own, but use the tools provided. After the tool calls, explain the steps you took when answering. Answer with an accuracy of 3 decimals. Respond in markdown, no LaTeX.</p>
 <p><strong>user</strong>: What is (6573 + 1) * 9132?</p>
@@ -867,10 +864,10 @@ LLM response:</code></pre>
 <div id="cell-68" class="cell" data-execution_count="32">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Expected result: </span><span class="sc">{</span>( ( <span class="dv">5647</span> <span class="op">+</span> <span class="dv">3241</span> ) <span class="op">/</span> ( <span class="dv">7</span> <span class="op">*</span> <span class="dv">2</span> ) ) <span class="op">-</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Expected result: </span><span class="sc">{</span>( ( <span class="dv">5647</span> <span class="op">+</span> <span class="dv">3241</span> ) <span class="op">/</span> ( <span class="dv">7</span> <span class="op">*</span> <span class="dv">2</span> ) ) <span class="op">-</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"LLM response:"</span>)</span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>chat_client <span class="op">=</span> ChatClient(system_message<span class="op">=</span>system_prompt, tools<span class="op">=</span>get_calc_tools())</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>chat_client.ask_gpt(<span class="st">"What is ( ( 5647 + 3241 ) / ( 7 * 2 ) ) - 1?"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>chat_client.ask_gpt(<span class="st">"What is ( ( 5647 + 3241 ) / ( 7 * 2 ) ) - 1?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Expected result: 633.8571428571429
@@ -882,7 +879,7 @@ LLM response:</code></pre>
 </div>
 </div>
 <div id="cell-69" class="cell" data-execution_count="33">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>chat_client._chat_messages.get_debug_view()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>chat_client._chat_messages.get_debug_view()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="33">
 <p><strong>system</strong>: You are a calculator. Do not do even the simplest computations on your own, but use the tools provided. After the tool calls, explain the steps you took when answering. Answer with an accuracy of 3 decimals. Respond in markdown, no LaTeX.</p>
 <p><strong>user</strong>: What is ( ( 5647 + 3241 ) / ( 7 * 2 ) ) - 1?</p>
@@ -914,7 +911,7 @@ LLM response:</code></pre>
 <div id="cell-71" class="cell" data-execution_count="34">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>models <span class="op">=</span> [<span class="st">"gpt-3.5-turbo"</span>, <span class="st">"gpt-4o-mini"</span>, <span class="st">"gpt-4o"</span>]</span>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>models <span class="op">=</span> [<span class="st">"gpt-3.5-turbo"</span>, <span class="st">"gpt-4o-mini"</span>, <span class="st">"gpt-4o"</span>]</span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>calculations <span class="op">=</span> [</span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"( 6574 * 9132 )"</span>,</span>
 <span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"( 6573 + 9132 ) * 5423"</span>,</span>
@@ -932,7 +929,7 @@ LLM response:</code></pre>
 <span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a>        results.append(<span class="ss">f"Error in calculation: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> calc, res <span class="kw">in</span> <span class="bu">zip</span>(calculations, results):</span>
-<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>calc<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>res<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>calc<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>res<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>( 6574 * 9132 ) = 60033768.000
@@ -945,7 +942,7 @@ LLM response:</code></pre>
 <div id="cell-72" class="cell" data-execution_count="37">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>system_prompt <span class="op">=</span> (</span>
 <span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"You are a calculator. </span><span class="ch">\n</span><span class="st">"</span></span>
@@ -991,7 +988,7 @@ LLM response:</code></pre>
 <span id="cb49-44"><a href="#cb49-44" aria-hidden="true" tabindex="-1"></a>    .set_properties(<span class="op">**</span>{<span class="st">'text-align'</span>: <span class="st">'center'</span>, <span class="st">'vertical-align'</span>: <span class="st">'middle'</span>})</span>
 <span id="cb49-45"><a href="#cb49-45" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb49-46"><a href="#cb49-46" aria-hidden="true" tabindex="-1"></a>html <span class="op">=</span> styled_df.to_html()</span>
-<span id="cb49-47"><a href="#cb49-47" aria-hidden="true" tabindex="-1"></a>display(HTML(html))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb49-47"><a href="#cb49-47" aria-hidden="true" tabindex="-1"></a>display(HTML(html))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <style type="text/css">
@@ -1030,7 +1027,7 @@ LLM response:</code></pre>
 Table&nbsp;1: Model Comparison Results
 </figcaption>
 <div aria-describedby="T_ddb12-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table id="T_ddb12" class="caption-top table table-sm table-striped small">
+<table id="T_ddb12" class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
@@ -1047,31 +1044,31 @@ Table&nbsp;1: Model Comparison Results
 </thead>
 <tbody>
 <tr class="odd">
-<th id="T_ddb12_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">( 6574 * 9132 )</th>
+<td id="T_ddb12_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">( 6574 * 9132 )</td>
 <td id="T_ddb12_row0_col0" class="data row0 col0">True</td>
 <td id="T_ddb12_row0_col1" class="data row0 col1">True</td>
 <td id="T_ddb12_row0_col2" class="data row0 col2">True</td>
 </tr>
 <tr class="even">
-<th id="T_ddb12_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">( 6573 + 9132 ) * 5423</th>
+<td id="T_ddb12_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">( 6573 + 9132 ) * 5423</td>
 <td id="T_ddb12_row1_col0" class="data row1 col0">True</td>
 <td id="T_ddb12_row1_col1" class="data row1 col1">True</td>
 <td id="T_ddb12_row1_col2" class="data row1 col2">True</td>
 </tr>
 <tr class="odd">
-<th id="T_ddb12_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">( 6573 * 9132 ) * 5423</th>
+<td id="T_ddb12_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">( 6573 * 9132 ) * 5423</td>
 <td id="T_ddb12_row2_col0" class="data row2 col0">True</td>
 <td id="T_ddb12_row2_col1" class="data row2 col1">False</td>
 <td id="T_ddb12_row2_col2" class="data row2 col2">True</td>
 </tr>
 <tr class="even">
-<th id="T_ddb12_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">( 5647 + 3241 ) / ( 7 * 2 ) - 1</th>
+<td id="T_ddb12_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">( 5647 + 3241 ) / ( 7 * 2 ) - 1</td>
 <td id="T_ddb12_row3_col0" class="data row3 col0">True</td>
 <td id="T_ddb12_row3_col1" class="data row3 col1">True</td>
 <td id="T_ddb12_row3_col2" class="data row3 col2">True</td>
 </tr>
 <tr class="odd">
-<th id="T_ddb12_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">( 5647 + 3241 ) / ( 7 * 2 ) + ( ( 657 + 343 ) * 2 )</th>
+<td id="T_ddb12_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">( 5647 + 3241 ) / ( 7 * 2 ) + ( ( 657 + 343 ) * 2 )</td>
 <td id="T_ddb12_row4_col0" class="data row4 col0">False</td>
 <td id="T_ddb12_row4_col1" class="data row4 col1">True</td>
 <td id="T_ddb12_row4_col2" class="data row4 col2">True</td>
@@ -1155,14 +1152,13 @@ Table&nbsp;1: Model Comparison Results
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
