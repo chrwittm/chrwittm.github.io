@@ -1,10 +1,18 @@
+# Ignore Quarto’s build and cache folders
 /.quarto/
-.env
-.DS_Store
 _site
+
+# Ignore environment
+.env
+
+# Ignore macOS artifacts
+.DS_Store
 
 # Ignore the entire .vscode directory
 .vscode/
 
 # Ignore PowerPoint
 *.pptx
+
+# Ignore all Quarto-generated notebook intermediate files
+**/*.quarto_ipynb
