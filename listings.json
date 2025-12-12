@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/2025-12-12-sap-rpt-1-hello-world/index.html",
       "/posts/2025-10-24-managing-python-environments/index.html",
       "/posts/2025-08-08-running-gpt-oss-locally/index.html",
       "/posts/2025-07-10-deploying-fastapi-app-on-sap-btp/index.html",
