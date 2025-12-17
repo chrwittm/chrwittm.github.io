@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Christian Wittmann">
-<meta name="dcterms.date" content="2025-12-12">
+<meta name="dcterms.date" content="2025-12-17">
 
-<title>Welcome SAP-RPT-1! What is it? How can you try it out? – chrwittm.github.io</title>
+<title>Building an SAP-RPT-1 ‘Hello World’ with AI Core – chrwittm.github.io</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -204,7 +204,7 @@ cookieconsent.run({
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Welcome SAP-RPT-1! What is it? How can you try it out?</h1>
+      <h1 class="title">Building an SAP-RPT-1 ‘Hello World’ with AI Core</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">sap</div>
                 <div class="quarto-category">rpt-1</div>
@@ -226,7 +226,7 @@ cookieconsent.run({
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">December 12, 2025</p>
+        <p class="date">December 17, 2025</p>
       </div>
     </div>
     
@@ -245,153 +245,171 @@ cookieconsent.run({
 
 
 
-<p>SAP announced <a href="https://www.sap.com/products/artificial-intelligence/sap-rpt.html">SAP-RPT-1</a> at <a href="https://youtu.be/X9qHsLmPMk4?si=X1c8KSCYtCCFRhtw&amp;t=1816">TechEd 2025 in Berlin</a>. What is it good for, and how can you try it out? In this blog post, I’ll walk you through the announcement and show you how to get started, both in a no-code approach and in Python.</p>
-<style>
-  figure {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-  }
-</style>
-<figure class="figure">
-<img src="sap-rpt-1.png" alt="SAP-RPT-1" style="width:50%;" class="figure-img">
-<figcaption>
-SAP-RPT-1 - [ˈræpɪd] [wʌn]
-</figcaption>
-</figure>
-<section id="what-is-sap-rpt-1" class="level2">
-<h2 class="anchored" data-anchor-id="what-is-sap-rpt-1">What is SAP-RPT-1?</h2>
-<p>RPT stands for <strong>R</strong>elational <strong>P</strong>re-Trained <strong>T</strong>ransformer which SAP wants us to pronounce as ‘rapid one’. To make sure this is pronounced correctly, they even write out phonetic transcription [ˈræpɪd] [wʌn] - so no excuses here 😉.</p>
-<p>If you are looking for a quick executive summary, check out <a href="https://youtu.be/X9qHsLmPMk4?si=X1c8KSCYtCCFRhtw&amp;t=1816">Philipp Herzig’s Keynote presentation</a> which explains that RPT-1 is a new type of AI model that is optimized for making predictions on tabular data. Unlike LLMs which generate the next word (token) for a text sequence, RPT-1 predicts the next field in a table row. Putting this in a practical example, Philipp mentions that RPT-1 can predict, for example, delivery times or customer churn, essentially replacing traditional ML models like XGBoost or Random Forest with a single RPT-1 model.</p>
-<p>For now, SAP-RPT-1 comes in 3 flavors:</p>
+<p>Using SAP-RPT-1 <a href="https://community.sap.com/t5/artificial-intelligence-blogs-posts/welcome-sap-rpt-1-what-is-it-how-can-you-try-it-out/ba-p/14289556">in the playground</a> is a nice way to get a first impression, but you’ll soon realize there are some limitations. In this blog post, let’s explore how to use SAP-RPT-1 in a production-like environment. I’ll walk you through the steps to build a simple “Hello World” application using SAP-RPT-1 and AI Core.</p>
+<section id="creating-a-deployment-for-sap-rpt-1" class="level2">
+<h2 class="anchored" data-anchor-id="creating-a-deployment-for-sap-rpt-1">Creating a Deployment for SAP-RPT-1</h2>
+<p>Throughout this blog post, I’ll assume that you have access to a BTP subaccount with instances of the <a href="https://discovery-center.cloud.sap/serviceCatalog/sap-ai-core">AI Core service</a> (extended plan) and the <a href="https://discovery-center.cloud.sap/serviceCatalog/sap-ai-launchpad">AI Launchpad service</a> (standard plan).</p>
+<p>First, you need to <a href="https://help.sap.com/docs/sap-ai-core/generative-ai-hub/activate-generative-ai-hub-for-sap-ai-core">create a configuration</a> for SAP-RPT-1 with the following parameters:</p>
 <ul>
-<li>SAP-RPT-1-Small: A small model optimized for super-fast predictions</li>
-<li>SAP-RPT-1-Large: A larger model optimized for highest accuracy</li>
-<li>SAP-RPT-1-OSS: An “open source” version for everybody to learn (<a href="https://github.com/SAP-samples/sap-rpt-1-oss">Github</a> / <a href="https://huggingface.co/SAP/sap-rpt-1-oss">Huggingface</a>)</li>
+<li>Configuration Name: For example, <code>sap-rpt-1-large</code> or <code>sap-rpt-1-small</code> (I recommend naming the configuration so that you can easily recognize the underlying model)</li>
+<li>Scenario: <code>foundation-models</code></li>
+<li>Version: <code>0.0.1</code> (default value)</li>
+<li>Executable: <code>aicore-sap</code> (meaning that this model is hosted by SAP; you can find this value in <a href="https://me.sap.com/notes/3437766">note 3437766</a>)</li>
+<li>Model Name: <code>sap-rpt-1-large</code> or <code>sap-rpt-1-small</code> (again, as per <a href="https://me.sap.com/notes/3437766">note 3437766</a>)</li>
+<li>Model Version: <code>latest</code></li>
 </ul>
-<p>The way Philipp talked about the OSS version, I assume that this is also the version which is available in the <a href="https://rpt.cloud.sap/dashboard">RPT Playground</a>, your starting point to try out RPT-1 in a no-code environment.</p>
+<p>In the next step, you can turn this configuration into a deployment by clicking on the “Create Deployment” button in the configuration overview. You can leave all the default values as they are and create the deployment.</p>
+<p>After a few minutes, the deployment should reach the status “Running” and you can start using it. Note that a deployment URL has also been created, something like <code>https://api.ai.prod.eu-central-1.aws.ml.hana.ondemand.com/v2/inference/deployments/1234567890abcdef</code>. The most important part is the deployment ID at the end of the URL (in this example <code>1234567890abcdef</code>), which you’ll need later on.</p>
 </section>
-<section id="trying-out-sap-rpt-1-in-the-rpt-playground" class="level2">
-<h2 class="anchored" data-anchor-id="trying-out-sap-rpt-1-in-the-rpt-playground">Trying out SAP-RPT-1 in the RPT Playground</h2>
-<p>The easiest way to get started with RPT-1 is the <a href="https://rpt.cloud.sap/dashboard">RPT Playground</a>. SAP has prepared some data, but you can also upload your own tabular data (CSV files) and use RPT-1 to make predictions on it. The trick for making predictions with RPT-1 is to mask the field you want to predict with <code>[PREDICT]</code>. Once you click on the “Predict” button, RPT-1 will fill in the masked field with its prediction.</p>
-<p>While SAP’s prepared use cases work well, you’ll get a better sense of RPT-1’s capabilities by trying it with your own data. To help you get started, I’ve prepared the example data from the coding tutorial (allowing you to predict sales groups from Product, Price, Customer, Country) in a CSV file <a href="https://github.com/chrwittm/sap-rpt-1/blob/main/hello-world/sample_data.csv">for you to download</a>. You can easily modify this file in Excel (or any other editor), save as CSV and try your own data in the RPT Playground. If you’d prefer to start simple, try out the <a href="https://github.com/chrwittm/sap-rpt-1/blob/main/hello-world/sample_data.csv">example CSV file</a> I have prepared for you.</p>
-<p>If you’re not a coder, simply skip the coding section and jump right to the conclusion.</p>
-</section>
-<section id="trying-out-sap-rpt-1-in-python" class="level2">
-<h2 class="anchored" data-anchor-id="trying-out-sap-rpt-1-in-python">Trying out SAP-RPT-1 in Python</h2>
-<p>If you want to get your hands dirty with code, I have prepared a <a href="https://github.com/chrwittm/sap-rpt-1/blob/main/hello-world/sap-rpt-1-hello-world-blog-post.ipynb">Jupyter Notebook</a> that shows in detail how to use RPT-1.</p>
-<section id="prerequisites" class="level3">
-<h3 class="anchored" data-anchor-id="prerequisites">Prerequisites</h3>
-<p>Assuming you have access to the RPT Playground and that you have downloaded the <a href="https://github.com/chrwittm/sap-rpt-1/blob/main/hello-world/sap-rpt-1-hello-world-blog-post.ipynb">Jupyter notebook</a>, you need to fetch your access token from the bottom of the <a href="https://rpt.cloud.sap/dashboard">playground page</a>.</p>
-<p>To avoid storing your credentials in the notebook, copy &amp; paste the token (<code>RPT_TOKEN</code>) into a <code>.env</code> file in the same folder where you have stored the Jupyter notebook. It should look like this:</p>
-<pre class="text"><code>RPT_TOKEN="eyJhbGciOiJIUzI1" # truncated, your token is a lot longer</code></pre>
-<p>Once you’ve done that, you’re ready to run the notebook.</p>
-</section>
-<section id="preparing-test-data" class="level3">
-<h3 class="anchored" data-anchor-id="preparing-test-data">Preparing Test Data</h3>
-<p>Here’s the test data in the format RPT-1 expects:</p>
-<div id="11d9b126" class="cell" data-execution_count="1">
+<section id="handling-ai-core-authentication" class="level2">
+<h2 class="anchored" data-anchor-id="handling-ai-core-authentication">Handling AI Core Authentication</h2>
+<p>At the time of writing, the <a href="https://help.sap.com/doc/generative-ai-hub-sdk/CLOUD/en-US/_reference/gen_ai_hub.html">SAP Cloud SDK for Python</a> does not yet support the RPT-1 models. Following the <a href="https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/example-payloads-for-inferencing-sap-rpt-1">documentation</a>, we will therefore use the <code>requests</code> library to call the deployment endpoint directly.</p>
+<p>Before we can do that, however, we need to authenticate as also <a href="https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/get-auth-token">described in the documentation</a>. What may look intimidating at first is actually quite straightforward. We only need a few parameters which we’ll store securely in a <code>.env</code> file. You can collect this information from the service key of your AI Core instance.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">AICORE_API_URL</span><span class="op">=</span><span class="st">"https://api.ai.prod.eu-central-1.aws.ml.hana.ondemand.com/v2"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="va">AICORE_AUTH_URL</span><span class="op">=</span><span class="st">"https://a1b2c3d4e4f61234.authentication.eu10.hana.ondemand.com"</span> <span class="co"># called "url" in the service key</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="va">AICORE_CLIENT_ID</span><span class="op">=</span><span class="st">"sb-95d9f03d"</span> <span class="co"># shortened, yours will be longer</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="va">AICORE_CLIENT_SECRET</span><span class="op">=</span><span class="st">"c51ad55c"</span>  <span class="co"># shortened, yours will be longer</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="va">AICORE_RESOURCE_GROUP</span><span class="op">=</span><span class="st">"default"</span>  <span class="co"># your actual resource group</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Additionally, store the RPT deployment ID(s) you collected earlier:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">RPT1L_DEPLOYMENT_ID</span><span class="op">=</span><span class="st">"1234567890abcdef"</span>  <span class="co"># your actual deployment ID for RPT-1 large</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="va">RPT1S_DEPLOYMENT_ID</span><span class="op">=</span><span class="st">"abcdef1234567890"</span>  <span class="co"># your actual deployment ID for RPT-1 small</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Once the <code>.env</code> file is ready, we can use the following code to retrieve an access token from the authentication endpoint:</p>
+<div id="176a6047" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>payload <span class="op">=</span> {</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"prediction_config"</span>: {</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"target_columns"</span>: [</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>            {</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                <span class="st">"name"</span>: <span class="st">"SALESGROUP"</span>,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                <span class="st">"prediction_placeholder"</span>: <span class="st">"[PREDICT]"</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                <span class="co"># "task_type": "classification" or "regression" can be specified here if needed</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>            }</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        ]</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    },</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"index_column"</span>: <span class="st">"ID"</span>,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"rows"</span>: [</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ID"</span>: <span class="st">"1001"</span>,</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRODUCT"</span>: <span class="st">"Tablet"</span>,</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRICE"</span>: <span class="fl">599.00</span>,</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">"CUSTOMER"</span>: <span class="st">"TechStart Inc"</span>,</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">"COUNTRY"</span>: <span class="st">"USA"</span>,</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>            <span class="st">"SALESGROUP"</span>: <span class="st">"[PREDICT]"</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        },</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ID"</span>: <span class="st">"1002"</span>,</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRODUCT"</span>: <span class="st">"Standing Desk"</span>,</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRICE"</span>: <span class="fl">325.50</span>,</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>            <span class="st">"CUSTOMER"</span>: <span class="st">"Workspace Solutions"</span>,</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>            <span class="st">"COUNTRY"</span>: <span class="st">"Germany"</span>,</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">"SALESGROUP"</span>: <span class="st">"[PREDICT]"</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        },</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ID"</span>: <span class="st">"1003"</span>,</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRODUCT"</span>: <span class="st">"Workstation"</span>,</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRICE"</span>: <span class="fl">1450.00</span>,</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>            <span class="st">"CUSTOMER"</span>: <span class="st">"Enterprise Systems Ltd"</span>,</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>            <span class="st">"COUNTRY"</span>: <span class="st">"Canada"</span>,</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>            <span class="st">"SALESGROUP"</span>: <span class="st">"Enterprise Solutions"</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>        },</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ID"</span>: <span class="st">"1004"</span>,</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRODUCT"</span>: <span class="st">"Laptop Pro"</span>,</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRICE"</span>: <span class="fl">1899.99</span>,</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>            <span class="st">"CUSTOMER"</span>: <span class="st">"Business Corp"</span>,</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>            <span class="st">"COUNTRY"</span>: <span class="st">"UK"</span>,</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>            <span class="st">"SALESGROUP"</span>: <span class="st">"Enterprise Solutions"</span></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>        },</span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ID"</span>: <span class="st">"1005"</span>,</span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRODUCT"</span>: <span class="st">"Gaming Laptop"</span>,</span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRICE"</span>: <span class="fl">1250.00</span>,</span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>            <span class="st">"CUSTOMER"</span>: <span class="st">"Digital Ventures"</span>,</span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>            <span class="st">"COUNTRY"</span>: <span class="st">"USA"</span>,</span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>            <span class="st">"SALESGROUP"</span>: <span class="st">"Enterprise Solutions"</span></span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>        },</span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ID"</span>: <span class="st">"1006"</span>,</span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRODUCT"</span>: <span class="st">"Smart Watch"</span>,</span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRICE"</span>: <span class="fl">299.99</span>,</span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>            <span class="st">"CUSTOMER"</span>: <span class="st">"Gadget Store"</span>,</span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>            <span class="st">"COUNTRY"</span>: <span class="st">"Australia"</span>,</span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>            <span class="st">"SALESGROUP"</span>: <span class="st">"Consumer Electronics"</span></span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>        },</span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ID"</span>: <span class="st">"1007"</span>,</span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRODUCT"</span>: <span class="st">"Ergonomic Chair"</span>,</span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRICE"</span>: <span class="fl">445.00</span>,</span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>            <span class="st">"CUSTOMER"</span>: <span class="st">"Office Outfitters"</span>,</span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>            <span class="st">"COUNTRY"</span>: <span class="st">"France"</span>,</span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>            <span class="st">"SALESGROUP"</span>: <span class="st">"Office Furniture"</span></span>
-<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>        },</span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ID"</span>: <span class="st">"1008"</span>,</span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRODUCT"</span>: <span class="st">"Storage Array"</span>,</span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRICE"</span>: <span class="fl">3500.00</span>,</span>
-<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>            <span class="st">"CUSTOMER"</span>: <span class="st">"CloudTech Systems"</span>,</span>
-<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>            <span class="st">"COUNTRY"</span>: <span class="st">"Singapore"</span>,</span>
-<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>            <span class="st">"SALESGROUP"</span>: <span class="st">"Data Infrastructure"</span></span>
-<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>        },</span>
-<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ID"</span>: <span class="st">"1009"</span>,</span>
-<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRODUCT"</span>: <span class="st">"Network Switch"</span>,</span>
-<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRICE"</span>: <span class="fl">175.50</span>,</span>
-<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>            <span class="st">"CUSTOMER"</span>: <span class="st">"ConnectIT"</span>,</span>
-<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>            <span class="st">"COUNTRY"</span>: <span class="st">"Japan"</span>,</span>
-<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>            <span class="st">"SALESGROUP"</span>: <span class="st">"Networking Devices"</span></span>
-<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load .env file</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>load_dotenv()</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>AICORE_AUTH_URL <span class="op">=</span> os.environ[<span class="st">"AICORE_AUTH_URL"</span>]</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>AICORE_CLIENT_ID <span class="op">=</span> os.environ[<span class="st">"AICORE_CLIENT_ID"</span>]</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>AICORE_CLIENT_SECRET <span class="op">=</span> os.environ[<span class="st">"AICORE_CLIENT_SECRET"</span>]</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>token_url <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>AICORE_AUTH_URL<span class="sc">}</span><span class="ss">/oauth/token"</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.post(</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    token_url,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    auth<span class="op">=</span>(AICORE_CLIENT_ID, AICORE_CLIENT_SECRET),</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>{<span class="st">"grant_type"</span>: <span class="st">"client_credentials"</span>},</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>response.raise_for_status()</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>token_data <span class="op">=</span> response.json()</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>access_token <span class="op">=</span> token_data[<span class="st">"access_token"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="preparing-test-data" class="level2">
+<h2 class="anchored" data-anchor-id="preparing-test-data">Preparing Test Data</h2>
+<p>For testing the connection to the RPT-1 deployment, we’ll use the same test data we used when <a href="https://community.sap.com/t5/artificial-intelligence-blogs-posts/welcome-sap-rpt-1-what-is-it-how-can-you-try-it-out/ba-p/14289556">trying out RPT-1 in the playground</a>. Here’s the test data in the format RPT-1 expects:</p>
+<blockquote class="blockquote">
+<p>Note: For the next steps, I also created a <a href="https://github.com/chrwittm/sap-rpt-1/blob/main/hello-world-aicore/sap-rpt-1-hello-world-aicore-blog-post.ipynb">Jupyter notebook</a>, which you can download to interactively do all the steps below yourself.</p>
+</blockquote>
+<div id="f2929f24" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>payload <span class="op">=</span> {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"prediction_config"</span>: {</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"target_columns"</span>: [</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>            {</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                <span class="st">"name"</span>: <span class="st">"SALESGROUP"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                <span class="st">"prediction_placeholder"</span>: <span class="st">"[PREDICT]"</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                <span class="co"># "task_type": "classification" or "regression" can be specified here if needed</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>            }</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        ]</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"index_column"</span>: <span class="st">"ID"</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"rows"</span>: [</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ID"</span>: <span class="st">"1001"</span>,</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRODUCT"</span>: <span class="st">"Tablet"</span>,</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRICE"</span>: <span class="fl">599.00</span>,</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">"CUSTOMER"</span>: <span class="st">"TechStart Inc"</span>,</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">"COUNTRY"</span>: <span class="st">"USA"</span>,</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>            <span class="st">"SALESGROUP"</span>: <span class="st">"[PREDICT]"</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ID"</span>: <span class="st">"1002"</span>,</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRODUCT"</span>: <span class="st">"Standing Desk"</span>,</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRICE"</span>: <span class="fl">325.50</span>,</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>            <span class="st">"CUSTOMER"</span>: <span class="st">"Workspace Solutions"</span>,</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>            <span class="st">"COUNTRY"</span>: <span class="st">"Germany"</span>,</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">"SALESGROUP"</span>: <span class="st">"[PREDICT]"</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ID"</span>: <span class="st">"1003"</span>,</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRODUCT"</span>: <span class="st">"Workstation"</span>,</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRICE"</span>: <span class="fl">1450.00</span>,</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>            <span class="st">"CUSTOMER"</span>: <span class="st">"Enterprise Systems Ltd"</span>,</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>            <span class="st">"COUNTRY"</span>: <span class="st">"Canada"</span>,</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>            <span class="st">"SALESGROUP"</span>: <span class="st">"Enterprise Solutions"</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ID"</span>: <span class="st">"1004"</span>,</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRODUCT"</span>: <span class="st">"Laptop Pro"</span>,</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRICE"</span>: <span class="fl">1899.99</span>,</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>            <span class="st">"CUSTOMER"</span>: <span class="st">"Business Corp"</span>,</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>            <span class="st">"COUNTRY"</span>: <span class="st">"UK"</span>,</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>            <span class="st">"SALESGROUP"</span>: <span class="st">"Enterprise Solutions"</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ID"</span>: <span class="st">"1005"</span>,</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRODUCT"</span>: <span class="st">"Gaming Laptop"</span>,</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRICE"</span>: <span class="fl">1250.00</span>,</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>            <span class="st">"CUSTOMER"</span>: <span class="st">"Digital Ventures"</span>,</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>            <span class="st">"COUNTRY"</span>: <span class="st">"USA"</span>,</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>            <span class="st">"SALESGROUP"</span>: <span class="st">"Enterprise Solutions"</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ID"</span>: <span class="st">"1006"</span>,</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRODUCT"</span>: <span class="st">"Smart Watch"</span>,</span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRICE"</span>: <span class="fl">299.99</span>,</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>            <span class="st">"CUSTOMER"</span>: <span class="st">"Gadget Store"</span>,</span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>            <span class="st">"COUNTRY"</span>: <span class="st">"Australia"</span>,</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>            <span class="st">"SALESGROUP"</span>: <span class="st">"Consumer Electronics"</span></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ID"</span>: <span class="st">"1007"</span>,</span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRODUCT"</span>: <span class="st">"Ergonomic Chair"</span>,</span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRICE"</span>: <span class="fl">445.00</span>,</span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>            <span class="st">"CUSTOMER"</span>: <span class="st">"Office Outfitters"</span>,</span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>            <span class="st">"COUNTRY"</span>: <span class="st">"France"</span>,</span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>            <span class="st">"SALESGROUP"</span>: <span class="st">"Office Furniture"</span></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ID"</span>: <span class="st">"1008"</span>,</span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRODUCT"</span>: <span class="st">"Storage Array"</span>,</span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRICE"</span>: <span class="fl">3500.00</span>,</span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>            <span class="st">"CUSTOMER"</span>: <span class="st">"CloudTech Systems"</span>,</span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>            <span class="st">"COUNTRY"</span>: <span class="st">"Singapore"</span>,</span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>            <span class="st">"SALESGROUP"</span>: <span class="st">"Data Infrastructure"</span></span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ID"</span>: <span class="st">"1009"</span>,</span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRODUCT"</span>: <span class="st">"Network Switch"</span>,</span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>            <span class="st">"PRICE"</span>: <span class="fl">175.50</span>,</span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>            <span class="st">"CUSTOMER"</span>: <span class="st">"ConnectIT"</span>,</span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>            <span class="st">"COUNTRY"</span>: <span class="st">"Japan"</span>,</span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a>            <span class="st">"SALESGROUP"</span>: <span class="st">"Networking Devices"</span></span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>For better readability, here is the data in table format:</p>
-<div id="52462974" class="cell" data-execution_count="2">
+<div id="0bb44adb" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>sample_data <span class="op">=</span> pd.DataFrame(payload[<span class="st">"rows"</span>])</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>sample_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>sample_data <span class="op">=</span> pd.DataFrame(payload[<span class="st">"rows"</span>])</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>sample_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 
 
@@ -495,49 +513,45 @@ SAP-RPT-1 - [ˈræpɪd] [wʌn]
 </div>
 </div>
 </div>
-<p>As you can see, we have 4 attribute columns: Product, Price, Customer, Country. Our target column is the Sales Group. Therefore, the sales group is masked in 2 lines with the value <code>[PREDICT]</code>, so that RPT-1 can demonstrate that it can fill in the missing values.</p>
 </section>
-<section id="running-the-predictions" class="level3">
-<h3 class="anchored" data-anchor-id="running-the-predictions">Running the predictions</h3>
-<p>To run the predictions, we will use the <code>requests</code> library to send an HTTP POST request to the RPT-1 API endpoint. The request will include our test data and the authorization token.</p>
-<div id="a45b83fd" class="cell">
+<section id="running-the-predictions" class="level2">
+<h2 class="anchored" data-anchor-id="running-the-predictions">Running the predictions</h2>
+<p>To run the predictions, we will use the <code>requests</code> library to send an HTTP POST request to the RPT-1 deployment endpoint. The request will include our test data and the authorization token.</p>
+<div id="42e37e71" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>load_dotenv()</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>auth_token <span class="op">=</span> os.getenv(<span class="st">"RPT_TOKEN"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div id="4f621d8d" class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://rpt.cloud.sap/api/predict"</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Content-Type"</span>: <span class="st">"application/json"</span>,</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Authorization"</span>: <span class="ss">f"Bearer </span><span class="sc">{</span>auth_token<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.post(url, json<span class="op">=</span>payload, headers<span class="op">=</span>headers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>AICORE_API_URL <span class="op">=</span> os.environ[<span class="st">"AICORE_API_URL"</span>].rstrip(<span class="st">"/"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>AICORE_RESOURCE_GROUP <span class="op">=</span> os.environ.get(<span class="st">"AICORE_RESOURCE_GROUP"</span>, <span class="st">"default"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>RPT1_DEPLOYMENT_ID <span class="op">=</span> os.environ.get(<span class="st">"RPT1L_DEPLOYMENT_ID"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> RPT1_DEPLOYMENT_ID:</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Missing RPT1L_DEPLOYMENT_ID in .env (deployment id from AI Launchpad)."</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>AICORE_API_URL<span class="sc">}</span><span class="ss">/inference/deployments/</span><span class="sc">{</span>RPT1_DEPLOYMENT_ID<span class="sc">}</span><span class="ss">/predict"</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Authorization"</span>: <span class="ss">f"Bearer </span><span class="sc">{</span>access_token<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"AI-Resource-Group"</span>: AICORE_RESOURCE_GROUP,</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Content-Type"</span>: <span class="st">"application/json"</span>,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Accept"</span>: <span class="st">"application/json"</span>,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.post(url, headers<span class="op">=</span>headers, json<span class="op">=</span>payload, timeout<span class="op">=</span><span class="dv">120</span>)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>response.raise_for_status()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
-<section id="analyzing-the-results" class="level3">
-<h3 class="anchored" data-anchor-id="analyzing-the-results">Analyzing the results</h3>
+<section id="analyzing-the-results" class="level2">
+<h2 class="anchored" data-anchor-id="analyzing-the-results">Analyzing the results</h2>
 <p>Let’s take a look at the results returned by RPT-1. Here are the predictions in the raw JSON format:</p>
-<div id="2a637d83" class="cell">
+<div id="fd8b82fc" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> response.json()</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>preds <span class="op">=</span> data[<span class="st">"prediction"</span>][<span class="st">"predictions"</span>]</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(json.dumps(preds, indent<span class="op">=</span><span class="dv">2</span>, ensure_ascii<span class="op">=</span><span class="va">False</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> response.json()</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>preds <span class="op">=</span> data[<span class="st">"predictions"</span>]</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(json.dumps(preds, indent<span class="op">=</span><span class="dv">2</span>, ensure_ascii<span class="op">=</span><span class="va">False</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[
@@ -545,7 +559,7 @@ SAP-RPT-1 - [ˈræpɪd] [wʌn]
     "ID": 1001,
     "SALESGROUP": [
       {
-        "confidence": null,
+        "confidence": 0.93,
         "prediction": "Enterprise Solutions"
       }
     ]
@@ -554,7 +568,7 @@ SAP-RPT-1 - [ˈræpɪd] [wʌn]
     "ID": 1002,
     "SALESGROUP": [
       {
-        "confidence": null,
+        "confidence": 0.78,
         "prediction": "Office Furniture"
       }
     ]
@@ -562,22 +576,23 @@ SAP-RPT-1 - [ˈræpɪd] [wʌn]
 ]</code></pre>
 </div>
 </div>
-<p>Let’s merge these predictions back into the tabular format to see the results more clearly.</p>
-<div id="5932e435" class="cell">
+<p>Note that the result looks different from what we saw in the playground, which hosts the RPT-1-OSS model. RPT-1-Large also returns a <code>confidence</code> score for each prediction.</p>
+<p>Let’s merge these predictions back into the tabular format to see the results more clearly:</p>
+<div id="002fc5a5" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>preds_df <span class="op">=</span> sample_data.copy(deep<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>preds_df[<span class="st">"ID"</span>] <span class="op">=</span> preds_df[<span class="st">"ID"</span>].astype(<span class="bu">int</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> pred <span class="kw">in</span> preds:</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    row_idx <span class="op">=</span> <span class="bu">int</span>(pred[<span class="st">"ID"</span>])</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    predicted_value <span class="op">=</span> pred[<span class="st">"SALESGROUP"</span>][<span class="dv">0</span>][<span class="st">"prediction"</span>]</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    preds_df.loc[preds_df[<span class="st">"ID"</span>] <span class="op">==</span> row_idx, <span class="st">"SALESGROUP"</span>] <span class="op">=</span> predicted_value</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>preds_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>preds_df <span class="op">=</span> sample_data.copy(deep<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>preds_df[<span class="st">"ID"</span>] <span class="op">=</span> preds_df[<span class="st">"ID"</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> pred <span class="kw">in</span> preds:</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    row_idx <span class="op">=</span> <span class="bu">int</span>(pred[<span class="st">"ID"</span>])</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    predicted_value <span class="op">=</span> pred[<span class="st">"SALESGROUP"</span>][<span class="dv">0</span>][<span class="st">"prediction"</span>]</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    preds_df.loc[preds_df[<span class="st">"ID"</span>] <span class="op">==</span> row_idx, <span class="st">"SALESGROUP"</span>] <span class="op">=</span> predicted_value</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>preds_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
 
@@ -682,12 +697,12 @@ SAP-RPT-1 - [ˈræpɪd] [wʌn]
 </div>
 </div>
 <p>For comparison, here is the original sample data before predictions:</p>
-<div id="bc7cc8a0" class="cell">
+<div id="5aef9788" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sample_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sample_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 
 
@@ -792,18 +807,10 @@ SAP-RPT-1 - [ˈræpɪd] [wʌn]
 </div>
 </div>
 </section>
-</section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>As we can see, RPT-1 has filled in the missing sales groups based on the patterns contained in the context, i.e., the other entries. Essentially, the non-masked rows serve as few-shot examples that RPT-1 uses for in-context learning. This behavior is comparable to an LLM imitating examples you provide in a prompt. Here’s a simple example of such a prompt:</p>
-<pre class="text"><code>Write an executive summary for the Lord of the Rings.
-
-Here is an example for Romeo and Juliet:
-Boy and girl fall in love, in the end they both die.</code></pre>
-<p>If you try this prompt, you might get a result like this:</p>
-<pre class="text"><code>Guy inherits ring. Walks a lot. Destroys it.</code></pre>
-<p>Similarly, RPT-1 uses the non-masked rows as examples to predict the masked values. The key difference is that RPT-1 does not semantically generate text, but it predicts the most likely value for the masked fields based on the patterns it has learned during training.</p>
-<p>Of course, the example we used is very simple, and it will be interesting to see how RPT-1 performs on more complex datasets. For now, I hope you are all set to try SAP-RPT-1 with your own data. Happy experimenting!</p>
+<p>We’ve successfully transitioned from using SAP-RPT-1 in the playground to deploying and using it via AI Core. This setup allows you to use RPT-1 in a scalable, production-like environment. On the playground, for example, you quickly hit limits if you try more complex scenarios or larger datasets. Using a deployment via AI Core overcomes these limitations.</p>
+<p>I already have quite a few ideas for building more complex applications using RPT-1 and AI Core. Which scenarios will you build first? Let me know in the comments!</p>
 
 
 </section>
