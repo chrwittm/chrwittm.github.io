@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.33">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Christian Wittmann">
+<meta name="dcterms.date" content="2026-01-09">
+
+<title>Let’s test RPT-1 on Titanic – chrwittm.github.io</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-08e1269e8557b430e2197ccc38ae6770.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-GF3YYKQQNH"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-GF3YYKQQNH', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"express",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":"",
+"website_privacy_policy_url":"/privacy.html"
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">chrwittm.github.io</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../license.html"> 
+<span class="menu-text">License</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../impressum.html"> 
+<span class="menu-text">Impressum</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../privacy.html"> 
+<span class="menu-text">Privacy</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/chrwittm"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/chrwittm"> <i class="bi bi-twitter-x" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://de.linkedin.com/in/chrwittm"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.kaggle.com/christianwittmann"> <i class="bi bi-file-earmark-code" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Let’s test RPT-1 on Titanic</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">sap</div>
+                <div class="quarto-category">rpt-1</div>
+                <div class="quarto-category">tabular</div>
+                <div class="quarto-category">titanic</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Christian Wittmann </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">January 9, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<p>How do you test SAP’s RPT-1 model beyond a simple <a href="https://community.sap.com/t5/artificial-intelligence-blogs-posts/building-an-sap-rpt-1-quot-hello-world-quot-with-ai-core/ba-p/14292100">Hello World example</a>? Its claim to fame is that it can <a href="https://youtu.be/X9qHsLmPMk4?si=X1c8KSCYtCCFRhtw&amp;t=1816">replace traditional machine learning models</a> for classification and regression tasks. No model training, no hyperparameter tuning, just show it your data and it predicts. That’s a bold promise that deserves testing!</p>
+<p>Back when I started <a href="https://chrwittm.github.io/#category=titanic">learning about machine learning</a>, one of my first projects was tackling <a href="https://www.kaggle.com/competitions/titanic/">Kaggle’s Titanic Challenge</a> in which you get a dataset with information about the passengers of the Titanic and you have to predict which of them survived. It’s not a classic SAP use case, but I think it makes a good first benchmark: To score well, you typically need to clean data, engineer features, and iterate on your model. Would RPT-1 perform well on raw data? Could I improve results by tuning the input? To find out, I decided to board the Titanic again. Here’s what I discovered.</p>
+<p>Spoiler Alert: RPT-1 performed well, and I learned a lot about how RPT-1 works, including a bit of mystery and surprise. If you are looking for technical details, I have posted <a href="https://github.com/chrwittm/sap-rpt-1/blob/main/titanic-1/titanic1_aicore_code_walkthrough.ipynb">Coding Walkthrough on GitHub</a>. In this blog post, I will focus on the insights and lessons learned. So let’s jump right in.</p>
+<section id="how-rpt-1-works" class="level2">
+<h2 class="anchored" data-anchor-id="how-rpt-1-works">How RPT-1 works</h2>
+<p>If you haven’t worked with RPT-1 before, here’s the basic idea: It uses in-context learning, similar to how Large Language Models work. Instead of training a model on your data, you show it examples, and it learns the patterns on the fly without any traditional training step. Think of it like showing a child examples before asking them to solve a new problem.</p>
+<p>For the Titanic challenge, this means we give RPT-1 a table of passengers where we know if they survived or not. Then we add one or more row(s) for passengers where survival is unknown, masking the “Survived” fields with a <code>[PREDICT]</code> placeholder. Therefore, the model looks at the patterns in the known data and fills in the blanks.</p>
+<p>Here’s what a simple (and simplified) payload looks like: (For the full payload structure, please refer to the <a href="https://github.com/chrwittm/sap-rpt-1/blob/main/titanic-1/titanic1_aicore_code_walkthrough.ipynb">Coding Walkthrough</a>.)</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"prediction_config"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"target_columns"</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"name"</span><span class="fu">:</span> <span class="st">"Survived"</span><span class="fu">,</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"prediction_placeholder"</span><span class="fu">:</span> <span class="st">"[PREDICT]"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span><span class="ot">]</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"index_column"</span><span class="fu">:</span> <span class="st">"PassengerId"</span><span class="fu">,</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"rows"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span><span class="dt">"PassengerId"</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span> <span class="dt">"Pclass"</span><span class="fu">:</span> <span class="dv">3</span><span class="fu">,</span> <span class="dt">"Sex"</span><span class="fu">:</span> <span class="st">"male"</span><span class="fu">,</span> <span class="dt">"Age"</span><span class="fu">:</span> <span class="dv">22</span><span class="fu">,</span> <span class="dt">"Survived"</span><span class="fu">:</span> <span class="st">"0"</span><span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span><span class="dt">"PassengerId"</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span> <span class="dt">"Pclass"</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span> <span class="dt">"Sex"</span><span class="fu">:</span> <span class="st">"female"</span><span class="fu">,</span> <span class="dt">"Age"</span><span class="fu">:</span> <span class="dv">38</span><span class="fu">,</span> <span class="dt">"Survived"</span><span class="fu">:</span> <span class="st">"1"</span><span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span><span class="dt">"PassengerId"</span><span class="fu">:</span> <span class="dv">3</span><span class="fu">,</span> <span class="dt">"Pclass"</span><span class="fu">:</span> <span class="dv">3</span><span class="fu">,</span> <span class="dt">"Sex"</span><span class="fu">:</span> <span class="st">"female"</span><span class="fu">,</span> <span class="dt">"Age"</span><span class="fu">:</span> <span class="dv">26</span><span class="fu">,</span> <span class="dt">"Survived"</span><span class="fu">:</span> <span class="st">"[PREDICT]"</span><span class="fu">}</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The model sees that passenger 1 (male, 3rd class) didn’t survive, passenger 2 (female, 1st class) did. Now it can use these patterns (women and higher classes survived more often) to predict passenger 3. Pretty elegant, right?</p>
+<p>Here is an example of how the prediction result looks like:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ot">[</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">{</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"PassengerId"</span><span class="fu">:</span> <span class="dv">3</span><span class="fu">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"Survived"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">{</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"confidence"</span><span class="fu">:</span> <span class="fl">0.89</span><span class="fu">,</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"prediction"</span><span class="fu">:</span> <span class="st">"1"</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ot">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>RPT-1 therefore predicts that passenger 3 survived with a confidence of 89%. A few things stand out here: First, you didn’t have to train a model to get this result. Second, that confidence score is actually meaningful. Sure, you could ask an LLM “how confident are you?” and it would happily give you a number, but that’s just another token prediction, making up a plausible-sounding answer. RPT-1’s confidence comes from the actual probability distribution over possible values produced by the model, which is a fundamentally different (and more useful) thing.</p>
+</section>
+<section id="experimenting-with-training-data" class="level2">
+<h2 class="anchored" data-anchor-id="experimenting-with-training-data">Experimenting with Training Data</h2>
+<p>Since Kaggle limits you to 10 submissions per day, and I wanted to run a lot more experiments, I initially planned to only work on the training data where we know the ground truth, masking some “Survived” values, and see if RPT-1 could predict them. This way I could measure performance without burning through my daily submission quota.</p>
+<p>Technically, my plan worked perfectly. The results, however, were… suspicious. When I masked 400 out of 891 rows and asked RPT-1 to fill them in, it predicted with 98% accuracy. To put that in perspective: the simple baseline of “women survive, men don’t” gets you about 76%. Anything above 80% is highly competitive, and no serious Kaggle submission breaks 90%. A traditional Gradient Boosting model I trained on the same data scored around 80%. So either RPT-1 is doing something magical, or something fishy is going on.</p>
+<p>My first thought: Maybe RPT-1 has seen the Titanic dataset during training and is simply regurgitating the answers? To test this, I tried predicting passenger names instead of survival. Names are completely random, so if RPT-1 memorized the dataset, it should nail them too - but it didn’t. Instead, it predicted names from the unmasked rows in its context window, with very low confidence. A similar test with ticket numbers (which have some patterns since families shared tickets) showed modest results. RPT-1 was clearly pattern-matching from context, not memorizing from training.</p>
+<p>But that still didn’t explain the 98% accuracy on survival predictions. So I ran one more experiment: What happens when I severely limit the context? I kept only 2 unmasked rows (the minimum allowed) and tried three variations: - One survivor, one non-survivor in context → reasonable predictions - Two survivors in context → predicted everyone survived - Two non-survivors in context → predicted everyone died</p>
+<p>The result was reassuring: RPT-1 was only predicting values it had seen in the context window (same as we had seen with names and ticket numbers). It also “resisted” creating a near-perfect result (scoring 68%) when both “0” and “1” were in the context, even though this would have opened the door for regurgitation.</p>
+<p>When I tested how much context RPT-1 needed to produce competitive results, it already scored 85% on the test data with only 20 unmasked entries in the context window (surprisingly high!). With only 20 examples out of 891, the model shouldn’t have enough signal generalize well and to outperform Gradient Boosting trained on 491 examples. Put simply, it improved too much. Why? Honestly, I still don’t fully understand it. The mystery remains unsolved. If you have a theory, I’d love to hear it. But rather than speculate further, I decided to move on to what really matters: How would RPT-1 perform when it actually had to predict unknown outcomes (the test set)?</p>
+</section>
+<section id="the-real-test-kaggle-submissions" class="level2">
+<h2 class="anchored" data-anchor-id="the-real-test-kaggle-submissions">The Real Test: Kaggle Submissions</h2>
+<p>Time to put RPT-1 to the real test. I combined the training data (with known outcomes) and test data (with <code>[PREDICT]</code> placeholders), sent it to RPT-1, and <a href="https://www.kaggle.com/competitions/titanic/">submitted the predictions to Kaggle</a>.</p>
+<p>With raw data and zero preprocessing, RPT-1 scored 0.76555, matching the gender-based baseline. If you’ve tried this competition yourself, you know that’s actually not trivial. Many first attempts fall short of even this baseline.</p>
+<p>Next, I tried some standard feature engineering: Extracting titles from names, creating family size indicators, binning ages. Surprisingly, the score barely budged (0.76794). In fact, adding just the Title feature actually dropped the score to 0.76076. This suggested RPT-1 was already extracting similar signals from the raw data, or perhaps the additional columns were adding noise.</p>
+<p>Knowing that higher score should be achievable, I created more advanced features that capture social context, for example survival rates of passengers sharing the same surname or ticket number. Indeed, the score increased significantly to 0.78229. But how does this compare to traditional machine learning approaches? Let’s find out.</p>
+</section>
+<section id="how-does-this-compare-to-traditional-ml" class="level2">
+<h2 class="anchored" data-anchor-id="how-does-this-compare-to-traditional-ml">How Does This Compare to Traditional ML?</h2>
+<p>To compare RPT-1’s scores (small and large) with traditional ML, I trained Gradient Boosting models along the way for comparison using the same engineered features we gave to RPT-1. Here is the full result table for the different setups:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 43%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Setup</th>
+<th>RPT-1-Small</th>
+<th>RPT-1-Large</th>
+<th>GradientBoosting</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>No feature engineering</td>
+<td>0.76555</td>
+<td>0.76555</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>With title feature</td>
+<td>0.76076</td>
+<td>0.76076</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>Full feature engineering</td>
+<td>0.76794</td>
+<td>0.76794</td>
+<td>0.76555</td>
+</tr>
+<tr class="even">
+<td>Advanced feature engineering</td>
+<td>0.77990</td>
+<td><strong>0.78229</strong></td>
+<td>0.77751</td>
+</tr>
+</tbody>
+</table>
+<p>Interestingly, both model sizes scored identically on simpler setups, with RPT-1-Large only pulling ahead with advanced features. This may indicate that the small model might be good enough for a dataset of ~1000 lines, but clearly this needs more testing with different use cases. Overall RPT-1-Large wins, even if it’s only by ~0.3% compared RPT-1-Small or ~0.5% compared to Gradient Boosting, this is a real difference in this competition.</p>
+<p>But the scores only tell half the story. The more interesting story is how RPT-1 wins. When I first trained Gradient Boosting with the advanced features, it actually scored lower than the baseline — classic overfitting. I had to add cross-validation, tune hyperparameters, and simplify the feature set to get to 0.77751. That’s the normal ML workflow: train, evaluate, iterate, repeat.</p>
+<p>Using RPT-1 I could just add the new features and got results. No retraining, no hyperparameter tuning, no overfitting headaches. The same features that caused Gradient Boosting to overfit worked fine for RPT-1 out of the box.</p>
+<p>This advantage compounds in real-world scenarios. Imagine your customer data changes weekly. With traditional ML, that’s weekly retraining jobs, validation runs, and deployment cycles. With RPT-1, you just update the context. Whether this holds for enterprise use cases remains to be tested, but the potential is significant and it would fundamentally simplify the operational model.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>RPT-1 didn’t just survive the Titanic test, it came out a winner. What can we learn from this exercise? I think we need to look at this from two angles: How does RPT-1 compare to traditional ML models and how does it compare to LLMs.</p>
+<p>SAP positions RPT-1 as a replacement for traditional ML models. And it does deliver on that promise. Without any training, it matched and slightly outperformed a tuned Gradient Boosting model. That’s remarkable. You can throw structured data at it and get competitive predictions without a typical Machine Learning workflow: No model selection, no hyperparameter tuning, no train-test splits to manage.</p>
+<p>Feature engineering still matters, but differently. Basic features like extracting titles barely moved the needle, RPT-1 already seemed to pick up these patterns from the raw data. But features capturing deeper structure (like group survival rates in this case) made a real difference. Zooming out, this saves time and effort when implementing a use case, but meaningful features which focus on domain insights and which aren’t obvious still are worth engineering.</p>
+<p>We could also see an additional workflow advantage when Gradient Boosting overfit on my advanced features. To really make use of the new features, I had to iterate and add cross-validation, tune parameters, simplify the feature set. With RPT-1, the same features just worked. This is nice for quick experiments (like Titanic), but when projecting this forward into production systems that need regular updates with new data, that’s potentially transformative.</p>
+<p>SAP also calls RPT-1 a foundation model (for tabular data), so how does it compare to an LLM? As we have seen its output is quite different from that of an LLM, but it is worth noting that, unlike LLMs, RPT-1 produces deterministic results. You can run the same payload multiple times and get the same result. This is a big advantage over LLMs, where you always get slightly different answers. Additionally, RPT-1 produces real confidence scores, something an LLM cannot do. Both of these points clearly make RPT-1 a different kind of model, giving you LLM-style in-context learning, but with ML-style predictive results.</p>
+<p>The 98% mystery on masked training data remains. If you have a theory, I’d love to hear it. Nonetheless, my overall impression of RPT-1 is very good and I am looking forward to moving beyond the small Titanic dataset to more enterprise-like use cases to see how RPT-1 performs on more complex scenarios. What enterprise scenarios would you like to see tested?</p>
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/chrwittm\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<script src="https://utteranc.es/client.js" repo="chrwittm/chrwittm.github.io.comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+© <span id="y"></span> Christian Wittmann
+<script>
+  document.getElementById('y').textContent = new Date().getFullYear();
+</script>
+</div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+<p><a href="../../impressum.html">Impressum</a> · <a href="../../privacy.html">Privacy</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
