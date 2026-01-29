@@ -69,60 +69,64 @@
     <lastmod>2024-02-16T07:49:31.728Z</lastmod>
   </url>
   <url>
-    <loc>https://chrwittm.github.io/posts/2025-04-20-beneath-the-blue-dome/index.html</loc>
-    <lastmod>2025-04-20T15:28:13.975Z</lastmod>
-  </url>
-  <url>
-    <loc>https://chrwittm.github.io/posts/2025-07-08-implementing-fastapi-greeting/index.html</loc>
-    <lastmod>2025-07-10T05:45:29.718Z</lastmod>
-  </url>
-  <url>
-    <loc>https://chrwittm.github.io/posts/2024-01-05-running-ml-on-apple-silicon/index.html</loc>
-    <lastmod>2024-02-16T07:43:59.153Z</lastmod>
-  </url>
-  <url>
-    <loc>https://chrwittm.github.io/posts/2023-12-13-installing-fast-ai-on-apple-silicon/index.html</loc>
-    <lastmod>2024-02-16T07:44:20.464Z</lastmod>
-  </url>
-  <url>
-    <loc>https://chrwittm.github.io/posts/2025-07-09-deploying-fastapi-app-on-render/index.html</loc>
-    <lastmod>2025-07-10T05:31:33.958Z</lastmod>
-  </url>
-  <url>
-    <loc>https://chrwittm.github.io/posts/2024-07-30-llm-calculator1/index.html</loc>
-    <lastmod>2024-08-02T07:29:41.333Z</lastmod>
-  </url>
-  <url>
-    <loc>https://chrwittm.github.io/posts/2025-12-17-sap-rpt-1-aicore/index.html</loc>
-    <lastmod>2025-12-17T07:08:36.543Z</lastmod>
-  </url>
-  <url>
-    <loc>https://chrwittm.github.io/posts/2024-08-02-llm-calculator2-vision/index.html</loc>
-    <lastmod>2024-08-02T07:37:39.974Z</lastmod>
-  </url>
-  <url>
-    <loc>https://chrwittm.github.io/posts/2022-11-27-rebuilding-quarto-blog/index.html</loc>
-    <lastmod>2022-11-27T12:33:04.000Z</lastmod>
-  </url>
-  <url>
-    <loc>https://chrwittm.github.io/posts/2023-01-27-disaster-tweet-dataset-limitations/index.html</loc>
-    <lastmod>2023-01-29T17:15:44.000Z</lastmod>
-  </url>
-  <url>
-    <loc>https://chrwittm.github.io/posts/2023-03-05-titanic-with-chatgpt/index.html</loc>
-    <lastmod>2024-01-31T05:09:57.199Z</lastmod>
-  </url>
-  <url>
-    <loc>https://chrwittm.github.io/posts/2022-10-28-matrix-multiplication/index.html</loc>
-    <lastmod>2022-11-27T09:05:52.000Z</lastmod>
+    <loc>https://chrwittm.github.io/posts/2022-11-05-kaggle-titanic/index.html</loc>
+    <lastmod>2022-11-29T06:31:28.000Z</lastmod>
   </url>
   <url>
     <loc>https://chrwittm.github.io/posts/2022-11-30-wrapping-up-lesson3/index.html</loc>
     <lastmod>2022-12-02T08:35:14.000Z</lastmod>
   </url>
   <url>
-    <loc>https://chrwittm.github.io/posts/2022-11-05-kaggle-titanic/index.html</loc>
-    <lastmod>2022-11-29T06:31:28.000Z</lastmod>
+    <loc>https://chrwittm.github.io/posts/2022-10-28-matrix-multiplication/index.html</loc>
+    <lastmod>2022-11-27T09:05:52.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://chrwittm.github.io/posts/2023-03-05-titanic-with-chatgpt/index.html</loc>
+    <lastmod>2024-01-31T05:09:57.199Z</lastmod>
+  </url>
+  <url>
+    <loc>https://chrwittm.github.io/posts/2023-01-27-disaster-tweet-dataset-limitations/index.html</loc>
+    <lastmod>2023-01-29T17:15:44.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://chrwittm.github.io/posts/2022-11-27-rebuilding-quarto-blog/index.html</loc>
+    <lastmod>2022-11-27T12:33:04.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://chrwittm.github.io/posts/2024-08-02-llm-calculator2-vision/index.html</loc>
+    <lastmod>2024-08-02T07:37:39.974Z</lastmod>
+  </url>
+  <url>
+    <loc>https://chrwittm.github.io/posts/2025-12-17-sap-rpt-1-aicore/index.html</loc>
+    <lastmod>2025-12-17T07:08:36.543Z</lastmod>
+  </url>
+  <url>
+    <loc>https://chrwittm.github.io/posts/2024-07-30-llm-calculator1/index.html</loc>
+    <lastmod>2024-08-02T07:29:41.333Z</lastmod>
+  </url>
+  <url>
+    <loc>https://chrwittm.github.io/posts/2025-07-09-deploying-fastapi-app-on-render/index.html</loc>
+    <lastmod>2025-07-10T05:31:33.958Z</lastmod>
+  </url>
+  <url>
+    <loc>https://chrwittm.github.io/posts/2023-12-13-installing-fast-ai-on-apple-silicon/index.html</loc>
+    <lastmod>2024-02-16T07:44:20.464Z</lastmod>
+  </url>
+  <url>
+    <loc>https://chrwittm.github.io/posts/2024-01-05-running-ml-on-apple-silicon/index.html</loc>
+    <lastmod>2024-02-16T07:43:59.153Z</lastmod>
+  </url>
+  <url>
+    <loc>https://chrwittm.github.io/posts/2025-07-08-implementing-fastapi-greeting/index.html</loc>
+    <lastmod>2025-07-10T05:45:29.718Z</lastmod>
+  </url>
+  <url>
+    <loc>https://chrwittm.github.io/posts/2025-04-20-beneath-the-blue-dome/index.html</loc>
+    <lastmod>2025-04-20T15:28:13.975Z</lastmod>
+  </url>
+  <url>
+    <loc>https://chrwittm.github.io/posts/2026-01-29-sap-orchestration-hello-world/index.html</loc>
+    <lastmod>2026-01-29T06:48:46.028Z</lastmod>
   </url>
   <url>
     <loc>https://chrwittm.github.io/posts/2024-02-23-chat-from-scratch/index.html</loc>
