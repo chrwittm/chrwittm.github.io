@@ -292,7 +292,7 @@ Vibe Working - AI-powered Office automation
 </section>
 <section id="introducing-vibe-working" class="level2">
 <h2 class="anchored" data-anchor-id="introducing-vibe-working">Introducing “Vibe Working”</h2>
-<p>You may have heard of “vibe coding” - this trending approach where developers describe what they want in natural language and AI writes the code. It’s called “vibe coding” because you’re vibing with the AI, having a conversation, iterating together until you get what you want.</p>
+<p>You may have heard of “<a href="https://x.com/karpathy/status/1886192184808149383">vibe coding</a>” - this trending approach where developers describe what they want in natural language and AI writes the code. It’s called “vibe coding” because you’re vibing with the AI, having a conversation, iterating together until you get what you want.</p>
 <p>Here’s what I find interesting: the current focus for local AI tools has been almost exclusively on coding (hence names like “Claude Code” and “Cursor”). But the same principle applies to non-coding tasks just as well. I like to call this <strong>vibe working</strong>.</p>
 <p><strong>Vibe working</strong> = describing your Office tasks in natural language while AI handles the execution.</p>
 <p>Whether you’re writing code or creating documents, the workflow is identical: describe, review, iterate, done. The only difference is the output format.</p>
@@ -304,7 +304,7 @@ Vibe Working - AI-powered Office automation
 <li>It scales: once set up, you can process dozens of documents the same way you’d process one</li>
 <li>It’s consistent because the AI follows the same approach every time, reducing errors</li>
 <li>It’s buildable, meaning you can create reusable prompts for tasks you do often (that’s a topic for another post, but it’s definitely possible)</li>
-<li>Your files stay local since only the API calls go to the cloud while your documents never leave your machine</li>
+<li>Your files stay local since only the API calls go to the cloud - your documents never leave your machine</li>
 </ul>
 </section>
 <section id="what-well-build-together" class="level2">
@@ -321,21 +321,21 @@ Vibe Working - AI-powered Office automation
 <p>That’s what this guide is really about: building AI’s “office suite.”</p>
 <p>I’ve aimed to give you a complete, working setup - no optional steps or “choose your own adventure.” Follow along, and you’ll have a local AI Office assistant ready to go.</p>
 <blockquote class="blockquote">
-<p><strong>A note on Claude for Work:</strong> Anthropic offers a cloud-based solution called “Claude for Work” that provides similar capabilities for teams. However, not everyone has access or is permitted to use it. This blog post provides a local alternative using Claude Code that works entirely on your own machine.</p>
+<p><strong>A note on Cowork:</strong> Anthropic offers a desktop application called <a href="https://claude.com/product/cowork">Cowork</a> that provides similar capabilities - giving Claude access to your local files so it can complete tasks autonomously. It’s currently in research preview. This blog post provides an alternative approach using Claude Code that gives you the same local file access through the command line.</p>
 </blockquote>
 </section>
 <section id="prerequisites" class="level2">
 <h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
 <p>Before we start, let’s make sure you have what you need:</p>
 <ul>
-<li>A Mac (this guide is macOS-specific; Apple Silicon recommended but Intel works too)</li>
+<li>A Mac with Apple Silicon (this guide is macOS-specific)</li>
 <li>Basic comfort with Terminal (I’ll guide you through every command, I promise)</li>
 <li>An Anthropic API key or Claude Max subscription for API access</li>
 </ul>
 <section id="installing-homebrew-if-you-dont-have-it" class="level3">
 <h3 class="anchored" data-anchor-id="installing-homebrew-if-you-dont-have-it">Installing Homebrew (If You Don’t Have It)</h3>
 <p>Many of our installations use Homebrew, the popular macOS package manager. If you don’t have it yet, open Terminal and run:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/bin/bash</span> <span class="at">-c</span> <span class="st">"</span><span class="va">$(</span><span class="ex">curl</span> <span class="at">-fsSL</span> https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh<span class="va">)</span><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/bin/bash</span> <span class="at">-c</span> <span class="dt">\"</span><span class="va">$(</span><span class="ex">curl</span> <span class="at">-fsSL</span> https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh<span class="va">)</span><span class="dt">\"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Follow the prompts, then verify it’s installed:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>You should see something like <code>Homebrew 4.x.x</code>. If so, you’re good to go.</p>
@@ -344,17 +344,23 @@ Vibe Working - AI-powered Office automation
 <section id="installing-claude-code" class="level2">
 <h2 class="anchored" data-anchor-id="installing-claude-code">Installing Claude Code</h2>
 <p>Claude Code is Anthropic’s command-line interface to Claude. It runs in your terminal and can interact with files on your machine - reading, writing, and manipulating documents directly.</p>
-<section id="prerequisites-node.js" class="level3">
-<h3 class="anchored" data-anchor-id="prerequisites-node.js">Prerequisites: Node.js</h3>
-<p>Claude Code requires Node.js. Let’s check if it’s installed:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">node</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>If you see a version number (like <code>v20.x.x</code>), you’re good. If not, install it via Homebrew:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install node</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
-<p>With Node.js in place, install Claude Code:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install <span class="at">-g</span> @anthropic-ai/claude-code</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Install Claude Code by running:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://claude.ai/install.sh <span class="kw">|</span> <span class="fu">bash</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="after-installation-setting-up-your-path" class="level3">
+<h3 class="anchored" data-anchor-id="after-installation-setting-up-your-path">After Installation: Setting Up Your PATH</h3>
+<p>After the install script finishes, you may find that typing <code>claude</code> in a new terminal gives you a "command not found" error. This happens because the installer places the binary at <code>~/.local/bin/claude</code>, which isn’t always in your shell’s search path by default.</p>
+<p>Fix this by adding the directory to your PATH:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">'export PATH=\"$HOME/.local/bin:$PATH\"'</span> <span class="op">&gt;&gt;</span> ~/.zshrc</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.zshrc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Verify it worked:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If you see a version number, you’re good to go. If the error persists, try closing your terminal completely and reopening it.</p>
+<blockquote class="blockquote">
+<p><strong>Note:</strong> The install script actually attempts to set this up automatically, but it only takes effect in a new shell session. Running <code>source ~/.zshrc</code> refreshes your current session without requiring a restart.</p>
+</blockquote>
 </section>
 <section id="first-run" class="level3">
 <h3 class="anchored" data-anchor-id="first-run">First Run</h3>
@@ -362,7 +368,7 @@ Vibe Working - AI-powered Office automation
 <div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The first time you run it, you’ll be prompted to authenticate. Follow the instructions to connect your Anthropic account or enter your API key.</p>
 <blockquote class="blockquote">
-<p>For detailed setup instructions and troubleshooting, see the <a href="https://docs.anthropic.com/en/docs/claude-code">official Claude Code documentation</a>.</p>
+<p>For detailed setup instructions and troubleshooting, see the <a href="https://code.claude.com/docs/en/overview">official Claude Code documentation</a>.</p>
 </blockquote>
 </section>
 </section>
@@ -370,12 +376,17 @@ Vibe Working - AI-powered Office automation
 <h2 class="anchored" data-anchor-id="installing-the-document-skills">Installing the Document Skills</h2>
 <p>Here’s where things get interesting. Skills are specialized instruction sets that give Claude Code domain expertise. Think of them as recipe books: they contain detailed instructions for specific tasks - how to create a Word document with proper formatting, how to build an Excel file with formulas, how to design PowerPoint slides.</p>
 <p>When you ask Claude to create a document, it consults these skills to know exactly how to do it.</p>
-<section id="installing-the-document-skills-1" class="level3">
-<h3 class="anchored" data-anchor-id="installing-the-document-skills-1">Installing the Document Skills</h3>
-<p>To install the document skills package globally (available in any folder), run:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> plugin install document-skills@anthropic-agent-skills <span class="at">--scope</span> user</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="how-to-install" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-install">How to Install</h3>
+<p>Skills live in marketplaces - essentially catalogs hosted on GitHub. Installing them is a two-step process: first register the marketplace, then install the plugin from it.</p>
+<p>Run these two commands in sequence:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> plugin marketplace add anthropics/skills</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> plugin install document-skills@anthropic-agent-skills <span class="at">--scope</span> user</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Let’s break this down: - <code>plugin marketplace add anthropics/skills</code> registers the Anthropic skills catalog so Claude Code knows where to find it - <code>plugin install document-skills@anthropic-agent-skills</code> installs the document skills from that catalog - <code>--scope user</code> makes these skills available globally across all your projects, not just the current folder</p>
 <p>This installs skills for <code>docx</code> (Word documents), <code>xlsx</code> (Excel spreadsheets), <code>pptx</code> (PowerPoint presentations), and <code>pdf</code> files.</p>
-<p>The <code>--scope user</code> flag makes these skills available globally, meaning you can use them in any folder on your machine. Without this flag, skills are installed only in the current project.</p>
+<blockquote class="blockquote">
+<p><strong>Heads up:</strong> The marketplace registration clones a repository in the background, so this step needs a working internet connection and takes a moment.</p>
+</blockquote>
 </section>
 <section id="the-hidden-challenge-how-ai-actually-works-with-documents" class="level3">
 <h3 class="anchored" data-anchor-id="the-hidden-challenge-how-ai-actually-works-with-documents">The Hidden Challenge: How AI Actually Works with Documents</h3>
@@ -383,8 +394,8 @@ Vibe Working - AI-powered Office automation
 <p>The skills provide <em>instructions</em>, but they require <em>external libraries</em> to actually work. But there’s a deeper reason for this that’s worth understanding.</p>
 <p><strong>AI interacts with documents completely differently than humans do.</strong></p>
 <p>When you work with an Excel spreadsheet, you open Excel, click through menus, type in cells, use the graphical interface. Same with Word and PowerPoint - buttons, ribbons, visual tools. These applications are designed for human interaction.</p>
-<p>AI doesn’t work this way. It can’t click buttons or navigate menus. Instead, AI reads and writes documents through code - using programming libraries that manipulate the underlying file formats directly. When Claude creates an Excel file, it’s not “using Excel” the way you would. It’s writing code that generates a file in the <code>.xlsx</code> format, cell by cell, formula by formula.</p>
-<p>This is actually a superpower - AI can process hundreds of documents programmatically in ways that would be impossibly tedious through a graphical interface. But it means AI needs a different kind of “workspace” than humans do:</p>
+<p>AI doesn’t work this way. It can’t click buttons or navigate menus. Instead, AI reads and writes documents through code - using programming libraries that manipulate the underlying file formats directly. When Claude creates an Excel file, it’s not "using Excel" the way you would. It’s writing code that generates a file in the <code>.xlsx</code> format, cell by cell, formula by formula.</p>
+<p>This is actually a superpower - AI can process hundreds of documents programmatically in ways that would be impossibly tedious through a graphical interface. But it means AI needs a different kind of "workspace" than humans do:</p>
 <ul>
 <li>Python libraries like <code>openpyxl</code> to read and write Excel files at the data level</li>
 <li>JavaScript libraries like <code>docx</code> to construct Word documents from code</li>
@@ -452,18 +463,35 @@ Vibe Working - AI-powered Office automation
 <section id="verification" class="level3">
 <h3 class="anchored" data-anchor-id="verification">Verification</h3>
 <p>Let’s confirm everything is installed:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-c</span> <span class="st">"import openpyxl, pandas, pypdf, pdfplumber, reportlab, lxml; print('All Python packages OK')"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>If you see “All Python packages OK”, you’re ready to continue.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-c</span> <span class="dt">\"</span>import openpyxl, pandas, pypdf, pdfplumber, reportlab, lxml<span class="kw">;</span> <span class="ex">print</span><span class="er">(</span><span class="st">'All Python packages OK'</span><span class="kw">)</span><span class="ex">\"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If you see "All Python packages OK", you’re ready to continue.</p>
 </section>
 </section>
 <section id="installing-node.js-packages" class="level2">
 <h2 class="anchored" data-anchor-id="installing-node.js-packages">Installing Node.js Packages</h2>
 <p>Some document creation - particularly Word and PowerPoint - uses JavaScript libraries that produce higher-quality output than their Python equivalents. Let’s install these globally.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install <span class="at">-g</span> docx pptxgenjs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="prerequisites-node.js" class="level3">
+<h3 class="anchored" data-anchor-id="prerequisites-node.js">Prerequisites: Node.js</h3>
+<p>These packages require Node.js. Let’s check if it’s installed:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">node</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If you see a version number (like <code>v20.x.x</code>), you’re good. If not, install it via Homebrew:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install node</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="installing-the-packages" class="level3">
+<h3 class="anchored" data-anchor-id="installing-the-packages">Installing the Packages</h3>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install <span class="at">-g</span> docx pptxgenjs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Let’s break this down: - <code>npm install -g</code> installs packages globally (available system-wide) - <code>docx</code> is a library for creating Word documents - <code>pptxgenjs</code> is a library for creating PowerPoint presentations</p>
+</section>
+<section id="making-global-packages-visible-to-claude-code" class="level3">
+<h3 class="anchored" data-anchor-id="making-global-packages-visible-to-claude-code">Making Global Packages Visible to Claude Code</h3>
+<p>Here’s a gotcha that caught me off guard: when Claude Code executes JavaScript files, it may not know where to find globally installed npm packages. The fix is to tell Node.js where to look by adding this to your <code>~/.zshrc</code>:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">'export NODE_PATH=/opt/homebrew/lib/node_modules'</span> <span class="op">&gt;&gt;</span> ~/.zshrc</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.zshrc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This sets the <code>NODE_PATH</code> environment variable, which tells Node.js to also look in the global Homebrew package directory when resolving <code>require()</code> calls in scripts.</p>
+</section>
 <section id="verification-1" class="level3">
 <h3 class="anchored" data-anchor-id="verification-1">Verification</h3>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> list <span class="at">-g</span> docx pptxgenjs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> list <span class="at">-g</span> docx pptxgenjs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>You should see version numbers for both packages.</p>
 </section>
 </section>
@@ -473,75 +501,76 @@ Vibe Working - AI-powered Office automation
 <section id="libreoffice" class="level3">
 <h3 class="anchored" data-anchor-id="libreoffice">LibreOffice</h3>
 <p>LibreOffice is an open-source office suite. Claude Code uses it headlessly (without opening a window) for tasks like: - Recalculating Excel formulas (when you create an Excel file with formulas, LibreOffice computes the actual values) - Converting documents to PDF - Visual quality checks on presentations</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install <span class="at">--cask</span> libreoffice</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install <span class="at">--cask</span> libreoffice</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This download is fairly large (~500 MB) but is well worth it for the capabilities it enables.</p>
 </section>
 <section id="pdf-and-document-utilities" class="level3">
 <h3 class="anchored" data-anchor-id="pdf-and-document-utilities">PDF and Document Utilities</h3>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install poppler pandoc qpdf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install poppler pandoc qpdf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Let’s break these down: - <code>poppler</code> provides PDF utilities like converting PDFs to images and extracting text - <code>pandoc</code> is a universal document converter (great for format transformations) - <code>qpdf</code> handles PDF manipulation tasks like merging and splitting</p>
 </section>
 <section id="ocr-support" class="level3">
 <h3 class="anchored" data-anchor-id="ocr-support">OCR Support</h3>
 <p>For working with scanned documents (PDFs that contain images of text rather than actual text):</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install tesseract</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install tesseract</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The Python bindings (<code>pytesseract</code> and <code>pdf2image</code>) are already included in the <code>claude-code</code> environment we set up earlier.</p>
 </section>
 <section id="verification-2" class="level3">
 <h3 class="anchored" data-anchor-id="verification-2">Verification</h3>
 <p>Let’s confirm everything is installed:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> soffice <span class="kw">&amp;&amp;</span> <span class="bu">echo</span> <span class="st">"LibreOffice OK"</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> pdftotext <span class="kw">&amp;&amp;</span> <span class="bu">echo</span> <span class="st">"Poppler OK"</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> pandoc <span class="kw">&amp;&amp;</span> <span class="bu">echo</span> <span class="st">"Pandoc OK"</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> tesseract <span class="kw">&amp;&amp;</span> <span class="bu">echo</span> <span class="st">"Tesseract OK"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>You should see “OK” for each tool.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> soffice <span class="kw">&amp;&amp;</span> <span class="bu">echo</span> <span class="dt">\"</span>LibreOffice OK<span class="dt">\"</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> pdftotext <span class="kw">&amp;&amp;</span> <span class="bu">echo</span> <span class="dt">\"</span>Poppler OK<span class="dt">\"</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> pandoc <span class="kw">&amp;&amp;</span> <span class="bu">echo</span> <span class="dt">\"</span>Pandoc OK<span class="dt">\"</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> qpdf <span class="kw">&amp;&amp;</span> <span class="bu">echo</span> <span class="dt">\"</span>qpdf OK<span class="dt">\"</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> tesseract <span class="kw">&amp;&amp;</span> <span class="bu">echo</span> <span class="dt">\"</span>Tesseract OK<span class="dt">\"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You should see "OK" for each tool.</p>
 </section>
 </section>
 <section id="connecting-claude-code-to-your-python-environment" class="level2">
 <h2 class="anchored" data-anchor-id="connecting-claude-code-to-your-python-environment">Connecting Claude Code to Your Python Environment</h2>
 <p>One final configuration step. We need to tell Claude Code exactly which Python interpreter to use so it can access all the packages in your <code>claude-code</code> environment.</p>
-<p><strong>Important:</strong> These configuration files need to be created in each project folder where you want to use Claude Code for document work. Think of them as “project setup” files.</p>
+<p><strong>Important:</strong> These configuration files need to be created in each project folder where you want to use Claude Code for document work. Think of them as "project setup" files.</p>
 <p>We’ll create two files:</p>
 <section id="step-1-create-vs-code-settings" class="level3">
 <h3 class="anchored" data-anchor-id="step-1-create-vs-code-settings">Step 1: Create VS Code Settings</h3>
 <p>First, create a <code>.vscode</code> folder in your working directory:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> .vscode</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> .vscode</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Then create <code>.vscode/settings.json</code> with exactly this content:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"python.defaultInterpreterPath"</span><span class="fu">:</span> <span class="st">"~/miniforge3/envs/claude-code/bin/python"</span><span class="fu">,</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"python.terminal.activateEnvironment"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"terminal.integrated.env.osx"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"CONDA_DEFAULT_ENV"</span><span class="fu">:</span> <span class="st">"claude-code"</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This configuration points to your <code>claude-code</code> Python interpreter and works whether you use VS Code as your editor or just run Claude from the terminal. It also provides a visual editor (VS Code) to review changes, which is helpful if you’re not a coder.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="er">\</span><span class="dt">"python.defaultInterpreterPath</span><span class="ch">\"</span><span class="dt">: </span><span class="ch">\"</span><span class="dt">~/miniforge3/envs/claude-code/bin/python</span><span class="ch">\"</span><span class="dt">,</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="dt">  </span><span class="ch">\"</span><span class="dt">python.terminal.activateEnvironment</span><span class="ch">\"</span><span class="dt">: true,</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="dt">  </span><span class="ch">\"</span><span class="dt">terminal.integrated.env.osx</span><span class="ch">\"</span><span class="dt">: {</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="dt">    </span><span class="ch">\"</span><span class="dt">CONDA_DEFAULT_ENV</span><span class="ch">\"</span><span class="dt">: </span><span class="ch">\"</span><span class="dt">claude-code</span><span class="ch">\"</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="dt">  }</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="dt">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This configuration points to your <code>claude-code</code> Python interpreter. If you use VS Code as your editor, it will automatically pick up this setting. For Claude Code itself, the <code>CLAUDE.md</code> file (next step) tells it to read this path.</p>
 </section>
 <section id="step-2-create-a-claude.md-file" class="level3">
 <h3 class="anchored" data-anchor-id="step-2-create-a-claude.md-file">Step 2: Create a CLAUDE.md File</h3>
 <p>In the same working directory, create a file named <code>CLAUDE.md</code> with exactly this content:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Claude Code Instructions</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Python Environment</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>Before executing any Python code or commands:</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Check if <span class="in">`.vscode/settings.json`</span> exists</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>If it contains <span class="in">`python.defaultInterpreterPath`</span>, use that exact Python interpreter path for all Python commands</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>This ensures consistency with the VS Code Python interpreter configuration and guarantees access to all installed packages</span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>Example: If the path is <span class="in">`~/miniforge3/envs/claude-code/bin/python`</span>, use that full path instead of just <span class="in">`python`</span> or <span class="in">`python3`</span>.</span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>Do NOT use <span class="in">`conda activate`</span> or <span class="in">`source activate`</span> - always use the direct interpreter path from the settings file.</span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## Document Generation Cleanup</span></span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>After generating any document (PDF, Word, Excel, PowerPoint), clean up intermediate files:</span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Delete any <span class="in">`.py`</span> files that were created to generate the document</span>
-<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Delete any <span class="in">`.js`</span> files that were created to generate the document</span>
-<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Only keep the final output files (<span class="in">`.pdf`</span>, <span class="in">`.docx`</span>, <span class="in">`.xlsx`</span>, <span class="in">`.pptx`</span>)</span>
-<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>This keeps the workspace clean for non-technical users.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Claude Code Instructions</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Python Environment</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>Before executing any Python code or commands:</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Check if <span class="in">`.vscode/settings.json`</span> exists</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>If it contains <span class="in">`python.defaultInterpreterPath`</span>, use that exact Python interpreter path for all Python commands</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>This ensures consistency with the VS Code Python interpreter configuration and guarantees access to all installed packages</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>Example: If the path is <span class="in">`~/miniforge3/envs/claude-code/bin/python`</span>, use that full path instead of just <span class="in">`python`</span> or <span class="in">`python3`</span>.</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>Do NOT use <span class="in">`conda activate`</span> or <span class="in">`source activate`</span> - always use the direct interpreter path from the settings file.</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## Document Generation Cleanup</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>After generating any document (PDF, Word, Excel, PowerPoint), clean up intermediate files:</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Delete any <span class="in">`.py`</span> files that were created to generate the document</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Delete any <span class="in">`.js`</span> files that were created to generate the document</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Only keep the final output files (<span class="in">`.pdf`</span>, <span class="in">`.docx`</span>, <span class="in">`.xlsx`</span>, <span class="in">`.pptx`</span>)</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>This keeps the workspace clean for non-technical users.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This file gives Claude Code explicit instructions about which Python to use and ensures generated files don’t leave behind clutter.</p>
 </section>
 <section id="why-both-files" class="level3">
@@ -562,14 +591,14 @@ Vibe Working - AI-powered Office automation
 <section id="step-1-create-a-sample-pdf" class="level3">
 <h3 class="anchored" data-anchor-id="step-1-create-a-sample-pdf">Step 1: Create a Sample PDF</h3>
 <p>First, let’s have Claude Code create a sample travel itinerary we can work with. Create a working folder and set up the project configuration:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/Documents/travel-demo</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Documents/travel-demo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Copy the <code>.vscode</code> folder and <code>CLAUDE.md</code> file from another project, or create them following the steps in “Connecting Claude Code to Your Python Environment” above.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/Documents/travel-demo</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Documents/travel-demo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Copy the <code>.vscode</code> folder and <code>CLAUDE.md</code> file from another project, or create them following the steps in "Connecting Claude Code to Your Python Environment" above.</p>
 <p>Now start Claude Code:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Then ask:</p>
 <blockquote class="blockquote">
-<p>“Create a sample travel itinerary PDF for a 5-day trip to Barcelona. Include flight details, hotel information, and a few planned activities with times and costs.”</p>
+<p>"Create a sample travel itinerary PDF for a 5-day trip to Barcelona. Include flight details, hotel information, and a few planned activities with times and costs."</p>
 </blockquote>
 <p>Claude Code will create a PDF file in your folder. This is our starting point.</p>
 </section>
@@ -577,7 +606,7 @@ Vibe Working - AI-powered Office automation
 <h3 class="anchored" data-anchor-id="step-2-transform-to-excel">Step 2: Transform to Excel</h3>
 <p>Now let’s extract that information into a spreadsheet:</p>
 <blockquote class="blockquote">
-<p>“Read the travel itinerary PDF and create an Excel spreadsheet. Include columns for date, time, activity, location, and cost. Add a row that totals the costs.”</p>
+<p>"Read the travel itinerary PDF and create an Excel spreadsheet. Include columns for date, time, activity, location, and cost. Add a row that totals the costs."</p>
 </blockquote>
 <p>Claude Code reads the PDF, extracts the relevant information, and creates an organized Excel file with your schedule and a cost summary.</p>
 </section>
@@ -585,7 +614,7 @@ Vibe Working - AI-powered Office automation
 <h3 class="anchored" data-anchor-id="step-3-create-a-word-document">Step 3: Create a Word Document</h3>
 <p>Next, let’s create a formatted trip document:</p>
 <blockquote class="blockquote">
-<p>“Using the travel itinerary data, create a Word document with the complete trip plan. Format it nicely with headings for each day, and add a packing checklist at the end.”</p>
+<p>"Using the travel itinerary data, create a Word document with the complete trip plan. Format it nicely with headings for each day, and add a packing checklist at the end."</p>
 </blockquote>
 <p>You’ll get a professional-looking Word document that’s easy to read, print, or share.</p>
 </section>
@@ -593,7 +622,7 @@ Vibe Working - AI-powered Office automation
 <h3 class="anchored" data-anchor-id="step-4-generate-powerpoint-slides">Step 4: Generate PowerPoint Slides</h3>
 <p>Finally, let’s create a presentation:</p>
 <blockquote class="blockquote">
-<p>“Create a PowerPoint presentation summarizing the Barcelona trip. Make it visual and easy to understand - something I could show my travel companions to explain the plan.”</p>
+<p>"Create a PowerPoint presentation summarizing the Barcelona trip. Make it visual and easy to understand - something I could show my travel companions to explain the plan."</p>
 </blockquote>
 <p>Claude Code generates slides with the key information from your trip.</p>
 </section>
@@ -615,7 +644,7 @@ Vibe Working - AI-powered Office automation
 <p><strong>Document transformations</strong> are where this setup really shines. Convert a PDF report to an editable Word document, extract tables from a PDF into Excel, turn meeting notes into presentation slides, or merge multiple PDFs into one. The key is that Claude Code can read your source files directly and create the output in whatever format you need.</p>
 <p><strong>Creating documents from scratch</strong> works just as well. Need an Excel budget tracker with formulas? Just describe what you want. Want to generate a Word document from a template or build a presentation from an outline? Describe the structure and content, and let Claude Code handle the formatting.</p>
 <p><strong>Document analysis</strong> rounds out the capabilities. Summarize long documents, extract key information from contracts or reports, compare multiple documents, or search across files in a folder. Claude Code sees all the files in your working directory, so it can work with context that would be tedious to copy-paste into a chat window.</p>
-<p>A few tips for getting the best results: Be specific in your requests (“Create an Excel file with columns for date, description, and amount” works better than “make a spreadsheet”). Keep related files in the same folder so Claude Code can see them and maintain consistency. Iterate rather than expecting perfection on the first try - ask for adjustments like “Make the headings bold” or “Add a summary section at the top.” And always review before sharing, because AI is helpful but not infallible.</p>
+<p>A few tips for getting the best results: Be specific in your requests ("Create an Excel file with columns for date, description, and amount" works better than "make a spreadsheet"). Keep related files in the same folder so Claude Code can see them and maintain consistency. Iterate rather than expecting perfection on the first try - ask for adjustments like "Make the headings bold" or "Add a summary section at the top." And always review before sharing, because AI is helpful but not infallible.</p>
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
@@ -624,13 +653,13 @@ Vibe Working - AI-powered Office automation
 <section id="reflecting-on-what-we-built" class="level3">
 <h3 class="anchored" data-anchor-id="reflecting-on-what-we-built">Reflecting on What We Built</h3>
 <p>Remember the key insight from earlier: AI interacts with documents completely differently than humans do. We use graphical interfaces - clicking, typing, dragging. AI uses code - manipulating file formats directly through programming libraries.</p>
-<p>What we’ve done in this guide is build a workspace suited to how AI actually works. The Python environment, the Node.js libraries, the command-line tools - these aren’t arbitrary requirements. They’re the equivalent of giving AI its own “office suite” that matches its way of working. Just as you need Excel installed to work with spreadsheets, AI needs <code>openpyxl</code> and <code>pandas</code>. Just as you need PowerPoint to create presentations, AI needs <code>pptxgenjs</code>.</p>
+<p>What we’ve done in this guide is build a workspace suited to how AI actually works. The Python environment, the Node.js libraries, the command-line tools - these aren’t arbitrary requirements. They’re the equivalent of giving AI its own "office suite" that matches its way of working. Just as you need Excel installed to work with spreadsheets, AI needs <code>openpyxl</code> and <code>pandas</code>. Just as you need PowerPoint to create presentations, AI needs <code>pptxgenjs</code>.</p>
 <p>The beautiful part is that once this workspace is set up, you don’t need to think about it anymore. You describe what you want in plain English, and AI translates that into the code-level operations that make it happen. The complexity is hidden; the power is accessible.</p>
 </section>
 <section id="looking-forward" class="level3">
 <h3 class="anchored" data-anchor-id="looking-forward">Looking Forward</h3>
 <p>This is just the beginning. As you get comfortable with the setup, you’ll find more ways to automate repetitive tasks. The travel itinerary example barely scratches the surface. You can create templates for recurring reports, build document processing pipelines, or even define your own custom skills for tasks specific to your work.</p>
-<p>One last reflection: tools like Claude Code blur the line between “technical” and “non-technical” work. You don’t need to be a programmer to benefit from AI that understands your files. You just need to describe what you want clearly and let the AI handle the implementation details.</p>
+<p>One last reflection: tools like Claude Code blur the line between "technical" and "non-technical" work. You don’t need to be a programmer to benefit from AI that understands your files. You just need to describe what you want clearly and let the AI handle the implementation details.</p>
 <p>That’s the promise of vibe working - and now you’re set up to experience it.</p>
 <p>Happy vibe working!</p>
 
