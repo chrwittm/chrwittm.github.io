@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Christian Wittmann">
-<meta name="dcterms.date" content="2023-01-27">
+<meta name="dcterms.date" content="2026-04-01">
 
-<title>Discovering Disaster Tweet Dataset Limitations – chrwittm.github.io</title>
+<title>Germany has been Leading in Self-Driving Cars for Decades – chrwittm.github.io</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -201,13 +167,11 @@ cookieconsent.run({
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Discovering Disaster Tweet Dataset Limitations</h1>
+      <h1 class="title">Germany has been Leading in Self-Driving Cars for Decades</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">ml</div>
-                <div class="quarto-category">data</div>
-                <div class="quarto-category">hugging face</div>
-                <div class="quarto-category">nlp</div>
-                <div class="quarto-category">kaggle</div>
+                <div class="quarto-category">autonomous_vehicles</div>
+                <div class="quarto-category">satire</div>
+                <div class="quarto-category">vibe-writing</div>
               </div>
                   </div>
   </div>
@@ -225,7 +189,7 @@ cookieconsent.run({
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">January 27, 2023</p>
+        <p class="date">April 1, 2026</p>
       </div>
     </div>
     
@@ -244,130 +208,35 @@ cookieconsent.run({
 
 
 
-<table style="width: 100%; border: none; border-collapse: collapse;">
-<tbody><tr>
-<td style="width: 70%; padding: 0px;">
-<p>
-What started out as a simple exercise to visualize model performance using a confusion matrix revealed that the training set contains lots of incorrectly labeled tweets, and that my trained model actually performed better than the score suggests.
-</p>
-<p>
-After I had published my <a href="https://chrwittm.github.io/posts/2023-01-17-nlp-with-disaster-tweets/">first blog post on “Natural Language Processing with Disaster Tweets”</a>), I realized that I had forgotten one element I planned to incorporate into the notebook: I wanted to visualize the model performance using a confusion matrix. Since the implementation was pretty straightforward, the subsequent data analysis will be the real content of this blog post.
-</p>
-</td>
-<td style="width: 40%; padding-left: 20px; vertical-align: top;">
-<img src="twitter-on-fire-dalle2-2.png" alt="Disaster Tweets" style="max-width: 100%; height: auto;">
-</td>
-</tr>
-</tbody></table>
-<section id="implementing-the-confusion-matrix" class="level2">
-<h2 class="anchored" data-anchor-id="implementing-the-confusion-matrix">Implementing the Confusion Matrix</h2>
-<p>To create the <a href="https://en.wikipedia.org/wiki/Confusion_matrix">confusion matrix</a>, we need the ground truth from the training data and the predictions from the model on the training data:</p>
-<div id="cell-3" class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ground truth from the training data</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>train_true <span class="op">=</span> [<span class="bu">int</span>(x) <span class="cf">for</span> x <span class="kw">in</span> tok_ds[<span class="st">'labels'</span>]]</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># model predictions on the training data</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>train_preds <span class="op">=</span> trainer.predict(tok_ds).predictions.astype(<span class="bu">float</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>train_preds <span class="op">=</span> [ <span class="dv">1</span> <span class="cf">if</span> element <span class="op">&gt;</span> <span class="fl">0.6</span> <span class="cf">else</span> <span class="dv">0</span> <span class="cf">for</span> element <span class="kw">in</span> train_preds.squeeze()]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Leveraging <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.ConfusionMatrixDisplay.html">scikit-learn</a>, here is how I created the confusion matrix</p>
-<div id="cell-5" class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix, ConfusionMatrixDisplay</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(train_true, train_preds, labels<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">1</span>])</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>disp <span class="op">=</span> ConfusionMatrixDisplay(confusion_matrix<span class="op">=</span>cm, display_labels<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">1</span>])</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>disp.plot()</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><img src="confusion_matrix.png" class="img-fluid"></p>
-<p>The confusion matrix above displays the best training result I could get using all the methods in my <a href="https://chrwittm.github.io/posts/2023-01-17-nlp-with-disaster-tweets/">previous blog post</a>/<a href="https://www.kaggle.com/code/christianwittmann/nlp-with-disaster-tweets-january-2023">notebook</a>: Training on the model <a href="https://huggingface.co/microsoft/deberta-v3-large">microsoft/deberta-v3-large</a> with 2 epochs at batch size 4 and afterwards another epoch on the full training set. The model nicely classifies many tweets correctly, but there are still 196 false-positives and 553 false negatives.</p>
-<p>This results in a surprisingly high F1-score of 0.87691 - a lot higher than any of the F1 scores in my submissions.</p>
-<p>Similar to the approach taken in <a href="https://chrwittm.github.io/posts/2022-10-03-bear-detector-2022/">lesson 2</a> (where we used the first trained model to find the picture which had the top losses), I reviewed at the incorrectly labeled tweets and found surprising results.</p>
-</section>
-<section id="data-analysis-discovering-mislabeled-tweets" class="level2">
-<h2 class="anchored" data-anchor-id="data-analysis-discovering-mislabeled-tweets">Data Analysis / Discovering Mislabeled Tweets</h2>
-<p>Inspecting the false positives and the true positives revealed the following:</p>
-<ul>
-<li>The false positives (the model classified a tweet as disaster, but there was none), were indeed mostly incorrect predictions made by the model - even though there is quite some room for interpretation.</li>
-<li>The false negatives (the model classified a tweet as non-disaster, but there was one), however, revealed a significant number of mislabeled tweets.</li>
-</ul>
-<p>The following tweets for sure are no disaster tweets, nonetheless they are labeled as disasters in the training data:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 4%">
-<col style="width: 85%">
-<col style="width: 5%">
-<col style="width: 4%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>id</th>
-<th>Tweet</th>
-<th>label</th>
-<th>pred</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>443</td>
-<td>Short Reading Apocalypse 21:1023 In the spirit the angel took me to the top of an enormous high mountain and…</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td>794</td>
-<td>Chevrolet : Avalanche LT 2011 lt used 5.3 l v 8 16 v automatic 4 wd pickup truck premium b_</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td>1051</td>
-<td>I waited 2.5 hours to get a cab my feet are bleeding</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td>1239</td>
-<td>people with a #tattoo out there.. Are u allowed to donate blood and receive blood as well or not?</td>
-<td>1</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<p>While all these tweets contain words which could potentially indicate a disaster (apocalypse, avalanche, bleeding, blood)</p>
-<ul>
-<li>the first tweet is a <a href="https://www.bible.com/bible/55/REV.21.drc1752">quote from the bible</a>,</li>
-<li>the second one is <a href="https://en.wikipedia.org/wiki/Chevrolet_Avalanche">related to a car</a>,</li>
-<li>the third one undoubtedly feels unpleasant,</li>
-<li>and fourth one is simply a question on donating blood.</li>
-</ul>
-<p>As it turned out, these 4 examples are not the only ones. After having read through the IDs up to 1000 in the false negatives, I had found about 80 mis-labeled tweets.</p>
-</section>
-<section id="re-training-a-model-using-corrected-labels" class="level2">
-<h2 class="anchored" data-anchor-id="re-training-a-model-using-corrected-labels">Re-Training a model using corrected labels</h2>
-<p>Even though re-labeling tweets is a tedious work, in <a href="https://www.kaggle.com/code/christianwittmann/nlp-with-disaster-tweets-january-2023-v2">this notebook</a>, which is a copy of my previous one, I have <a href="https://www.kaggle.com/code/christianwittmann/nlp-with-disaster-tweets-january-2023-v2#Correcting-Mislabled-tweets-from-Confusion-Matrix">added a new section</a> which re-labels tweets based on the results in the first notebook.</p>
-<p>My clear expectation was that model performance would go up because of the increased quality of the updated training set. The opposite, however, was the case: Model performance dropped from 84.6% to 84% 😮 - what was going on?</p>
-<p>The only explanation I have for this result is that both the training and the test data systematically contain mislabeled tweets. Reasons could be</p>
-<ul>
-<li>misinterpretation of the tweets, some tweets are obviously ambiguous</li>
-<li>simple error in the monotonous task of labeling data</li>
-<li>using an outdated algorithm for labeling tweets - just speculating 😉</li>
-</ul>
-<p>The current latest version of the <a href="https://www.kaggle.com/code/christianwittmann/nlp-with-disaster-tweets-january-2023-v2">notebook</a> (V8) further supports this claim. It has scored a little bit better (84.3%). This increase was caused by mislabeling a bunch of tweets: There are quite a few tweets in the dataset which follow this pattern: <em>“#FedEx no longer to transport bioterror germs in wake of anthrax lab mishaps”</em>. This tweet simply informs about a new FedEx policy, thus it is no disaster tweet from my point of view. But in the dataset 66% of tweets with this content are labeled as disasters. By accepting the majority rule, the score increased, even though the label is incorrect in my opinion.</p>
-<p>All of this tells us that there is a problem in the dataset of the <a href="https://www.kaggle.com/competitions/nlp-getting-started">Kaggle competition</a>, some of it may be subjective, other tweets are objectively mislabeled. Therefore, if you are working on the Kaggle competition for disaster tweets and the improvements you make to your model do not materialize in a better result, it might also be the dataset’s fault, not yours. Consider this: If your model would classify every tweet correctly in the test set, you would not score 100% because of the mislabeled tweets in the test set.</p>
-<p>But I think we can gain some deeper insights than the simple observation that the dataset contains some issues.</p>
-</section>
-<section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>When working in machine learning, we sometimes tend to focus a lot on the technology aspects, trying to tune hyperparameters, using bigger or more advanced models etc. In this case, the ground truth is the limiting factor to what the model can achieve. The pre-trained model has actually outperformed the data set by clearly pointing out mislabeled data. This shows that the pre-trained model understands quite a bit about language, not only the grammar, but also about the content. This is not super-surprising when you think about the task for the model. A language model is basically trained to predict the next word for a prompt, and we have re-trained it (the last layer or a bit more) to classify tweets. So it is not just trained on the classification task, but the model still understands quite a lot about the content about the tweets.</p>
-<p>The (training) data is maybe the most important asset in machine learning, and it can come with quite a few problems: Not only can it be biased, difficult to obtain, hard to parse, it can also be simply wrong! So the true lesson is not to blindly trust the data, but thorough inspection of the data is always called for. By using faulty data, our model has become biased: It has learned from the mislabeled tweets, and I suspect it has become too sensitive when detecting disasters. When non-disaster tweets are classified as disasters in the training data, the model calls out a disaster when there is none - similar to if you called an ambulance for a slight cough. The pre-training, however, still seems to contain enough “common sense” that the model can still call out mislabeled tweets.</p>
-<p>Therefore, the F1-score of the submission does not represent the true model performance: The score should be higher. My subjective estimate is that at least 30% of the false negatives should be true positives. This would lift the F1-score by about 2.5 percentage points.</p>
-<p>What do you think? Did I assign too much credit to the pre-trained model, for example, by crediting it with the capability to do a bit of common-sense reasoning? Does the data quality of the competition define the ceiling of the score that you can achieve, or do you see ways to navigate around this obstacle?</p>
+<p>Self-driving cars are still widely considered a technology of the future. While robotaxis are already rolling through major cities in the US and China, Europe seemingly continues to debate regulatory frameworks and the correct font size for warning labels. Yet this perception could not be more wrong.</p>
+<p>Germany is not lagging behind the rest of the world in the development of autonomous vehicles – on the contrary, it is decades ahead, and has been for decades! A large-scale field trial with autonomously operating vehicles has been running here since the 1950s. In regular road traffic, inconspicuous, yet perpetually on the verge of market readiness.</p>
+<p>Behind the ZuSe program (“Zukunfts-Selbstfahrend” – “Future Self-Driving”) stands a consortium of German automakers, anchored through the “Zuse Memorandum” as a cornerstone of the young Federal Republic’s industrial policy. In it, <a href="https://en.wikipedia.org/wiki/Konrad_Zuse">Konrad Zuse</a> described how computing machines could guide automobiles through traffic more safely than any human driver.</p>
+<p>It quickly became clear that tests would have to take place on public roads, and that vehicles should be clearly identifiable at all times. Initially, the designation “OF” (“Ohne Führerschein”, meaning “No Driver”) was under consideration. Ultimately, the more rational “KI”, the German abbreviation for “Künstliche Intelligenz” (Artificial Intelligence), was chosen.</p>
+<p>For a subtle form of camouflage, the <a href="https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Germany">license plate code KI was officially assigned on July 1, 1956</a> to the registration district of Kiel. Northern Germany was an ideal test region anyway, thanks to its flat topography and moderate traffic density.</p>
+<style>
+  figure {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+</style>
+<figure class="figure">
+<img src="ki-fahrzeug.png" alt="A common sight in Kiel for decades: KI vehicles" style="width:50%;" class="figure-img">
+<figcaption>
+A common sight in Kiel for decades: KI vehicles
+</figcaption>
+</figure>
+<p>The training approach was straightforward: rather than sending humans to driving school, the cars went. After just a few lessons, the vehicles had mastered the basics of driving, recalls Hauke Tiedemann, one of the project’s first driving instructors. What made the approach particularly compelling was its <a href="https://de.wikipedia.org/wiki/Technologieoffenheit">technological openness</a>: even if a temperamental Fiat consistently needed far more driving lessons than a Beetle – once they passed their test, all vehicles received the KI license plate.</p>
+<p>Since 1956, the fleet has been consistently expanded. It currently comprises <a href="https://www.kiel.de/de/kiel_zukunft/statistik_kieler_zahlen/open_data/index.php?id=de-sh-kiel_anzahl_fahrzeuge">more than 100,000 vehicles</a>, making it by far the world’s largest fleet of autonomous vehicles. By comparison: <a href="https://en.wikipedia.org/wiki/Waymo">Waymo</a> currently operates <a href="https://techcrunch.com/2026/02/24/waymo-robotaxis-are-now-operating-in-10-us-cities">around 3,000</a>, <a href="https://www.tesla.com/robotaxi">Tesla</a> <a href="https://x.com/tslaming/status/2035971328990384455">fewer than 1,000 robotaxis</a>. Dirk Feddersen, spokesman for the project, emphasizes that Kiel has been consistently relying on robotaxis for years. Anyone can easily order a KI vehicle under <a href="https://www.taxikiel.de/">number 680101</a> – no registration required.</p>
+<p>KI vehicles have thus been moving through regular traffic for decades without attracting attention. No increase in accident rates has been observed – on the contrary: the vehicles were noted internally for their exemplary use of turn signals, consistent adherence to the keep-right rule, and a level of composure on the road that is otherwise rarely encountered in Germany.</p>
+<p>The project also gained international experience. The test vehicle <a href="https://en.wikipedia.org/wiki/KITT">KITT</a> (Kiel Intelligent Transportation Test) completed numerous test runs in California in the 1980s, inspiring countless founders in Silicon Valley and, not least, the <a href="https://en.wikipedia.org/wiki/DARPA_Grand_Challenge">DARPA Grand Challenge</a>.</p>
+<p>But the field trial in northern Germany is now running up against its limits. Experts speak of so-called “<a href="https://en.wikipedia.org/wiki/Overfitting">overfitting</a>”: the systems perform flawlessly between Flensburg and Neumünster, but not yet optimally elsewhere. Just last week, a disoriented KI vehicle was spotted in Munich, repeatedly changing lanes at the Stachus intersection and attempting to force right-of-way at a red light by flashing its high beams – perfectly normal and well-learned behavior in Bavaria’s capital, but the KI control unit suffered a neural breakdown, came to a stop on a bicycle lane, and had to be quietly rebooted.</p>
+<p>To gather more urban data, the field trial is now being significantly expanded. The next planned location is Cologne (whose existing license plate district code “K” makes “K-I” the natural next step in the program). Internally, the city is considered an “ideal stress test” due to its traffic volume and the Rhine region’s characteristic attitude toward road rules.</p>
+<p>Critics within the project point out that the driving-school training approach can at best achieve human-level driving performance. A completely new generation of systems is therefore being tested in parallel in Augsburg, under the project name “<a href="https://en.wikipedia.org/wiki/Artificial_general_intelligence">A-GI</a>” (“Auto, Genuinely Intelligent”). Insiders report that this system already significantly surpasses the existing KI system.</p>
+<p>Buoyed by these successes, market readiness is now being targeted. The approval process is already underway. Federal Transport Minister <a href="https://en.wikipedia.org/wiki/Patrick_Schnieder">Patrick Schnieder</a> personally established Task Force <a href="https://en.wikipedia.org/wiki/Construction_of_Berlin_Brandenburg_Airport">BER</a> (“Brilliantly Expedited Regulation”) for this purpose.</p>
 
 
-</section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
