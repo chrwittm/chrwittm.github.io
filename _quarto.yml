@@ -1,5 +1,13 @@
 project:
   type: website
+  render:
+    - index.qmd
+    - about.qmd
+    - license.qmd
+    - impressum.qmd
+    - privacy.qmd
+    - "posts/*/index.qmd"
+    - "posts/*/index.ipynb"
   resources:
     - "posts/**/data/**"      # copy any file inside any .../data/ folder
 
@@ -43,4 +51,3 @@ format:
 
 metadata:
   license: "CC BY 4.0"
-
