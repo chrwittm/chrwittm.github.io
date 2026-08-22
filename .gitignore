@@ -1,18 +1,54 @@
-# Ignore Quarto’s build and cache folders
+# Quarto build, cache, and local configuration
 /.quarto/
-_site
-
-# Ignore environment
-.env
-
-# Ignore macOS artifacts
-.DS_Store
-
-# Ignore the entire .vscode directory
-.vscode/
-
-# Ignore PowerPoint
-*.pptx
-
-# Ignore all Quarto-generated notebook intermediate files
+/_site/
+/_quarto.yml.local
 **/*.quarto_ipynb
+
+# Local editorial, maintenance, and working material
+/_editorial/
+/_maintenance/
+**/_work/
+**/_research/
+**/.private/
+**/.scratch/
+
+# Environments and credentials
+.env
+.env.*
+*.env
+!.env.example
+!.env.template
+!*.example.env
+!*.template.env
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+service-account*.json
+
+# Python and Jupyter generated files
+**/.ipynb_checkpoints/
+**/__pycache__/
+**/*.py[cod]
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+.venv/
+venv/
+
+# JavaScript dependencies
+node_modules/
+
+# Operating-system and editor artifacts
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+Thumbs.db
+
+# Office temporary files and local PowerPoint files
+~$*
+*.pptx
