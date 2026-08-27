@@ -44,6 +44,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -239,7 +242,11 @@ cookieconsent.run({
 <p>When my wife and I planned a two-week vacation in California, the opportunity was too good to miss. I rented a recent Model Y with FSD (version 14.3.6) through <a href="https://turo.com/">Turo</a>, and we also took two Waymo rides in San Francisco. This post summarizes my personal impressions after roughly 1,600 miles of city traffic, freeways, mountain roads, nighttime driving, construction zones, and even a dirt road.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="model-y-in-lassen-volcanic-np.jpg" class="img-fluid figure-img" style="width:50.0%" alt="Our Tesla Model Y parked in Lassen Volcanic National Park"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="model-y-in-lassen-volcanic-np.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Our Tesla Model Y in Lassen Volcanic National Park."><img src="model-y-in-lassen-volcanic-np.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%" alt="Our Tesla Model Y parked in Lassen Volcanic National Park"></a></p>
+</figure>
+</div>
 <figcaption>Our Tesla Model Y in Lassen Volcanic National Park.</figcaption>
 </figure>
 </div>
@@ -271,7 +278,11 @@ cookieconsent.run({
 <p>Over the next few days in the <a href="https://en.wikipedia.org/wiki/San_Francisco_Bay_Area">San Francisco Bay Area</a>, the first impressions held up: The road driving was flawless, while parking worked only about half the time. But how would FSD behave outside the city? Our first longer trip took us north to <a href="https://www.nps.gov/lavo/index.htm">Lassen Volcanic National Park</a>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="trip-map.png" class="img-fluid figure-img" style="width:50.0%" alt="A map of our trip route around the Bay Area and north through Lassen Volcanic National Park to Mount Shasta"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="trip-map.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="About 1,600 miles of supervised autonomous driving through Northern California.  (Map created with gpx.studio from the GPS track I recorded during the trip.)"><img src="trip-map.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%" alt="A map of our trip route around the Bay Area and north through Lassen Volcanic National Park to Mount Shasta"></a></p>
+</figure>
+</div>
 <figcaption>About 1,600 miles of supervised autonomous driving through Northern California. <br>(Map created with <a href="https://gpx.studio/">gpx.studio</a> from the GPS track I recorded during the trip.)</figcaption>
 </figure>
 </div>
@@ -291,7 +302,6 @@ Working on it.
 <a href="https://x.com/aelluswamy/status/2074694975926030620">Ashok Elluswamy on X</a>
 </blockquote>
 <script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-<p><a href="https://x.com/aelluswamy/status/2074694975926030620">View Ashok Elluswamy’s post directly on X</a></p>
 </div>
 </section>
 <section id="an-unpaved-road-to-the-cinder-cone" class="level2">
@@ -891,6 +901,38 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>
   </div>
 </footer>
+<script>var lightboxQuarto = GLightbox({"loop":false,"selector":".lightbox","closeEffect":"zoom","descPosition":"bottom","openEffect":"zoom"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 
