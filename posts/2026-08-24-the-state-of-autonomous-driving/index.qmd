@@ -47,7 +47,7 @@ This post summarizes my personal impressions after roughly 1,600 miles of city
 traffic, freeways, mountain roads, nighttime driving, construction zones, and
 even a dirt road.
 
-![Our Tesla Model Y in Lassen Volcanic National Park.](model-y-in-lassen-volcanic-np.jpg){fig-alt="Our Tesla Model Y parked in Lassen Volcanic National Park" width="50%" fig-align="center"}
+![Our Tesla Model Y in Lassen Volcanic National Park.](model-y-in-lassen-volcanic-np.jpg){.lightbox fig-alt="Our Tesla Model Y parked in Lassen Volcanic National Park" width="50%" fig-align="center"}
 
 ## Long story short
 
@@ -137,7 +137,7 @@ about half the time. But how would FSD behave outside the city? Our first longer
 trip took us north to [Lassen Volcanic National
 Park](https://www.nps.gov/lavo/index.htm).
 
-![About 1,600 miles of supervised autonomous driving through Northern California. <br>(Map created with [gpx.studio](https://gpx.studio/) from the GPS track I recorded during the trip.)](trip-map.png){fig-alt="A map of our trip route around the Bay Area and north through Lassen Volcanic National Park to Mount Shasta" width="50%" fig-align="center"}
+![About 1,600 miles of supervised autonomous driving through Northern California. <br>(Map created with [gpx.studio](https://gpx.studio/) from the GPS track I recorded during the trip.)](trip-map.png){.lightbox fig-alt="A map of our trip route around the Bay Area and north through Lassen Volcanic National Park to Mount Shasta" width="50%" fig-align="center"}
 
 ## Lassen Volcanic National Park: The road is the destination
 
@@ -168,8 +168,6 @@ Tesla is apparently already working on a voice interface between Grok and FSD:
 <a href="https://x.com/aelluswamy/status/2074694975926030620">Ashok Elluswamy on X</a>
 </blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-[View Ashok Elluswamy's post directly on X](https://x.com/aelluswamy/status/2074694975926030620)
 :::
 
 ## An unpaved road to the Cinder Cone
